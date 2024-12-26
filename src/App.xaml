@@ -1,0 +1,30 @@
+﻿<Application
+    x:Class="Wrappr.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:ui="clr-namespace:Wrappr.Utils.UI"
+    StartupUri="Components/MainMenu/MainMenuWindow.xaml"
+    ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Blue" SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <ResourceDictionary>
+                    <Color x:Key="MaterialRedColor">#e84a4a</Color>
+                    <SolidColorBrush x:Key="MaterialRedBrush" Color="{StaticResource MaterialRedColor}" />
+                    <ui:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
+                    <ImageSource x:Key="Icon64">Resources/icon64.ico</ImageSource>
+                    <ImageSource x:Key="Logo64">Resources/logo64.png</ImageSource>
+                    <ImageSource x:Key="Logo128">Resources/logo128.png</ImageSource>
+                    <ImageSource x:Key="Logo256">Resources/logo256.png</ImageSource>
+                    <ImageSource x:Key="Logo512">Resources/logo512.png</ImageSource>
+                    <ImageSource x:Key="Logo1024">Resources/logo1024.png</ImageSource>
+                    <FontFamily x:Key="InterFont">/Resources/Inter/#Inter</FontFamily>
+                    <FontFamily x:Key="JetBrainsMonoFont">/Resources/JetBrainsMono/#JetBrains Mono</FontFamily>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
