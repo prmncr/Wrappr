@@ -10,7 +10,7 @@ Wrappr is a desktop application that allows you to quickly and easily enable/dis
 
 ## Requirements
 
-Will work only on Windows systems with .NET 9 installed (so, Windows 10 version 1607 or earlier).
+Will work only on Windows systems with .NET 9 installed (so, Windows 10 version 1607 or later).
 
 > [!NOTE]
 > Perhaps the .NET version (and Windows version) will be downgraded later.
