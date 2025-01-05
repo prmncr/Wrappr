@@ -69,20 +69,11 @@ namespace Wrappr.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Windows services &quot;wrapping&quot; utility..
+        ///   Looks up a localized string similar to Wrappr is a desktop application that allows you to quickly and easily enable/disable Windows services and track their status..
         /// </summary>
         public static string AboutDescriptionText {
             get {
                 return ResourceManager.GetString("AboutDescriptionText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wrapping - creating an entity (wrapper) that reflects original object state (Windows service in this case)..
-        /// </summary>
-        public static string AboutDescriptionText2 {
-            get {
-                return ResourceManager.GetString("AboutDescriptionText2", resourceCulture);
             }
         }
         

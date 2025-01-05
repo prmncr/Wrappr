@@ -2,7 +2,7 @@
 
 namespace Wrappr.Wrapping;
 
-public class ServiceStatusMonitor(ServiceController service, Action onStatusChanged) {
+public class ServiceStatusMonitor(ServiceController service, Action<ServiceControllerStatus> onStatusChanged) {
 	private ServiceControllerStatus _initialStatus = service.Status;
 	private bool _suppressed;
 
@@ -31,7 +31,7 @@ public class ServiceStatusMonitor(ServiceController service, Action onStatusChan
 				Thread.Sleep(PollingDelay);
 				continue;
 			}
-			onStatusChanged.Invoke();
+			onStatusChanged.Invoke(service.Status);
 			_initialStatus = service.Status;
 		}
 	}

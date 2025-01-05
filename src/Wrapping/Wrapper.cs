@@ -143,11 +143,11 @@ public partial class Wrapper : ReactiveObject {
 		if (Service == null) return;
 		if (!IsTrackingEnabled) return;
 		_serviceStatusMonitor = new ServiceStatusMonitor(
-			Service, () => {
+			Service, newStatus => {
 				if (IsNotificationsEnabled) {
 					Balloons.ShowBalloon(
 						Strings.ServiceStatusWasChangedBalloonTitle,
-						string.Format(Strings.ServiceStatusWasChangedBalloonText, Service?.ServiceName, Service?.Status),
+						string.Format(Strings.ServiceStatusWasChangedBalloonText, Service?.ServiceName, newStatus),
 						BalloonIcon.Info
 					);
 				}

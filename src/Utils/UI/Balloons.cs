@@ -1,10 +1,10 @@
 ﻿using Hardcodet.Wpf.TaskbarNotification;
-using Wrappr.Components.MainMenu;
+using Wrappr.Components.TrayHolder;
 
 namespace Wrappr.Utils.UI;
 
 public static class Balloons {
 	public static void ShowBalloon(string title, string message, BalloonIcon icon) {
-		MainMenuWindow.Instance.TrayIcon.ShowBalloonTip(title, message, icon);
+		TrayHolder.Instance.TrayIcon.ShowBalloonTip(title, message, icon);
 	}
 }

@@ -10,6 +10,7 @@
         <ApplicationIcon>Resources\icon64.ico</ApplicationIcon>
         <IsPackable>false</IsPackable>
         <Authors>prmncr</Authors>
+        <Version>1.1</Version>
         <PackageIcon>Resources\logo512.png</PackageIcon>
         <Company>prmncr</Company>
         <StartupObject>Wrappr.Program</StartupObject>

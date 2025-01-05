@@ -10,7 +10,6 @@
         xmlns:ui="clr-namespace:Wrappr.Utils.UI"
         xmlns:mainMenu="clr-namespace:Wrappr.Components.MainMenu"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         FontFamily="{DynamicResource InterFont}"
@@ -51,26 +50,12 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <tb:TaskbarIcon
-                x:Name="TrayIcon"
-                Grid.Row="0"
-                IconSource="{StaticResource Icon64}"
-                d:IsHidden="True"
-                TrayLeftMouseDown="OpenMainMenu"
-                ToolTipText="Wrappr">
-                <tb:TaskbarIcon.ContextMenu>
-                    <ContextMenu FontSize="14">
-                        <MenuItem Click="OpenMainMenu" Header="{x:Static l10n:Strings.ContextMenuOpenApp}" />
-                        <MenuItem Click="CloseApplication" Header="{x:Static l10n:Strings.ContextMenuCloseApp}" />
-                    </ContextMenu>
-                </tb:TaskbarIcon.ContextMenu>
-            </tb:TaskbarIcon>
+
             <Border
                 Grid.Row="0"
                 Padding="15"
                 Background="#333333"
-                x:Name="TitleBar"
-                Panel.ZIndex="1000">
+                x:Name="TitleBar">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -95,9 +80,17 @@
                             Foreground="White"
                             FontWeight="Bold"
                             FontFamily="{DynamicResource JetBrainsMonoFont}"
-                            FontSize="18"
-                            VerticalAlignment="Center"
-                            Text="{x:Static l10n:Strings.AppName}" />
+                            FontSize="16"
+                            VerticalAlignment="Center">
+                            <Run
+                                BaselineAlignment="Baseline"
+                                Text="{x:Static l10n:Strings.AppName}"/>
+                            <Run
+                                Foreground="#ababab"
+                                FontSize="14"
+                                BaselineAlignment="Baseline"
+                                Text="{Binding Version}"/>
+                        </TextBlock>
                         <Button
                             Grid.Column="2"
                             Style="{DynamicResource MaterialDesignFlatButton}"

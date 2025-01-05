@@ -67,10 +67,7 @@
         <value>About Wrappr</value>
     </data>
     <data name="AboutDescriptionText" xml:space="preserve">
-        <value>Windows services "wrapping" utility.</value>
-    </data>
-    <data name="AboutDescriptionText2" xml:space="preserve">
-        <value>Wrapping - creating an entity (wrapper) that reflects original object state (Windows service in this case).</value>
+        <value>Wrappr is a desktop application that allows you to quickly and easily enable/disable Windows services and track their status.</value>
     </data>
     <data name="AboutAppButtonToolTip" xml:space="preserve">
         <value>About Wrappr</value>

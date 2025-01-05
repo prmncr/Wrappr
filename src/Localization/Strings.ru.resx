@@ -61,10 +61,7 @@
         <value>О Wrappr</value>
     </data>
     <data name="AboutDescriptionText" xml:space="preserve">
-        <value>Утилита для "оборачивания" сервисов Windows.</value>
-    </data>
-    <data name="AboutDescriptionText2" xml:space="preserve">
-        <value>Оборачивание - создание объекта (обёртки), который отражает состояние оригинального объекта (в данном случае - сервисов Windows).</value>
+        <value>Wrappr - приложение, позволяющее быстро и удобно включать и выключать сервисы Windows и отслеживать их статусы.</value>
     </data>
     <data name="AboutAppButtonToolTip" xml:space="preserve">
         <value>О Wrappr</value>

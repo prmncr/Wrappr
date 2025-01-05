@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Reflection;
+using System.Windows;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 using Wrappr.Components.About;
@@ -7,6 +8,8 @@ using Wrappr.Wrapping;
 namespace Wrappr.Components.MainMenu;
 
 public partial class MainMenu : ReactiveObject {
+	[Reactive] private string _version = Assembly.GetExecutingAssembly().GetName().Version!.ToString(2);
+
 	[ReactiveCommand]
 	private void CreateWrapper() {
 		Wrappers.Storage.Add(new Wrapper(new WrapperConfig()));
