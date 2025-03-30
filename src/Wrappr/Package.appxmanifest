@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package
+        xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+        xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+        xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+        xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+        IgnorableNamespaces="uap rescap">
+
+    <Identity Name="Wrappr" Publisher="CN=prmncr" Version="2.0.0.0"/>
+
+    <mp:PhoneIdentity PhoneProductId="7949c9a3-f3c1-4ed5-a171-269318dcec97" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+    <Properties>
+        <DisplayName>Wrappr</DisplayName>
+        <PublisherDisplayName>prmncr</PublisherDisplayName>
+        <Logo>Assets\Images\logo128.png</Logo>
+    </Properties>
+
+    <Dependencies>
+        <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0"/>
+        <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0"/>
+    </Dependencies>
+
+    <Resources>
+        <Resource Language="x-generate"/>
+    </Resources>
+
+    <Applications>
+        <Application Id="App"
+                     Executable="$targetnametoken$.exe"
+                     EntryPoint="$targetentrypoint$">
+            <uap:VisualElements
+                    DisplayName="Wrappr"
+                    BackgroundColor="transparent"
+                    Square150x150Logo="Assets\Images\logo256.png"
+                    Square44x44Logo="Assets\Images\logo64.png"
+                    Description="Wrappr App">
+                <uap:DefaultTile ShortName="Wrappr"/>
+            </uap:VisualElements>
+        </Application>
+    </Applications>
+
+    <Capabilities>
+        <rescap:Capability Name="runFullTrust"/>
+    </Capabilities>
+</Package>
