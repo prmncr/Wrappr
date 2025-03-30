@@ -1,0 +1,160 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
+        <RootNamespace>Wrappr</RootNamespace>
+        <Platforms>x64;ARM64</Platforms>
+        <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+        <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+        <UseWinUI>true</UseWinUI>
+	    <Version>2.0.0</Version>
+	    <Configurations>Debug;Release</Configurations>
+		<EnableMsixTooling>true</EnableMsixTooling>
+	    <LangVersion>preview</LangVersion>
+	    <Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	    <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+	    <WindowsPackageType>None</WindowsPackageType>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Remove="Components\Pages\SettingsPage.xaml" />
+        <None Remove="Components\ToolbarIconResource.xaml" />
+        <None Remove="Controls\Toggle.xaml" />
+        <None Remove="Pages\CreateWrapperPage.xaml" />
+        <None Remove="Pages\NavigationRootPage.xaml" />
+        <None Remove="Pages\WrapperSettingsPage.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Manifest Include="$(ApplicationManifest)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\LICENSE">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\..\readme.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.1.240916" />
+        <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.1.240916" />
+        <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.1.240916" />
+        <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.1.240916" />
+        <PackageReference Include="H.NotifyIcon.WinUI" Version="2.2.0" />
+        <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.1" />
+    </ItemGroup>
+
+    <!--
+    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
+    Tools extension to be activated for this project even if the Windows App SDK Nuget
+    package has not yet been restored.
+  -->
+    <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+        <ProjectCapability Include="Msix" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250108002" />
+        <PackageReference Include="TaskScheduler" Version="2.12.1" />
+    </ItemGroup>
+    <PropertyGroup Label="Globals">
+      <WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
+    </PropertyGroup>
+
+    <!--
+    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
+    Explorer "Package and Publish" context menu entry to be enabled for this project even if
+    the Windows App SDK Nuget package has not yet been restored.
+  -->
+    <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+        <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+    </PropertyGroup>
+
+    <!-- Publish Properties -->
+    <PropertyGroup>
+        <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
+        <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
+
+        <Title>Wrappr</Title>
+        <Authors>prmncr</Authors>
+        <PackageIcon>logo128.png</PackageIcon>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/prmncr/Wrappr</RepositoryUrl>
+        <AssemblyVersion>2.0</AssemblyVersion>
+        <FileVersion>2.0</FileVersion>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+        <ApplicationIcon>Assets\Images\icon64.ico</ApplicationIcon>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <NeutralLanguage>en-US</NeutralLanguage>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Update="Resources\Strings.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Strings.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Update="Assets\Images\icon64.ico" />
+        <Content Update="Assets\Fonts\JetBrainsMono.ttf" />
+        <Content Update="Assets\Images\logo1024.png" />
+        <Content Update="Assets\Images\logo128.png" />
+        <Content Update="Assets\Images\logo256.png" />
+        <Content Update="Assets\Images\logo512.png" />
+        <Content Update="Assets\Images\logo64.png" />
+        <Content Update="Assets\Fonts\SegoeIcons.ttf" />
+        <Content Update="Assets\Fonts\SegoeUI-Semibold.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Page Update="Components\Pages\CreateWrapperPage.xaml">
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Components\Pages\NavigationRootPage.xaml">
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Components\Pages\WrapperSettingsPage.xaml">
+            <SubType>Designer</SubType>
+        </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Resources\Strings.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+            <SubType>Designer</SubType>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Assets\Images\logo128.png">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <Page Update="Controls\TrayIcon">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Page Update="Components\Pages\SettingsPage.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Page Update="Controls\Toggle.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+    </ItemGroup>
+</Project>

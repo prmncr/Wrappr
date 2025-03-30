@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Wrappr (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Wrappr (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

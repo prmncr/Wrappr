@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Page
+    x:Class="Wrappr.Components.Pages.WrapperSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:localization="using:Wrappr.Resources"
+    xmlns:model="using:Wrappr.Model"
+    xmlns:fonts="using:Wrappr"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <model:Wrapper />
+    </Page.DataContext>
+    <Grid
+        HorizontalAlignment="Stretch"
+        Margin="36, 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border
+            Margin="4, 32, 4, 24">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    FontSize="20"
+                    FontWeight="SemiBold"
+                    Text="{Binding Path=ServiceName}" />
+                <Button
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Click="AfterWrapperDeleted"
+                    Command="{Binding Path=DeleteWrapperCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon
+                            FontSize="16"
+                            Foreground="{StaticResource NegativeColor}"
+                            Glyph="{x:Bind fonts:Icons.Delete}" />
+                        <TextBlock Text="{x:Bind localization:Strings.DeleteWrapperButtonToolTip}" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+        <ScrollView
+            Grid.Row="1"
+            Margin="0, 0, 0, 48">
+            <StackPanel
+                HorizontalAlignment="Stretch"
+                Orientation="Vertical"
+                Spacing="8">
+                <controls:SettingsCard
+                    Header="{x:Bind localization:Strings.WrapperTrackingToggleText}"
+                    Description="{x:Bind localization:Strings.WrapperTrackingToggleToolTip}">
+                    <controls:SettingsCard.Resources>
+                        <!-- ReSharper disable Xaml.RedundantResource -->
+                        <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
+                        <!-- ReSharper restore Xaml.RedundantResource -->
+                    </controls:SettingsCard.Resources>
+                    <CheckBox
+                        IsChecked="{Binding Path=IsTrackingEnabled}"
+                        Command="{Binding Path=ToggleTrackingCommand}"
+                        MinWidth="0" />
+                </controls:SettingsCard>
+                <controls:SettingsCard
+                    Header="{x:Bind localization:Strings.WrapperPoolingDelayHint}"
+                    Description="{x:Bind localization:Strings.WrapperPoolingDelayToolTip}"
+                    IsEnabled="{Binding Path=IsTrackingEnabled}">
+                    <controls:SettingsCard.Resources>
+                        <!-- ReSharper disable Xaml.RedundantResource -->
+                        <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
+                        <!-- ReSharper restore Xaml.RedundantResource -->
+                    </controls:SettingsCard.Resources>
+                    <NumberBox
+                        FontSize="14"
+                        MinWidth="100"
+                        SmallChange="100"
+                        LargeChange="1000"
+                        Text="{Binding Path=PollingDelay, Mode=TwoWay}" />
+                </controls:SettingsCard>
+                <controls:SettingsCard
+                    Header="{x:Bind localization:Strings.WrapperNotificationsToggleText}"
+                    Description="{x:Bind localization:Strings.WrapperNotificationsToggleToolTip}"
+                    IsEnabled="{Binding Path=IsTrackingEnabled}">
+                    <controls:SettingsCard.Resources>
+                        <!-- ReSharper disable Xaml.RedundantResource -->
+                        <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
+                        <!-- ReSharper restore Xaml.RedundantResource -->
+                    </controls:SettingsCard.Resources>
+                    <CheckBox
+                        Command="{Binding Path=ToggleNotificationsCommand}"
+                        IsChecked="{Binding Path=IsNotificationsEnabled}"
+                        MinWidth="0" />
+                </controls:SettingsCard>
+            </StackPanel>
+        </ScrollView>
+    </Grid>
+</Page>

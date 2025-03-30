@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:media="using:Microsoft.UI.Xaml.Media"
+             x:Class="Wrappr.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Color x:Key="PositiveColor">#2fa45c</Color>
+            <Color x:Key="NegativeColor">#ef4b80</Color>
+            <SolidColorBrush x:Key="PositiveBrush" Color="{StaticResource PositiveColor}" />
+            <SolidColorBrush x:Key="NegativeBrush" Color="{StaticResource NegativeColor}" />
+
+            <media:FontFamily x:Key="JetBrainsMono">ms-appx:///Assets/JetBrainsMono.ttf/#JetBrains Mono</media:FontFamily>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
