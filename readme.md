@@ -1,4 +1,4 @@
-﻿# <img src="src/Resources/logo64.png" style="width: 32px; height: 32px" alt="Wrappr logo"> Wrappr
+﻿# <img src="src/Wrappr/Assets/Images/logo64.png" style="width: 32px; height: 32px" alt="Wrappr logo"> Wrappr
 
 Wrappr is a desktop application that allows you to quickly and easily enable/disable Windows services and track their status.
 
