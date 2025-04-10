@@ -34,6 +34,8 @@
                     FontWeight="SemiBold"
                     Text="{x:Bind resources:Strings.CreateNewWrapperTitle}" />
                 <Button
+                    x:Name="CreateButton"
+                    IsEnabled="False"
                     Grid.Column="1"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
@@ -61,6 +63,7 @@
             <ListView
                 x:Name="ServiceList"
                 DataFetchSize="10"
+                SelectionChanged="SelectedServiceChanged"
                 ItemsSource="{x:Bind ServiceNames}"
                 IncrementalLoadingThreshold="1"
                 IncrementalLoadingTrigger="Edge">

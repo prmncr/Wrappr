@@ -71,8 +71,7 @@
                             TextWrapping="WrapWholeWords"
                             Grid.Row="1">
                             <Run Text="{x:Bind localization:Strings.AppName}" />, version
-                            <Run Text="{x:Bind localization:Strings.AppVersion}" />
-                            ,
+                            <Run Text="{x:Bind localization:Strings.AppVersion}" />,
                             <Run>by prmncr.</Run>
                         </TextBlock>
                         <TextBlock TextWrapping="WrapWholeWords" Grid.Row="2">
@@ -81,14 +80,13 @@
                                 ToolTipService.ToolTip="https://github.com/prmncr/Wrappr"
                                 NavigateUri="https://github.com/prmncr/Wrappr">
                                 GitHub
-                            </Hyperlink>
-                            ,
+                            </Hyperlink>,
                             <Run Text="{x:Bind localization:Strings.CheckUpdates}" />
                             <Hyperlink
                                 ToolTipService.ToolTip="https://github.com/prmncr/Wrappr/releases"
                                 NavigateUri="https://github.com/prmncr/Wrappr/releases">
                                 Releases
-                            </Hyperlink>
+                            </Hyperlink>.
                         </TextBlock>
                         <TextBlock TextWrapping="WrapWholeWords" Grid.Row="3">
                             <Run Text="{x:Bind localization:Strings.LogoCreditsPrefix}" />
@@ -96,7 +94,7 @@
                                 NavigateUri="https://www.flaticon.com/free-icons/settings"
                                 ToolTipService.ToolTip="https://www.flaticon.com/free-icons/settings">
                                 <Run Text="{x:Bind localization:Strings.LogoCreditsLink}" />
-                            </Hyperlink>
+                            </Hyperlink>.
                         </TextBlock>
                     </Grid>
                 </StackPanel>

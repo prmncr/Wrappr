@@ -252,4 +252,7 @@
     <data name="LogoCreditsLink" xml:space="preserve">
     <value>resources by Gregor Cresnar Premium from Flaticon</value>
   </data>
+    <data name="NoServiceSelectedError" xml:space="preserve">
+      <value>No service was selected</value>
+    </data>
 </root>

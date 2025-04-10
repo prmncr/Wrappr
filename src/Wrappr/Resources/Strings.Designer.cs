@@ -294,6 +294,15 @@ namespace Wrappr.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No service was selected.
+        /// </summary>
+        public static string NoServiceSelectedError {
+            get {
+                return ResourceManager.GetString("NoServiceSelectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Read-only.
         /// </summary>
         public static string NotElevatedTipTitlebarText {

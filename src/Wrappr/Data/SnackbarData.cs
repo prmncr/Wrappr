@@ -5,7 +5,7 @@ using Wrappr.Resources;
 namespace Wrappr.Data;
 
 public partial class SnackbarData : ObservableObject {
-	public SnackbarData(string title, string? message, InfoBarSeverity severity) {
+	public SnackbarData(string title, InfoBarSeverity severity, string? message = null) {
 		Title = title;
 		Severity = severity;
 		Message = message;

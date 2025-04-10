@@ -53,9 +53,7 @@
                 <Button
                     VerticalAlignment="Center"
                     Visibility="{x:Bind services:Elevation.IsElevated, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}"
-                    Foreground="{StaticResource AppBarItemDisabledForegroundThemeBrush}"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
+                    Background="Orange"
                     Padding="4">
                     <Button.Flyout>
                         <Flyout>
@@ -88,13 +86,13 @@
                         Spacing="8"
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontWeight="Light"
-                            Text="{x:Bind resources:Strings.NotElevatedTipTitlebarText}" />
                         <FontIcon
                             FontSize="14"
-                            Glyph="{x:Bind fonts:Icons.Info}" />
+                            Glyph="{x:Bind fonts:Icons.Warning}" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Text="{x:Bind resources:Strings.NotElevatedTipTitlebarText}" />
+                        
                     </StackPanel>
                 </Button>
             </StackPanel>

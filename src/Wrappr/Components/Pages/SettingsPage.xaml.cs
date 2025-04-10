@@ -74,8 +74,7 @@ public sealed partial class SettingsPage {
 				Snackbars.ShowSnackbar(
 					new SnackbarData(
 						Strings.AddedToAutoStartTitle,
-						null,
-						InfoBarSeverity.Success
+						InfoBarSeverity.Success, null
 					)
 				);
 			}
