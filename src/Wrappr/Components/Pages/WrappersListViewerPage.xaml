@@ -26,7 +26,6 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <ProgressRing IsActive="{x:Bind IsWaitingForStatusChange}" />
                         <ctrl:Toggle
-                            IsEnabled="{x:Bind Path=CanToggle}"
                             MinWidth="0"
                             Value="{x:Bind Path=Enabled, Mode=TwoWay}"
                             OnCheckedCommand="{Binding Path=ToggleServiceCommand}" />

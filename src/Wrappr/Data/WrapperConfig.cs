@@ -3,7 +3,7 @@ using Wrappr.Model;
 
 namespace Wrappr.Data;
 
-public struct WrapperConfig {
+public record WrapperConfig {
 	[JsonInclude] public string? Name { get; init; }
 
 	[JsonInclude] public bool Tracked { get; init; }

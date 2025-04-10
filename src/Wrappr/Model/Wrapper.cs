@@ -97,8 +97,6 @@ public partial class Wrapper : ObservableObject {
 		}
 	}
 
-	public bool CanToggle => IsInitialized && Elevation.IsElevated;
-
 	public event Action<bool>? ServiceToggled;
 
 	private void UpdateWrapper() {
@@ -109,7 +107,7 @@ public partial class Wrapper : ObservableObject {
 	[RelayCommand]
 	public async Task ToggleService(bool switchedTo) {
 		if (Service == null) {
-			Snackbars.ShowSnackbar(new SnackbarData(Strings.ErrorMessageTitle, Strings.ServiceNotFoundMessage, InfoBarSeverity.Error));
+			Snackbars.ShowSnackbar(new SnackbarData(Strings.ErrorMessageTitle, InfoBarSeverity.Error, Strings.ServiceNotFoundMessage));
 			return;
 		}
 		string? message;
@@ -128,7 +126,7 @@ public partial class Wrapper : ObservableObject {
 		Enabled = Service.Status == ServiceControllerStatus.Running;
 		_serviceStatusMonitor?.Resume();
 		if (message != null) {
-			Snackbars.ShowSnackbar(new SnackbarData(Strings.ErrorMessageTitle, message, InfoBarSeverity.Error));
+			Snackbars.ShowSnackbar(new SnackbarData(Strings.ErrorMessageTitle, InfoBarSeverity.Error, message));
 		}
 	}
 
@@ -149,7 +147,7 @@ public partial class Wrapper : ObservableObject {
 
 	private async Task<string?> Disable() {
 		try {
-			Service!.Stop();
+			await ElevatedTaskExecutorProvider.Stop(Service!);
 			IsWaitingForStatusChange = true;
 			await Task.Run(() => Service?.WaitForStatus(ServiceControllerStatus.Stopped));
 			IsWaitingForStatusChange = false;
@@ -161,7 +159,7 @@ public partial class Wrapper : ObservableObject {
 
 	private async Task<string?> Enable() {
 		try {
-			Service!.Start();
+			await ElevatedTaskExecutorProvider.Start(Service!);
 			IsWaitingForStatusChange = true;
 			await Task.Run(() => Service?.WaitForStatus(ServiceControllerStatus.Running));
 			IsWaitingForStatusChange = false;

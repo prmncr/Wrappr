@@ -31,7 +31,13 @@ public sealed partial class CreateWrapperPage {
 
 	private void CreateWrapper(object sender, RoutedEventArgs e) {
 		if (ServiceList.SelectedItem is not ServiceNamePresenter service) {
-			throw new Exception();
+			Snackbars.ShowSnackbar(
+				new SnackbarData(
+					Strings.NoServiceSelectedError,
+					InfoBarSeverity.Error
+				)
+			);
+			return;
 		}
 		var wrapper = new Wrapper(new WrapperConfig(service.ServiceName));
 		Wrappers.Instance.Storage.Add(wrapper);
@@ -70,5 +76,9 @@ public sealed partial class CreateWrapperPage {
 				? result
 				: [new ServiceNamePresenter { IsPlaceholder = true, DisplayName = Strings.NoServiceFoundPlaceholder }];
 		}
+	}
+
+	private void SelectedServiceChanged(object sender, SelectionChangedEventArgs e) {
+		CreateButton.IsEnabled = ServiceList.SelectedItem is ServiceNamePresenter;
 	}
 }

@@ -16,13 +16,17 @@ public partial class App : Balloons.IBalloonSender {
 	private static Window? _window;
 
 	public App() {
-		Environment.SetEnvironmentVariable("MICROSOFT_WINDOWSAPPRUNTIME_BASE_DIRECTORY", AppContext.BaseDirectory);
+		#if DEBUG
+		Task.Run(() => ElevatedService.Program.Main([]));
+		#endif
 		Instance = this;
 		Balloons.Initialize(this);
 
 		UnhandledException += (_, eventArgs) => {
 			Snackbars.ShowSnackbar(new SnackbarData(eventArgs.Exception));
 		};
+
+		ElevatedTaskExecutorProvider.Connect();
 
 		InitializeComponent();
 		Wrappers.Initialize();
@@ -32,7 +36,7 @@ public partial class App : Balloons.IBalloonSender {
 
 	private TaskbarIcon TaskbarIcon { get; set; } = null!;
 
-	[field: AllowNull] [field: MaybeNull] public static ICommand ToggleWindowCommand => field ??= new RelayCommand(ToggleWindow);
+	[field: AllowNull] [field: MaybeNull] public static ICommand OpenWindowCommand => field ??= new RelayCommand(OpenWindow);
 
 	[field: AllowNull] [field: MaybeNull] public ICommand ExitApplicationCommand => field ??= new RelayCommand(ExitApplication);
 
@@ -54,15 +58,12 @@ public partial class App : Balloons.IBalloonSender {
 		TaskbarIcon.ForceCreate();
 	}
 
-	private static void ToggleWindow() {
-		if (_window == null) {
-			_window = new MainWindow();
-			_window.Show();
-			return;
-		}
-		_window.Close();
-		_window = null;
-	}
+	private static void OpenWindow() {
+        if (_window != null) return;
+        _window = new MainWindow();
+        _window.Closed += (_, _) => _window = null;
+        _window.Show();
+    }
 
 	private void ExitApplication() {
 		TaskbarIcon.Dispose();

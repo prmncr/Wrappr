@@ -253,4 +253,7 @@
     <data name="LogoCreditsLink" xml:space="preserve">
     <value>материалов от Gregor Cresnar Premium для Flaticon</value>
   </data>
+    <data name="NoServiceSelectedError" xml:space="preserve">
+      <value>Сервис не выбран</value>
+    </data>
 </root>

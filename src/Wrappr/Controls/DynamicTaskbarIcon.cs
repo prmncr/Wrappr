@@ -35,7 +35,7 @@ public partial class DynamicTaskbarIcon {
 			Visibility = Visibility.Visible,
 			ToolTipText = Strings.AppName,
 			ContextMenuMode = ContextMenuMode.SecondWindow,
-			LeftClickCommand = App.ToggleWindowCommand,
+			LeftClickCommand = App.OpenWindowCommand,
 			NoLeftClickDelay = true,
 			RightClickCommand = new RelayCommand(UpdateFlyout),
 			Icon = _icon
@@ -104,7 +104,7 @@ public partial class DynamicTaskbarIcon {
 		return [
 			new MenuFlyoutItem {
 				Text = Strings.ContextMenuOpenApp,
-				Command = App.ToggleWindowCommand,
+				Command = App.OpenWindowCommand,
 				Icon = new SymbolIcon(Symbol.Home)
 			},
 			new MenuFlyoutSeparator()
