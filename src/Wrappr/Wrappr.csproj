@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
+        <TargetFramework>net8.0-windows10.0.22621</TargetFramework>
         <RootNamespace>Wrappr</RootNamespace>
         <Platforms>x64;ARM64</Platforms>
-        <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
         <PublishProfile>win-$(Platform).pubxml</PublishProfile>
         <UseWinUI>true</UseWinUI>
 	    <Version>2.0.0</Version>
@@ -14,11 +13,14 @@
 	    <Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
 	    <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
 	    <WindowsPackageType>None</WindowsPackageType>
     </PropertyGroup>
     <ItemGroup>
+        <None Remove="Components\Pages\Scaffold.xaml" />
         <None Remove="Components\Pages\SettingsPage.xaml" />
+        <None Remove="Components\Pages\WrapperGroupsListViewerPage.xaml" />
         <None Remove="Components\ToolbarIconResource.xaml" />
         <None Remove="Controls\Toggle.xaml" />
         <None Remove="Pages\CreateWrapperPage.xaml" />
@@ -43,19 +45,17 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-        <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.1.240916" />
-        <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.1.240916" />
-        <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.1.240916" />
-        <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.1.240916" />
-        <PackageReference Include="H.NotifyIcon.WinUI" Version="2.2.0" />
-        <PackageReference Include="System.ServiceModel.Duplex" Version="6.0.*" />
-        <PackageReference Include="System.ServiceModel.Federation" Version="6.0.*" />
-        <PackageReference Include="System.ServiceModel.Http" Version="6.0.*" />
-        <PackageReference Include="System.ServiceModel.NetNamedPipe" Version="6.0.*" />
-        <PackageReference Include="System.ServiceModel.NetTcp" Version="6.0.*" />
-        <PackageReference Include="System.ServiceModel.Primitives" Version="8.1.2" />
-        <PackageReference Include="System.ServiceModel.Security" Version="6.0.*" />
-        <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.3" />
+        <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.2.250402" />
+        <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.2.250402" />
+        <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.250402" />
+        <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.2.250402" />
+        <PackageReference Include="CoreWCF.Http" Version="1.7.0" />
+        <PackageReference Include="H.NotifyIcon.WinUI" Version="2.3.0" />
+        <PackageReference Include="System.ServiceModel.Http" Version="8.1.2" />
+        <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.4" />
+        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250108002" />
+        <PackageReference Include="TaskScheduler" Version="2.12.1" />
     </ItemGroup>
 
     <!--
@@ -65,11 +65,6 @@
   -->
     <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
         <ProjectCapability Include="Msix" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250108002" />
-        <PackageReference Include="TaskScheduler" Version="2.12.1" />
     </ItemGroup>
     <PropertyGroup Label="Globals">
       <WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
@@ -127,11 +122,14 @@
         <Page Update="Components\Pages\CreateWrapperPage.xaml">
             <SubType>Designer</SubType>
         </Page>
-        <Page Update="Components\Pages\NavigationRootPage.xaml">
+        <Page Update="Components\Pages\NavigationRoot.xaml">
             <SubType>Designer</SubType>
         </Page>
         <Page Update="Components\Pages\WrapperSettingsPage.xaml">
             <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Components\Scaffold.xaml">
+          <SubType>Designer</SubType>
         </Page>
     </ItemGroup>
 
@@ -148,6 +146,9 @@
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
         </None>
+        <Page Update="Components\Pages\WrapperGroupsListViewerPage.xaml">
+          <Generator>MSBuild:Compile</Generator>
+        </Page>
         <Page Update="Controls\TrayIcon">
             <Generator>MSBuild:Compile</Generator>
         </Page>

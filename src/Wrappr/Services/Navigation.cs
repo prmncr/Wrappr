@@ -1,56 +1,71 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.UI.Xaml.Controls;
+using Wrappr.Utilities;
 
 namespace Wrappr.Services;
 
-public class Navigation {
-	private static Navigation _instance = null!;
+public partial class Navigation : ObservableObject {
+	[ObservableProperty] public partial bool CanGoBack { get; set; }
 
-	private Navigation(INavigator navigator) {
-		Navigator = navigator;
-	}
+	public static Navigation Instance { get; private set; } = null!;
 
 	private INavigator? Navigator { get; }
 
-	public static Page? CurrentPage => _instance.Navigator?.CurrentPage;
+	public static IEnumerable<NavigationNode> Trace => BackStack.Reverse();
 
-	public static void ChangePage<TPage>() {
-		_instance.Navigator?.ChangePage<TPage>();
+	private static readonly ObservableStack<NavigationNode> BackStack = new();
+	private static Page? CurrentPage => Instance.Navigator?.CurrentPage;
+
+	private Navigation(INavigator navigator) {
+		Navigator = navigator;
+		BackStack.CollectionChanged += (_, _) => CanGoBack = BackStack.Count > 1;
 	}
 
-	public static void TryChangePage<TPage>() {
-		_instance.Navigator?.ChangePage<TPage>();
+	public static void ChangePage<TNavigable>(object? dataContext = null) where TNavigable : INavigable {
+		Instance.Navigator?.ChangePage<TNavigable>();
+		CurrentPage!.DataContext = dataContext;
+		BackStack.Push(new NavigationNode(TNavigable.TypeNavigationTag, TNavigable.NodeName(dataContext), dataContext));
 	}
 
-	public static void ChangePageAndRemovePrevious<TPage>() {
-		_instance.Navigator?.ChangePageAndRemovePrevious<TPage>();
+	public static void DropCurrentPageAndChange<TNavigable>(object? dataContext = null) where TNavigable : INavigable {
+		BackStack.Pop();
+		Instance.Navigator?.Back();
+		ChangePage<TNavigable>(dataContext);
+	}
+
+	public static void NewRoot<TNavigable>(object? dataContext = null) where TNavigable : INavigable {
+		Clear();
+		ChangePage<TNavigable>(dataContext);
 	}
 
 	public static void Back() {
-		_instance.Navigator?.Back();
+		BackStack.Pop();
+		Instance.Navigator?.Back();
+	}
+
+	public static void BackTo(NavigationNode node) {
+		while (Instance.Navigator?.CurrentPage is INavigable navigable && navigable.NavigationTag != node.Tag) {
+			Back();
+		}
 	}
 
 	public static void Forward() {
-		_instance.Navigator?.Forward();
+		Instance.Navigator?.Forward();
 	}
 
-	public static void Clear() {
-		_instance.Navigator?.Clear();
+	private static void Clear() {
+		BackStack.Clear();
+		Instance.Navigator?.Clear();
 	}
 
 	public static void Initialize(INavigator navigator) {
-		_instance = new Navigation(navigator);
+		Instance = new Navigation(navigator);
 	}
 
 	public interface INavigator {
 		public Page? CurrentPage { get; }
 
 		public void ChangePage<TPage>();
-
-		public void TryChangePage<TPage>() {
-			if (CurrentPage is not TPage) ChangePage<TPage>();
-		}
-
-		public void ChangePageAndRemovePrevious<TPage>();
 
 		public void Back();
 

@@ -193,9 +193,9 @@
     <data name="WrapperSearchPlaceholder" xml:space="preserve">
     <value>Начните вводить имя сервиса...</value>
   </data>
-    <data name="MainPageTitle" xml:space="preserve">
-    <value>Главная</value>
-  </data>
+    <data name="WrappersPageTitle" xml:space="preserve">
+      <value>Обёртки</value>
+    </data>
     <data name="CreateWrapperPageRedirectButtonText" xml:space="preserve">
     <value>Создать...</value>
   </data>
@@ -255,5 +255,8 @@
   </data>
     <data name="NoServiceSelectedError" xml:space="preserve">
       <value>Сервис не выбран</value>
+    </data>
+    <data name="WrapperGroupsPageTitle" xml:space="preserve">
+      <value>Группы</value>
     </data>
 </root>

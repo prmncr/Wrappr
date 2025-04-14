@@ -1,9 +1,11 @@
 using Microsoft.UI.Xaml;
+using Wrappr.Model;
 using Wrappr.Services;
+using Wrappr.Utilities;
 
 namespace Wrappr.Components.Pages;
 
-public sealed partial class WrapperSettingsPage {
+public sealed partial class WrapperSettingsPage : INavigable {
 	public WrapperSettingsPage() {
 		InitializeComponent();
 	}
@@ -11,4 +13,8 @@ public sealed partial class WrapperSettingsPage {
 	private void AfterWrapperDeleted(object sender, RoutedEventArgs e) {
 		Navigation.Back();
 	}
+
+	public string NavigationTag => nameof(WrapperSettingsPage);
+	public static string TypeNavigationTag => nameof(WrapperSettingsPage);
+	public static string NodeName(object? parameter) => (parameter as Wrapper)!.ServiceName;
 }
