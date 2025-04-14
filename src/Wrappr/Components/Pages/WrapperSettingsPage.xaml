@@ -35,57 +35,57 @@
         </components:Scaffold.Actions>
         <components:Scaffold.Body>
             <ScrollView
-            Grid.Row="1"
-            Margin="0, 0, 0, 48">
-            <StackPanel
-                HorizontalAlignment="Stretch"
-                Orientation="Vertical"
-                Spacing="8">
-                <controls:SettingsCard
-                    Header="{x:Bind localization:Strings.WrapperTrackingToggleText}"
-                    Description="{x:Bind localization:Strings.WrapperTrackingToggleToolTip}">
-                    <controls:SettingsCard.Resources>
-                        <!-- ReSharper disable Xaml.RedundantResource -->
-                        <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
-                        <!-- ReSharper restore Xaml.RedundantResource -->
-                    </controls:SettingsCard.Resources>
-                    <CheckBox
-                        IsChecked="{Binding Path=IsTrackingEnabled}"
-                        Command="{Binding Path=ToggleTrackingCommand}"
-                        MinWidth="0" />
-                </controls:SettingsCard>
-                <controls:SettingsCard
-                    Header="{x:Bind localization:Strings.WrapperPoolingDelayHint}"
-                    Description="{x:Bind localization:Strings.WrapperPoolingDelayToolTip}"
-                    IsEnabled="{Binding Path=IsTrackingEnabled}">
-                    <controls:SettingsCard.Resources>
-                        <!-- ReSharper disable Xaml.RedundantResource -->
-                        <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
-                        <!-- ReSharper restore Xaml.RedundantResource -->
-                    </controls:SettingsCard.Resources>
-                    <NumberBox
-                        FontSize="14"
-                        MinWidth="100"
-                        SmallChange="100"
-                        LargeChange="1000"
-                        Text="{Binding Path=PollingDelay, Mode=TwoWay}" />
-                </controls:SettingsCard>
-                <controls:SettingsCard
-                    Header="{x:Bind localization:Strings.WrapperNotificationsToggleText}"
-                    Description="{x:Bind localization:Strings.WrapperNotificationsToggleToolTip}"
-                    IsEnabled="{Binding Path=IsTrackingEnabled}">
-                    <controls:SettingsCard.Resources>
-                        <!-- ReSharper disable Xaml.RedundantResource -->
-                        <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
-                        <!-- ReSharper restore Xaml.RedundantResource -->
-                    </controls:SettingsCard.Resources>
-                    <CheckBox
-                        Command="{Binding Path=ToggleNotificationsCommand}"
-                        IsChecked="{Binding Path=IsNotificationsEnabled}"
-                        MinWidth="0" />
-                </controls:SettingsCard>
-            </StackPanel>
-        </ScrollView>
+                Grid.Row="1"
+                Margin="0, 0, 0, 48">
+                <StackPanel
+                    HorizontalAlignment="Stretch"
+                    Orientation="Vertical"
+                    Spacing="8">
+                    <controls:SettingsCard
+                        Header="{x:Bind localization:Strings.WrapperTrackingToggleText}"
+                        Description="{x:Bind localization:Strings.WrapperTrackingToggleToolTip}">
+                        <controls:SettingsCard.Resources>
+                            <!-- ReSharper disable Xaml.RedundantResource -->
+                            <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
+                            <!-- ReSharper restore Xaml.RedundantResource -->
+                        </controls:SettingsCard.Resources>
+                        <CheckBox
+                            IsChecked="{Binding Path=IsTrackingEnabled}"
+                            Command="{Binding Path=ToggleTrackingCommand}"
+                            MinWidth="0" />
+                    </controls:SettingsCard>
+                    <controls:SettingsCard
+                        Header="{x:Bind localization:Strings.WrapperPoolingDelayHint}"
+                        Description="{x:Bind localization:Strings.WrapperPoolingDelayToolTip}"
+                        IsEnabled="{Binding Path=IsTrackingEnabled}">
+                        <controls:SettingsCard.Resources>
+                            <!-- ReSharper disable Xaml.RedundantResource -->
+                            <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
+                            <!-- ReSharper restore Xaml.RedundantResource -->
+                        </controls:SettingsCard.Resources>
+                        <NumberBox
+                            FontSize="14"
+                            MinWidth="100"
+                            SmallChange="100"
+                            LargeChange="1000"
+                            Text="{Binding Path=PollingDelay, Mode=TwoWay}" />
+                    </controls:SettingsCard>
+                    <controls:SettingsCard
+                        Header="{x:Bind localization:Strings.WrapperNotificationsToggleText}"
+                        Description="{x:Bind localization:Strings.WrapperNotificationsToggleToolTip}"
+                        IsEnabled="{Binding Path=IsTrackingEnabled}">
+                        <controls:SettingsCard.Resources>
+                            <!-- ReSharper disable Xaml.RedundantResource -->
+                            <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
+                            <!-- ReSharper restore Xaml.RedundantResource -->
+                        </controls:SettingsCard.Resources>
+                        <CheckBox
+                            Command="{Binding Path=ToggleNotificationsCommand}"
+                            IsChecked="{Binding Path=IsNotificationsEnabled}"
+                            MinWidth="0" />
+                    </controls:SettingsCard>
+                </StackPanel>
+            </ScrollView>
         </components:Scaffold.Body>
     </components:Scaffold>
 </Page>

@@ -9,7 +9,8 @@
     Loaded="OnLoaded"
     xmlns:resources="using:Wrappr.Resources"
     xmlns:pages="using:Wrappr.Components.Pages"
-    xmlns:services="using:Wrappr.Services">
+    xmlns:services="using:Wrappr.Services"
+    xmlns:utilities="using:Wrappr.Utilities">
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Page.Resources>
@@ -60,14 +61,11 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem
                     Content="{x:Bind resources:Strings.WrappersPageTitle}"
-                    Tag="{x:Bind pages:WrappersListViewerPage.TypeNavigationTag}"
-                    IsSelected="True">
-                </NavigationViewItem>
+                    Tag="{utilities:NameOf Type=pages:WrappersListViewerPage}"
+                    IsSelected="True" />
                 <NavigationViewItem
                     Content="{x:Bind resources:Strings.WrapperGroupsPageTitle}"
-                    Tag="{x:Bind pages:WrapperGroupsListViewerPage.TypeNavigationTag}"
-                    IsSelected="True">
-                </NavigationViewItem>
+                    Tag="{utilities:NameOf Type=pages:WrapperGroupsListViewerPage}" />
             </NavigationView.MenuItems>
             <Frame
                 x:Name="MainViewport"

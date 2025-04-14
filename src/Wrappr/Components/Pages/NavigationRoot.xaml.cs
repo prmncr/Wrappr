@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Wrappr.Data;
 using Wrappr.Services;
+using Wrappr.Utilities;
 
 namespace Wrappr.Components.Pages;
 
@@ -16,10 +17,10 @@ public sealed partial class NavigationRoot : Navigation.INavigator, Snackbars.IS
 		RootNavigation.BackRequested += (_, _) => Navigation.Back();
 	}
 
-	public Page? CurrentPage => MainViewport.Content as Page;
-
-	public void ChangePage<TPage>() {
-		MainViewport.Navigate(typeof(TPage));
+	public bool ChangePage<TNavigable>(out TNavigable? page) where TNavigable : Page, INavigable {
+		var changed = MainViewport.Navigate(typeof(TNavigable));
+		page = changed ? (TNavigable)MainViewport.Content : null;
+		return changed;
 	}
 
 	public void Back() {
@@ -59,9 +60,13 @@ public sealed partial class NavigationRoot : Navigation.INavigator, Snackbars.IS
 			Navigation.NewRoot<SettingsPage>();
 		if (((NavigationViewItem)args.SelectedItem).Tag is not string tag)
 			return;
-		if (tag == WrappersListViewerPage.TypeNavigationTag)
-			Navigation.NewRoot<WrappersListViewerPage>();
-		if (tag == WrapperGroupsListViewerPage.TypeNavigationTag)
-			Navigation.NewRoot<WrapperGroupsListViewerPage>();
+		switch (tag) {
+			case nameof(WrappersListViewerPage):
+				Navigation.NewRoot<WrappersListViewerPage>();
+				break;
+			case nameof(WrapperGroupsListViewerPage):
+				Navigation.NewRoot<WrapperGroupsListViewerPage>();
+				break;
+		}
 	}
 }

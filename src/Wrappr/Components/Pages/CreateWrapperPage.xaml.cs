@@ -83,6 +83,5 @@ public sealed partial class CreateWrapperPage : INavigable {
 	}
 
 	public string NavigationTag => nameof(CreateWrapperPage);
-	public static string TypeNavigationTag => nameof(CreateWrapperPage);
-	public static string NodeName(object? parameter) => Strings.CreateNewWrapperTitle;
+	public string LocalizedName => Strings.CreateNewWrapperTitle;
 }

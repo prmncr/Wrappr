@@ -24,7 +24,8 @@ public class OneTimeEventExecutor<T> {
 	public static void Create(
 		Action<TypedEventHandler<object, T>> add,
 		Action<TypedEventHandler<object, T>> remove,
-		TypedEventHandler<object, T> eventHandler) {
+		TypedEventHandler<object, T> eventHandler
+	) {
 		_ = new OneTimeEventExecutor<T>(add, remove, eventHandler);
 	}
 }

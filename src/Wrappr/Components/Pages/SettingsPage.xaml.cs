@@ -104,6 +104,5 @@ public sealed partial class SettingsPage : INavigable {
 	}
 
 	public string NavigationTag => nameof(SettingsPage);
-	public static string TypeNavigationTag => nameof(SettingsPage);
-	public static string NodeName(object? parameter) => Strings.SettingsTitle;
+	public string LocalizedName => Strings.SettingsTitle;
 }

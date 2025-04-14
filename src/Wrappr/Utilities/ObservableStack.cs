@@ -4,26 +4,23 @@ using System.Runtime.CompilerServices;
 
 namespace Wrappr.Utilities;
 
-public class ObservableStack<T>: Stack<T>, INotifyCollectionChanged, INotifyPropertyChanged {
+public class ObservableStack<T> : Stack<T>, INotifyCollectionChanged, INotifyPropertyChanged {
 	public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
 	public event PropertyChangedEventHandler? PropertyChanged;
 
-	public new T Pop()
-	{
+	public new T Pop() {
 		var item = base.Pop();
 		OnCollectionChanged(NotifyCollectionChangedAction.Remove, item);
 		return item;
 	}
 
-	public new void Push(T item)
-	{
+	public new void Push(T item) {
 		base.Push(item);
 		OnCollectionChanged(NotifyCollectionChangedAction.Add, item);
 	}
 
-	public new void Clear()
-	{
+	public new void Clear() {
 		base.Clear();
 		OnCollectionChanged(NotifyCollectionChangedAction.Reset, default);
 	}

@@ -238,8 +238,8 @@
     <value>Open in tray at log in</value>
   </data>
     <data name="AppVersion" xml:space="preserve">
-    <value>2.0</value>
-  </data>
+      <value>2.1</value>
+    </data>
     <data name="SourcesPrefix" xml:space="preserve">
     <value>Source code:</value>
   </data>

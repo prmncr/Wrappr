@@ -35,50 +35,48 @@
                 </StackPanel>
             </Button>
         </components:Scaffold.Actions>
-        <components:Scaffold.Body>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBox
-                    Grid.Row="0"
-                    x:Name="ServiceSearch"
-                    PlaceholderText="{x:Bind resources:Strings.WrapperSearchPlaceholder}"
-                    TextChanged="ReloadSuggestions" />
-                <ScrollView
-                    Grid.Row="1"
-                    VerticalScrollMode="Enabled"
-                    Margin="0, 0, 0, 48"
-                    VerticalScrollBarVisibility="Visible">
-                    <ListView
-                        x:Name="ServiceList"
-                        DataFetchSize="10"
-                        SelectionChanged="SelectedServiceChanged"
-                        ItemsSource="{x:Bind ServiceNames}"
-                        IncrementalLoadingThreshold="1"
-                        IncrementalLoadingTrigger="Edge">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="data:ServiceNamePresenter">
-                                <StackPanel Margin="0, 10"
-                                            IsHitTestVisible="{Binding Path=IsPlaceholder, Converter={StaticResource BoolNegationConverter}}"
-                                            Orientation="Vertical">
-                                    <TextBlock
-                                        FontSize="14"
-                                        FontWeight="SemiBold"
-                                        FontFamily="{StaticResource JetBrainsMono}"
-                                        Text="{Binding Path=ServiceName}"
-                                        Visibility="{Binding Path=IsPlaceholder, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}" />
-                                    <TextBlock
-                                        x:Name="DisplayNameTextBlock"
-                                        FontSize="12"
-                                        Text="{Binding Path=DisplayName}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </ScrollView>
-            </Grid>
-        </components:Scaffold.Body>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBox
+                Grid.Row="0"
+                x:Name="ServiceSearch"
+                PlaceholderText="{x:Bind resources:Strings.WrapperSearchPlaceholder}"
+                TextChanged="ReloadSuggestions" />
+            <ScrollView
+                Grid.Row="1"
+                VerticalScrollMode="Enabled"
+                Margin="0, 0, 0, 48"
+                VerticalScrollBarVisibility="Visible">
+                <ListView
+                    x:Name="ServiceList"
+                    DataFetchSize="10"
+                    SelectionChanged="SelectedServiceChanged"
+                    ItemsSource="{x:Bind ServiceNames}"
+                    IncrementalLoadingThreshold="1"
+                    IncrementalLoadingTrigger="Edge">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:ServiceNamePresenter">
+                            <StackPanel Margin="0, 10"
+                                        IsHitTestVisible="{Binding Path=IsPlaceholder, Converter={StaticResource BoolNegationConverter}}"
+                                        Orientation="Vertical">
+                                <TextBlock
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    FontFamily="{StaticResource JetBrainsMono}"
+                                    Text="{Binding Path=ServiceName}"
+                                    Visibility="{Binding Path=IsPlaceholder, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}" />
+                                <TextBlock
+                                    x:Name="DisplayNameTextBlock"
+                                    FontSize="12"
+                                    Text="{Binding Path=DisplayName}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </Grid>
     </components:Scaffold>
 </Page>

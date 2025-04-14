@@ -6,30 +6,30 @@
         <Platforms>x64;ARM64</Platforms>
         <PublishProfile>win-$(Platform).pubxml</PublishProfile>
         <UseWinUI>true</UseWinUI>
-	    <Version>2.0.0</Version>
-	    <Configurations>Debug;Release</Configurations>
-		<EnableMsixTooling>true</EnableMsixTooling>
-	    <LangVersion>preview</LangVersion>
-	    <Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
-	    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Version>2.0.0</Version>
+        <Configurations>Debug;Release</Configurations>
+        <EnableMsixTooling>true</EnableMsixTooling>
+        <LangVersion>preview</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-	    <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
-	    <WindowsPackageType>None</WindowsPackageType>
+        <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+        <WindowsPackageType>None</WindowsPackageType>
     </PropertyGroup>
     <ItemGroup>
-        <None Remove="Components\Pages\Scaffold.xaml" />
-        <None Remove="Components\Pages\SettingsPage.xaml" />
-        <None Remove="Components\Pages\WrapperGroupsListViewerPage.xaml" />
-        <None Remove="Components\ToolbarIconResource.xaml" />
-        <None Remove="Controls\Toggle.xaml" />
-        <None Remove="Pages\CreateWrapperPage.xaml" />
-        <None Remove="Pages\NavigationRootPage.xaml" />
-        <None Remove="Pages\WrapperSettingsPage.xaml" />
+        <None Remove="Components\Pages\Scaffold.xaml"/>
+        <None Remove="Components\Pages\SettingsPage.xaml"/>
+        <None Remove="Components\Pages\WrapperGroupsListViewerPage.xaml"/>
+        <None Remove="Components\ToolbarIconResource.xaml"/>
+        <None Remove="Controls\Toggle.xaml"/>
+        <None Remove="Pages\CreateWrapperPage.xaml"/>
+        <None Remove="Pages\NavigationRootPage.xaml"/>
+        <None Remove="Pages\WrapperSettingsPage.xaml"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Manifest Include="$(ApplicationManifest)" />
+        <Manifest Include="$(ApplicationManifest)"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -44,18 +44,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-        <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.2.250402" />
-        <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.2.250402" />
-        <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.250402" />
-        <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.2.250402" />
-        <PackageReference Include="CoreWCF.Http" Version="1.7.0" />
-        <PackageReference Include="H.NotifyIcon.WinUI" Version="2.3.0" />
-        <PackageReference Include="System.ServiceModel.Http" Version="8.1.2" />
-        <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.4" />
-        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250108002" />
-        <PackageReference Include="TaskScheduler" Version="2.12.1" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+        <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.2.250402"/>
+        <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.2.250402"/>
+        <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.250402"/>
+        <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.2.250402"/>
+        <PackageReference Include="CoreWCF.Http" Version="1.7.0"/>
+        <PackageReference Include="H.NotifyIcon.WinUI" Version="2.3.0"/>
+        <PackageReference Include="System.ServiceModel.Http" Version="8.1.2"/>
+        <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.4"/>
+        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742"/>
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250108002"/>
+        <PackageReference Include="TaskScheduler" Version="2.12.1"/>
     </ItemGroup>
 
     <!--
@@ -64,10 +64,10 @@
     package has not yet been restored.
   -->
     <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-        <ProjectCapability Include="Msix" />
+        <ProjectCapability Include="Msix"/>
     </ItemGroup>
     <PropertyGroup Label="Globals">
-      <WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
+        <WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
     </PropertyGroup>
 
     <!--
@@ -107,15 +107,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Update="Assets\Images\icon64.ico" />
-        <Content Update="Assets\Fonts\JetBrainsMono.ttf" />
-        <Content Update="Assets\Images\logo1024.png" />
-        <Content Update="Assets\Images\logo128.png" />
-        <Content Update="Assets\Images\logo256.png" />
-        <Content Update="Assets\Images\logo512.png" />
-        <Content Update="Assets\Images\logo64.png" />
-        <Content Update="Assets\Fonts\SegoeIcons.ttf" />
-        <Content Update="Assets\Fonts\SegoeUI-Semibold.ttf" />
+        <Content Update="Assets\Images\icon64.ico"/>
+        <Content Update="Assets\Fonts\JetBrainsMono.ttf"/>
+        <Content Update="Assets\Images\logo1024.png"/>
+        <Content Update="Assets\Images\logo128.png"/>
+        <Content Update="Assets\Images\logo256.png"/>
+        <Content Update="Assets\Images\logo512.png"/>
+        <Content Update="Assets\Images\logo64.png"/>
+        <Content Update="Assets\Fonts\SegoeIcons.ttf"/>
+        <Content Update="Assets\Fonts\SegoeUI-Semibold.ttf"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -129,7 +129,7 @@
             <SubType>Designer</SubType>
         </Page>
         <Page Update="Components\Scaffold.xaml">
-          <SubType>Designer</SubType>
+            <SubType>Designer</SubType>
         </Page>
     </ItemGroup>
 
@@ -147,7 +147,7 @@
             <PackagePath>\</PackagePath>
         </None>
         <Page Update="Components\Pages\WrapperGroupsListViewerPage.xaml">
-          <Generator>MSBuild:Compile</Generator>
+            <Generator>MSBuild:Compile</Generator>
         </Page>
         <Page Update="Controls\TrayIcon">
             <Generator>MSBuild:Compile</Generator>
@@ -167,6 +167,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Wrappr.ElevatedService\Wrappr.ElevatedService.csproj" />
+        <ProjectReference Include="..\Wrappr.ElevatedService\Wrappr.ElevatedService.csproj"/>
     </ItemGroup>
 </Project>

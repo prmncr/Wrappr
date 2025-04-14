@@ -11,29 +11,28 @@ public partial class Navigation : ObservableObject {
 
 	private INavigator? Navigator { get; }
 
-	public static IEnumerable<NavigationNode> Trace => BackStack.Reverse();
+	public static IEnumerable<string> Trace => BackStack.Select(it => it.LocalizedName).Reverse();
 
-	private static readonly ObservableStack<NavigationNode> BackStack = new();
-	private static Page? CurrentPage => Instance.Navigator?.CurrentPage;
+	private static readonly ObservableStack<INavigable> BackStack = new();
 
 	private Navigation(INavigator navigator) {
 		Navigator = navigator;
 		BackStack.CollectionChanged += (_, _) => CanGoBack = BackStack.Count > 1;
 	}
 
-	public static void ChangePage<TNavigable>(object? dataContext = null) where TNavigable : INavigable {
-		Instance.Navigator?.ChangePage<TNavigable>();
-		CurrentPage!.DataContext = dataContext;
-		BackStack.Push(new NavigationNode(TNavigable.TypeNavigationTag, TNavigable.NodeName(dataContext), dataContext));
+	public static void ChangePage<TNavigable>(object? dataContext = null) where TNavigable : Page, INavigable {
+		if (Instance.Navigator?.ChangePage<TNavigable>(out var page) != true) return;
+		page!.DataContext = dataContext;
+		BackStack.Push(page);
 	}
 
-	public static void DropCurrentPageAndChange<TNavigable>(object? dataContext = null) where TNavigable : INavigable {
+	public static void DropCurrentPageAndChange<TNavigable>(object? dataContext = null) where TNavigable : Page, INavigable {
 		BackStack.Pop();
 		Instance.Navigator?.Back();
 		ChangePage<TNavigable>(dataContext);
 	}
 
-	public static void NewRoot<TNavigable>(object? dataContext = null) where TNavigable : INavigable {
+	public static void NewRoot<TNavigable>(object? dataContext = null) where TNavigable : Page, INavigable {
 		Clear();
 		ChangePage<TNavigable>(dataContext);
 	}
@@ -43,8 +42,8 @@ public partial class Navigation : ObservableObject {
 		Instance.Navigator?.Back();
 	}
 
-	public static void BackTo(NavigationNode node) {
-		while (Instance.Navigator?.CurrentPage is INavigable navigable && navigable.NavigationTag != node.Tag) {
+	public static void BackTo(int index) {
+		while (BackStack.Count - 1 != index) {
 			Back();
 		}
 	}
@@ -63,9 +62,7 @@ public partial class Navigation : ObservableObject {
 	}
 
 	public interface INavigator {
-		public Page? CurrentPage { get; }
-
-		public void ChangePage<TPage>();
+		public bool ChangePage<TNavigable>(out TNavigable? page) where TNavigable : Page, INavigable;
 
 		public void Back();
 

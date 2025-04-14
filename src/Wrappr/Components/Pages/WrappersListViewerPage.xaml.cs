@@ -11,9 +11,8 @@ public partial class WrappersListViewerPage : INavigable {
 	}
 
 	public string NavigationTag => nameof(WrappersListViewerPage);
-	public static string TypeNavigationTag => nameof(WrappersListViewerPage);
 
-	public static string NodeName(object? parameter) => Strings.WrappersTitle;
+	public string LocalizedName => Strings.WrappersTitle;
 
 	private void WrapperCardClicked(object sender, RoutedEventArgs e) {
 		Navigation.ChangePage<WrapperSettingsPage>((sender as FrameworkElement)!.DataContext);
