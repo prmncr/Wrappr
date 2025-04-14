@@ -11,24 +11,27 @@ public static class Program {
 
 		var app = builder.Build();
 
-		app.UseServiceModel(serviceBuilder =>
-		{
-			var binding = new WSHttpBinding(SecurityMode.None);
+		app.UseServiceModel(
+			serviceBuilder => {
+				var binding = new WSHttpBinding(SecurityMode.None);
 
-			serviceBuilder.AddService<Executor>();
-			serviceBuilder.AddServiceEndpoint<Executor, IElevatedServiceWorker>(
-				new BasicHttpBinding(),
-				new ServiceUrl {
-					Path = true,
-					Http = true
-				});
-			serviceBuilder.AddServiceEndpoint<Executor, IElevatedServiceWorker>(
-				binding,
-				new ServiceUrl {
-					Path = true,
-					Ws = true
-				});
-		});
+				serviceBuilder.AddService<Executor>();
+				serviceBuilder.AddServiceEndpoint<Executor, IElevatedServiceWorker>(
+					new BasicHttpBinding(),
+					new ServiceUrl {
+						Path = true,
+						Http = true
+					}
+				);
+				serviceBuilder.AddServiceEndpoint<Executor, IElevatedServiceWorker>(
+					binding,
+					new ServiceUrl {
+						Path = true,
+						Ws = true
+					}
+				);
+			}
+		);
 
 		var serviceMetadataBehavior = app.Services.GetRequiredService<ServiceMetadataBehavior>();
 		serviceMetadataBehavior.HttpGetEnabled = true;

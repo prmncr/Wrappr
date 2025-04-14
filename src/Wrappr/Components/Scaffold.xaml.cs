@@ -1,46 +1,47 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Markup;
 using Wrappr.Services;
-using Wrappr.Utilities;
 
 namespace Wrappr.Components;
 
-public partial class Scaffold
-{
-    public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
-        nameof(Title), typeof(string), typeof(Scaffold), new PropertyMetadata(null));
+[ContentProperty(Name = nameof(Body))]
+public partial class Scaffold {
+	public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
+		nameof(Title), typeof(string), typeof(Scaffold), new PropertyMetadata(null)
+	);
 
-    public string Title
-    {
-        get => (string)GetValue(TitleProperty);
-        set => SetValue(TitleProperty, value);
-    }
+	public string Title
+	{
+		get => (string)GetValue(TitleProperty);
+		set => SetValue(TitleProperty, value);
+	}
 
-    public static readonly DependencyProperty ActionsProperty = DependencyProperty.Register(
-        nameof(Actions), typeof(UIElement), typeof(Scaffold), new PropertyMetadata(null));
+	public static readonly DependencyProperty ActionsProperty = DependencyProperty.Register(
+		nameof(Actions), typeof(UIElement), typeof(Scaffold), new PropertyMetadata(null)
+	);
 
-    public UIElement Actions
-    {
-        get => (UIElement)GetValue(ActionsProperty);
-        set => SetValue(ActionsProperty, value);
-    }
+	public UIElement Actions
+	{
+		get => (UIElement)GetValue(ActionsProperty);
+		set => SetValue(ActionsProperty, value);
+	}
 
-    public static readonly DependencyProperty BodyProperty = DependencyProperty.Register(
-        nameof(Body), typeof(UIElement), typeof(Scaffold), new PropertyMetadata(null)
-    );
+	public static readonly DependencyProperty BodyProperty = DependencyProperty.Register(
+		nameof(Body), typeof(UIElement), typeof(Scaffold), new PropertyMetadata(null)
+	);
 
-    public UIElement Body
-    {
-        get => (UIElement)GetValue(BodyProperty);
-        set => SetValue(BodyProperty, value);
-    }
+	public UIElement Body
+	{
+		get => (UIElement)GetValue(BodyProperty);
+		set => SetValue(BodyProperty, value);
+	}
 
-    public Scaffold()
-    {
-        InitializeComponent();
-    }
+	public Scaffold() {
+		InitializeComponent();
+	}
 
-    private void NavigateToClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args) {
-        Navigation.BackTo((NavigationNode)args.Item);
-    }
+	private void NavigateToClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args) {
+		Navigation.BackTo(args.Index);
+	}
 }

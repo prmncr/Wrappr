@@ -16,5 +16,5 @@ public sealed partial class WrapperSettingsPage : INavigable {
 
 	public string NavigationTag => nameof(WrapperSettingsPage);
 	public static string TypeNavigationTag => nameof(WrapperSettingsPage);
-	public static string NodeName(object? parameter) => (parameter as Wrapper)!.ServiceName;
+	public string LocalizedName => (DataContext as Wrapper)!.ServiceName;
 }

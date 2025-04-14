@@ -50,26 +50,23 @@
                 </StackPanel>
             </Button>
         </components:Scaffold.Actions>
-        <components:Scaffold.Body>
-            <ScrollView
+        <ScrollView
+            Padding="0"
+            Margin="0">
+            <ListView
+                ItemsSource="{x:Bind model:Wrappers.Instance.Storage}"
+                ItemTemplate="{StaticResource WrapperTemplate}"
                 Padding="0"
                 Margin="0"
-                Grid.Row="1">
-                <ListView
-                    ItemsSource="{x:Bind model:Wrappers.Instance.Storage}"
-                    ItemTemplate="{StaticResource WrapperTemplate}"
-                    Padding="0"
-                    Margin="0"
-                    SelectionMode="None">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            <Setter Property="Margin" Value="0,0,0,8" />
-                            <Setter Property="Padding" Value="0" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </ScrollView>
-        </components:Scaffold.Body>
+                SelectionMode="None">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Margin" Value="0,0,0,8" />
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </ScrollView>
     </components:Scaffold>
 </Page>

@@ -16,12 +16,10 @@
                 </TextBlock>
             </Button>
         </components:Scaffold.Actions>
-        <components:Scaffold.Body>
-            <Grid>
-                <TextBlock>
-                    CONTENT SAMPLE
-                </TextBlock>
-            </Grid>
-        </components:Scaffold.Body>
+        <Grid>
+            <TextBlock>
+                CONTENT SAMPLE
+            </TextBlock>
+        </Grid>
     </components:Scaffold>
 </Page>

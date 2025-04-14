@@ -1,17 +1,15 @@
+using Microsoft.UI.Xaml;
 using Wrappr.Resources;
+using Wrappr.Services;
 using Wrappr.Utilities;
 
 namespace Wrappr.Components.Pages;
 
-public sealed partial class WrapperGroupsListViewerPage : INavigable
-{
-    public WrapperGroupsListViewerPage()
-    {
-        InitializeComponent();
-    }
+public sealed partial class WrapperGroupsListViewerPage : INavigable {
+	public WrapperGroupsListViewerPage() {
+		InitializeComponent();
+	}
 
-    public static string TypeNavigationTag => nameof(WrapperGroupsListViewerPage);
-
-    public string NavigationTag => nameof(WrapperGroupsListViewerPage);
-    public static string NodeName(object? parameter) => Strings.WrapperGroupsPageTitle;
+	public string NavigationTag => nameof(WrapperGroupsListViewerPage);
+	public string LocalizedName => Strings.WrapperGroupsPageTitle;
 }

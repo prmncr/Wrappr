@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <UserControl
     x:Class="Wrappr.Components.Scaffold"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:services="using:Wrappr.Services"
-    xmlns:utils="using:Wrappr.Utilities"
     mc:Ignorable="d">
 
     <Grid Margin="36, 0">
@@ -22,22 +22,22 @@
                 </Grid.ColumnDefinitions>
                 <BreadcrumbBar Grid.Column="0" ItemsSource="{x:Bind services:Navigation.Trace}" ItemClicked="NavigateToClicked">
                     <BreadcrumbBar.ItemTemplate>
-                        <DataTemplate x:DataType="utils:NavigationNode">
-                            <TextBlock Text="{x:Bind NodeName}"/>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBlock Text="{x:Bind}" />
                         </DataTemplate>
                     </BreadcrumbBar.ItemTemplate>
                 </BreadcrumbBar>
                 <ContentControl
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
-                    Grid.Column="1" 
-                    Content="{x:Bind Actions}"/>
+                    Grid.Column="1"
+                    Content="{x:Bind Actions}" />
 
             </Grid>
         </Border>
         <ContentPresenter
             Grid.Row="1"
             HorizontalAlignment="Stretch"
-            Content="{x:Bind Body}"/>
+            Content="{x:Bind Body}" />
     </Grid>
 </UserControl>

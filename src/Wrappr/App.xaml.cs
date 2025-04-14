@@ -56,11 +56,11 @@ public partial class App : Balloons.IBalloonSender {
 	}
 
 	private static void OpenWindow() {
-        if (_window != null) return;
-        _window = new MainWindow();
-        _window.Closed += (_, _) => _window = null;
-        _window.Show();
-    }
+		if (_window != null) return;
+		_window = new MainWindow();
+		_window.Closed += (_, _) => _window = null;
+		_window.Show();
+	}
 
 	private void ExitApplication() {
 		TaskbarIcon.Dispose();
