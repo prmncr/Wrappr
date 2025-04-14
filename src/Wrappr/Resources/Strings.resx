@@ -192,9 +192,9 @@
     <data name="WrapperSearchPlaceholder" xml:space="preserve">
     <value>Start typing service name...</value>
   </data>
-    <data name="MainPageTitle" xml:space="preserve">
-    <value>Home</value>
-  </data>
+    <data name="WrappersPageTitle" xml:space="preserve">
+      <value>Wrappers</value>
+    </data>
     <data name="CreateWrapperPageRedirectButtonText" xml:space="preserve">
     <value>Create...</value>
   </data>
@@ -254,5 +254,8 @@
   </data>
     <data name="NoServiceSelectedError" xml:space="preserve">
       <value>No service was selected</value>
+    </data>
+    <data name="WrapperGroupsPageTitle" xml:space="preserve">
+      <value>Groups</value>
     </data>
 </root>

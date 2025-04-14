@@ -16,9 +16,6 @@ public partial class App : Balloons.IBalloonSender {
 	private static Window? _window;
 
 	public App() {
-		#if DEBUG
-		Task.Run(() => ElevatedService.Program.Main([]));
-		#endif
 		Instance = this;
 		Balloons.Initialize(this);
 

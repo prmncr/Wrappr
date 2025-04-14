@@ -9,45 +9,32 @@
     xmlns:localization="using:Wrappr.Resources"
     xmlns:model="using:Wrappr.Model"
     xmlns:fonts="using:Wrappr"
+    Tag="{x:Bind localization:Strings.SettingsTitle}"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:components="using:Wrappr.Components"
     mc:Ignorable="d">
     <Page.DataContext>
         <model:Wrapper />
     </Page.DataContext>
-    <Grid
-        HorizontalAlignment="Stretch"
-        Margin="36, 0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Border
-            Margin="4, 32, 4, 24">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    FontSize="20"
-                    FontWeight="SemiBold"
-                    Text="{Binding Path=ServiceName}" />
-                <Button
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    Click="AfterWrapperDeleted"
-                    Command="{Binding Path=DeleteWrapperCommand}">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <FontIcon
-                            FontSize="16"
-                            Foreground="{StaticResource NegativeColor}"
-                            Glyph="{x:Bind fonts:Icons.Delete}" />
-                        <TextBlock Text="{x:Bind localization:Strings.DeleteWrapperButtonToolTip}" />
-                    </StackPanel>
-                </Button>
-            </Grid>
-        </Border>
-        <ScrollView
+    <components:Scaffold
+        Title="{Binding Path=ServiceName}">
+        <components:Scaffold.Actions>
+            <Button
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Click="AfterWrapperDeleted"
+                Command="{Binding Path=DeleteWrapperCommand}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <FontIcon
+                        FontSize="16"
+                        Foreground="{StaticResource NegativeColor}"
+                        Glyph="{x:Bind fonts:Icons.Delete}" />
+                    <TextBlock Text="{x:Bind localization:Strings.DeleteWrapperButtonToolTip}" />
+                </StackPanel>
+            </Button>
+        </components:Scaffold.Actions>
+        <components:Scaffold.Body>
+            <ScrollView
             Grid.Row="1"
             Margin="0, 0, 0, 48">
             <StackPanel
@@ -99,5 +86,6 @@
                 </controls:SettingsCard>
             </StackPanel>
         </ScrollView>
-    </Grid>
+        </components:Scaffold.Body>
+    </components:Scaffold>
 </Page>

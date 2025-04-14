@@ -11,6 +11,6 @@
         <MicaBackdrop Kind="Base" />
     </Window.SystemBackdrop>
     <Frame>
-        <pages:NavigationRootPage />
+        <pages:NavigationRoot />
     </Frame>
 </Window>

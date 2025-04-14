@@ -276,15 +276,6 @@ namespace Wrappr.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
-        /// </summary>
-        public static string MainPageTitle {
-            get {
-                return ResourceManager.GetString("MainPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No service found.
         /// </summary>
         public static string NoServiceFoundPlaceholder {
@@ -402,6 +393,15 @@ namespace Wrappr.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Groups.
+        /// </summary>
+        public static string WrapperGroupsPageTitle {
+            get {
+                return ResourceManager.GetString("WrapperGroupsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notify.
         /// </summary>
         public static string WrapperNotificationsToggleText {
@@ -443,6 +443,15 @@ namespace Wrappr.Resources {
         public static string WrapperSearchPlaceholder {
             get {
                 return ResourceManager.GetString("WrapperSearchPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrappers.
+        /// </summary>
+        public static string WrappersPageTitle {
+            get {
+                return ResourceManager.GetString("WrappersPageTitle", resourceCulture);
             }
         }
         

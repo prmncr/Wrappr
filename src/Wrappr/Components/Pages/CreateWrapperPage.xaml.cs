@@ -1,6 +1,7 @@
 using CommunityToolkit.WinUI.Collections;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Wrappr.Utilities;
 using Wrappr.Data;
 using Wrappr.Model;
 using Wrappr.Resources;
@@ -8,7 +9,7 @@ using Wrappr.Services;
 
 namespace Wrappr.Components.Pages;
 
-public sealed partial class CreateWrapperPage {
+public sealed partial class CreateWrapperPage : INavigable {
 	private readonly ServiceNamePresenterSource _source;
 
 	public CreateWrapperPage() {
@@ -41,8 +42,7 @@ public sealed partial class CreateWrapperPage {
 		}
 		var wrapper = new Wrapper(new WrapperConfig(service.ServiceName));
 		Wrappers.Instance.Storage.Add(wrapper);
-		Navigation.ChangePageAndRemovePrevious<WrapperSettingsPage>();
-		Navigation.CurrentPage!.DataContext = wrapper;
+		Navigation.DropCurrentPageAndChange<WrapperSettingsPage>(wrapper);
 	}
 
 	private class ServiceNamePresenterSource : IIncrementalSource<ServiceNamePresenter> {
@@ -81,4 +81,8 @@ public sealed partial class CreateWrapperPage {
 	private void SelectedServiceChanged(object sender, SelectionChangedEventArgs e) {
 		CreateButton.IsEnabled = ServiceList.SelectedItem is ServiceNamePresenter;
 	}
+
+	public string NavigationTag => nameof(CreateWrapperPage);
+	public static string TypeNavigationTag => nameof(CreateWrapperPage);
+	public static string NodeName(object? parameter) => Strings.CreateNewWrapperTitle;
 }

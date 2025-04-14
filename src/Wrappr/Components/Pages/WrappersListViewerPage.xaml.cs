@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
+using Wrappr.Resources;
 using Wrappr.Services;
 using Wrappr.Utilities;
 
@@ -9,11 +10,13 @@ public partial class WrappersListViewerPage : INavigable {
 		InitializeComponent();
 	}
 
-	public static string NavigationTag => nameof(WrappersListViewerPage);
+	public string NavigationTag => nameof(WrappersListViewerPage);
+	public static string TypeNavigationTag => nameof(WrappersListViewerPage);
+
+	public static string NodeName(object? parameter) => Strings.WrappersTitle;
 
 	private void WrapperCardClicked(object sender, RoutedEventArgs e) {
-		Navigation.ChangePage<WrapperSettingsPage>();
-		Navigation.CurrentPage!.DataContext = (sender as FrameworkElement)!.DataContext;
+		Navigation.ChangePage<WrapperSettingsPage>((sender as FrameworkElement)!.DataContext);
 	}
 
 	private void CreateWrapper(object sender, RoutedEventArgs e) {

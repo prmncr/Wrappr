@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.22621</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>Wrappr.ElevatedService</AssemblyName>
@@ -20,7 +20,8 @@
     <Using Include="Microsoft.Extensions.DependencyInjection.Extensions" />
     <PackageReference Include="CoreWCF.Primitives" Version="1.7.0" />
     <PackageReference Include="CoreWCF.Http" Version="1.7.0" />
-    <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.3" />
+    <PackageReference Include="System.ServiceModel.Http" Version="8.1.2" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.4" />
   </ItemGroup>
 
 </Project>

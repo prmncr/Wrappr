@@ -6,27 +6,20 @@ using Wrappr.Services;
 
 namespace Wrappr.Components.Pages;
 
-public sealed partial class NavigationRootPage : Navigation.INavigator, Snackbars.ISnackbarViewport {
-	public NavigationRootPage() {
+public sealed partial class NavigationRoot : Navigation.INavigator, Snackbars.ISnackbarViewport {
+	public NavigationRoot() {
 		InitializeComponent();
 
 		Navigation.Initialize(this);
 		Snackbars.Initialize(this);
 
 		RootNavigation.BackRequested += (_, _) => Navigation.Back();
-
-		MainViewport.Navigated += (_, _) => RootNavigation.IsBackEnabled = MainViewport.CanGoBack;
 	}
 
 	public Page? CurrentPage => MainViewport.Content as Page;
 
 	public void ChangePage<TPage>() {
 		MainViewport.Navigate(typeof(TPage));
-	}
-
-	public void ChangePageAndRemovePrevious<TPage>() {
-		MainViewport.Navigate(typeof(TPage));
-		MainViewport.BackStack.Remove(MainViewport.BackStack.Last());
 	}
 
 	public void Back() {
@@ -61,28 +54,14 @@ public sealed partial class NavigationRootPage : Navigation.INavigator, Snackbar
 		RightPaddingColumn.Width = new GridLength(window.AppWindow.TitleBar.RightInset / AppTitleBar.XamlRoot.RasterizationScale);
 	}
 
-	private void OnPaneDisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args) {
-		if (sender.PaneDisplayMode == NavigationViewPaneDisplayMode.Top) {
-			VisualStateManager.GoToState(this, "Top", true);
-		} else {
-			VisualStateManager.GoToState(this, args.DisplayMode == NavigationViewDisplayMode.Minimal ? "Compact" : "Default", true);
-		}
-	}
-
 	private void OnRootNavigationSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args) {
-		if (args.IsSettingsSelected) {
-			Navigation.TryChangePage<SettingsPage>();
-			Navigation.Clear();
-			RootNavigation.IsBackEnabled = false;
-		}
-
-		if (((NavigationViewItem)args.SelectedItem).Tag is not string tag) return;
-
-		if (tag == WrappersListViewerPage.NavigationTag) {
-			Navigation.TryChangePage<WrappersListViewerPage>();
-			Navigation.Clear();
-		}
-
-		RootNavigation.IsBackEnabled = false;
+		if (args.IsSettingsSelected)
+			Navigation.NewRoot<SettingsPage>();
+		if (((NavigationViewItem)args.SelectedItem).Tag is not string tag)
+			return;
+		if (tag == WrappersListViewerPage.TypeNavigationTag)
+			Navigation.NewRoot<WrappersListViewerPage>();
+		if (tag == WrapperGroupsListViewerPage.TypeNavigationTag)
+			Navigation.NewRoot<WrapperGroupsListViewerPage>();
 	}
 }

@@ -3,10 +3,11 @@ using Microsoft.Win32.TaskScheduler;
 using Wrappr.Data;
 using Wrappr.Resources;
 using Wrappr.Services;
+using Wrappr.Utilities;
 
 namespace Wrappr.Components.Pages;
 
-public sealed partial class SettingsPage {
+public sealed partial class SettingsPage : INavigable {
 	private const string TaskName = "Wrappr";
 	private const string SilentArg = "--silent";
 	private readonly TaskService _taskService = new();
@@ -74,7 +75,7 @@ public sealed partial class SettingsPage {
 				Snackbars.ShowSnackbar(
 					new SnackbarData(
 						Strings.AddedToAutoStartTitle,
-						InfoBarSeverity.Success, null
+						InfoBarSeverity.Success
 					)
 				);
 			}
@@ -101,4 +102,8 @@ public sealed partial class SettingsPage {
 			public override string Localized => Strings.HideAtStart;
 		}
 	}
+
+	public string NavigationTag => nameof(SettingsPage);
+	public static string TypeNavigationTag => nameof(SettingsPage);
+	public static string NodeName(object? parameter) => Strings.SettingsTitle;
 }
