@@ -8,36 +8,35 @@ using Wrappr.Utilities;
 namespace Wrappr.Components.Pages;
 
 public sealed partial class NavigationRoot : Navigation.INavigator, Snackbars.ISnackbarViewport {
+	private readonly Dictionary<string, Type> _roots = new INavigable.RootInfoBuilder()
+		.Add<WrappersListViewerPage>()
+		.Add<WrapperGroupsListViewerPage>()
+		.Add<SettingsPage>();
+
 	public NavigationRoot() {
 		InitializeComponent();
 
 		Navigation.Initialize(this);
 		Snackbars.Initialize(this);
 
-		RootNavigation.BackRequested += (_, _) => Navigation.Back();
+		NavigationView.BackRequested += (_, _) => Navigation.Back();
 	}
 
-	public bool ChangePage<TNavigable>(out TNavigable? page) where TNavigable : Page, INavigable {
-		var changed = MainViewport.Navigate(typeof(TNavigable));
-		page = changed ? (TNavigable)MainViewport.Content : null;
+	public bool ChangePage(Type pageType, out Page? page) {
+		var changed = NavigationFrame.Navigate(pageType);
+		page = changed ? (Page)NavigationFrame.Content : null;
 		return changed;
 	}
 
 	public void Back() {
-		if (MainViewport.CanGoBack) {
-			MainViewport.GoBack();
-		}
-	}
-
-	public void Forward() {
-		if (MainViewport.CanGoForward) {
-			MainViewport.GoForward();
+		if (NavigationFrame.CanGoBack) {
+			NavigationFrame.GoBack();
 		}
 	}
 
 	public void Clear() {
-		MainViewport.BackStack.Clear();
-		MainViewport.ForwardStack.Clear();
+		NavigationFrame.BackStack.Clear();
+		NavigationFrame.ForwardStack.Clear();
 	}
 
 	public void ShowInfoBarMessage(SnackbarData message) {
@@ -56,17 +55,12 @@ public sealed partial class NavigationRoot : Navigation.INavigator, Snackbars.IS
 	}
 
 	private void OnRootNavigationSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args) {
-		if (args.IsSettingsSelected)
+		if (args.IsSettingsSelected) {
 			Navigation.NewRoot<SettingsPage>();
+			return;
+		}
 		if (((NavigationViewItem)args.SelectedItem).Tag is not string tag)
 			return;
-		switch (tag) {
-			case nameof(WrappersListViewerPage):
-				Navigation.NewRoot<WrappersListViewerPage>();
-				break;
-			case nameof(WrapperGroupsListViewerPage):
-				Navigation.NewRoot<WrapperGroupsListViewerPage>();
-				break;
-		}
+		Navigation.NewRoot(_roots[tag]);
 	}
 }

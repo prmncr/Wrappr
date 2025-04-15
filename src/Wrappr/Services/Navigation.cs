@@ -1,45 +1,39 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.UI.Xaml.Controls;
+﻿using Microsoft.UI.Xaml.Controls;
 using Wrappr.Utilities;
 
 namespace Wrappr.Services;
 
-public partial class Navigation : ObservableObject {
-	[ObservableProperty] public partial bool CanGoBack { get; set; }
-
-	public static Navigation Instance { get; private set; } = null!;
-
-	private INavigator? Navigator { get; }
+public static class Navigation {
+	private static INavigator? _navigator;
 
 	public static IEnumerable<string> Trace => BackStack.Select(it => it.LocalizedName).Reverse();
 
-	private static readonly ObservableStack<INavigable> BackStack = new();
+	private static readonly Stack<INavigable> BackStack = new();
 
-	private Navigation(INavigator navigator) {
-		Navigator = navigator;
-		BackStack.CollectionChanged += (_, _) => CanGoBack = BackStack.Count > 1;
-	}
+	public static void ChangePage<TNavigable>(object? dataContext = null) where TNavigable : Page, INavigable => ChangePage(typeof(TNavigable), dataContext);
 
-	public static void ChangePage<TNavigable>(object? dataContext = null) where TNavigable : Page, INavigable {
-		if (Instance.Navigator?.ChangePage<TNavigable>(out var page) != true) return;
+	public static void ChangePage(Type pageType, object? dataContext = null) {
+		if (_navigator?.ChangePage(pageType, out var page) != true) return;
 		page!.DataContext = dataContext;
-		BackStack.Push(page);
+		BackStack.Push((INavigable)page);
 	}
 
 	public static void DropCurrentPageAndChange<TNavigable>(object? dataContext = null) where TNavigable : Page, INavigable {
 		BackStack.Pop();
-		Instance.Navigator?.Back();
+		_navigator?.Back();
 		ChangePage<TNavigable>(dataContext);
 	}
 
-	public static void NewRoot<TNavigable>(object? dataContext = null) where TNavigable : Page, INavigable {
+	public static void NewRoot<TNavigable>(object? dataContext = null) where TNavigable : Page, INavigable => NewRoot(typeof(TNavigable), dataContext);
+
+	public static void NewRoot(Type pageType, object? dataContext = null) {
 		Clear();
-		ChangePage<TNavigable>(dataContext);
+        ChangePage(pageType, dataContext);
 	}
 
 	public static void Back() {
 		BackStack.Pop();
-		Instance.Navigator?.Back();
+		_navigator?.Back();
 	}
 
 	public static void BackTo(int index) {
@@ -48,25 +42,19 @@ public partial class Navigation : ObservableObject {
 		}
 	}
 
-	public static void Forward() {
-		Instance.Navigator?.Forward();
-	}
-
 	private static void Clear() {
 		BackStack.Clear();
-		Instance.Navigator?.Clear();
+		_navigator?.Clear();
 	}
 
 	public static void Initialize(INavigator navigator) {
-		Instance = new Navigation(navigator);
+		_navigator = navigator;
 	}
 
 	public interface INavigator {
-		public bool ChangePage<TNavigable>(out TNavigable? page) where TNavigable : Page, INavigable;
+		public bool ChangePage(Type pageType, out Page? page);
 
 		public void Back();
-
-		public void Forward();
 
 		public void Clear();
 	}

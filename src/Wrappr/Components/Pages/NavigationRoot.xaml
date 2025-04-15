@@ -52,10 +52,10 @@
         </Grid>
 
         <NavigationView
-            x:Name="RootNavigation"
+            x:Name="NavigationView"
             IsPaneOpen="False"
             PaneDisplayMode="Top"
-            IsBackEnabled="{x:Bind Path=services:Navigation.Instance.CanGoBack, Mode=TwoWay}"
+            IsBackButtonVisible="Collapsed"
             SelectionChanged="OnRootNavigationSelectionChanged"
             Grid.Row="1">
             <NavigationView.MenuItems>
@@ -68,7 +68,7 @@
                     Tag="{utilities:NameOf Type=pages:WrapperGroupsListViewerPage}" />
             </NavigationView.MenuItems>
             <Frame
-                x:Name="MainViewport"
+                x:Name="NavigationFrame"
                 IsNavigationStackEnabled="True" />
         </NavigationView>
 

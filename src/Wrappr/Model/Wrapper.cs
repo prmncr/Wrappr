@@ -173,28 +173,26 @@ public partial class Wrapper : ObservableObject {
 		if (Service == null) return;
 		if (!IsTrackingEnabled) return;
 		var dispatcher = DispatcherQueue.GetForCurrentThread();
-		_serviceStatusMonitor = new ServiceStatusMonitor(
-			Service, newStatus => {
-				if (IsNotificationsEnabled) {
-					Balloons.ShowBalloonMessage(
-						new BalloonMessageData {
-							Title = Strings.ServiceStatusWasChangedBalloonTitle,
-							Message = string.Format(Strings.ServiceStatusWasChangedBalloonText, Service?.ServiceName, newStatus),
-							Icon = NotificationIcon.Info
-						}
-					);
-				}
-				Service!.Refresh();
-				dispatcher.TryEnqueue(
-					DispatcherQueuePriority.High, () => {
-						Enabled = Service.Status == ServiceControllerStatus.Running;
-					}
-				);
-			}
-		) {
-			PollingDelay = PollingDelay
-		};
+
+		_serviceStatusMonitor = new ServiceStatusMonitor(Service, StatusChangedCallback) { PollingDelay = PollingDelay };
 		_ = Task.Run(_serviceStatusMonitor!.WatchServiceStatus, _serviceStatusMonitor.CancellationTokenSource.Token);
+		return;
+
+		void StatusChangedCallback(ServiceControllerStatus newStatus) {
+			if (IsNotificationsEnabled) {
+				Balloons.ShowBalloonMessage(new BalloonMessageData {
+					Title = Strings.ServiceStatusWasChangedBalloonTitle,
+					Message = string.Format(Strings.ServiceStatusWasChangedBalloonText, Service?.ServiceName, newStatus),
+					Icon = NotificationIcon.Info
+				});
+			}
+			Service!.Refresh();
+			dispatcher.TryEnqueue(
+				DispatcherQueuePriority.High, () => {
+					Enabled = Service.Status == ServiceControllerStatus.Running;
+				}
+			);
+		}
 	}
 
 	private void UpdateMonitor() {
