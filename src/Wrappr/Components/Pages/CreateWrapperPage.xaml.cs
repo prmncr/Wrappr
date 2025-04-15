@@ -82,6 +82,5 @@ public sealed partial class CreateWrapperPage : INavigable {
 		CreateButton.IsEnabled = ServiceList.SelectedItem is ServiceNamePresenter;
 	}
 
-	public string NavigationTag => nameof(CreateWrapperPage);
 	public string LocalizedName => Strings.CreateNewWrapperTitle;
 }

@@ -10,8 +10,6 @@ public partial class WrappersListViewerPage : INavigable {
 		InitializeComponent();
 	}
 
-	public string NavigationTag => nameof(WrappersListViewerPage);
-
 	public string LocalizedName => Strings.WrappersTitle;
 
 	private void WrapperCardClicked(object sender, RoutedEventArgs e) {

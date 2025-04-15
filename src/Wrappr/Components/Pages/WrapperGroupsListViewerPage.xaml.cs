@@ -10,6 +10,5 @@ public sealed partial class WrapperGroupsListViewerPage : INavigable {
 		InitializeComponent();
 	}
 
-	public string NavigationTag => nameof(WrapperGroupsListViewerPage);
 	public string LocalizedName => Strings.WrapperGroupsPageTitle;
 }
