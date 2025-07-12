@@ -12,20 +12,14 @@ using Wrappr.Utilities;
 namespace Wrappr.Model;
 
 public partial class Wrapper : ObservableObject {
-	private bool _isNotificationsEnabled;
-
-	private bool _isTrackingEnabled;
-
-	private int _pollingDelay;
-
 	private ServiceStatusMonitor? _serviceStatusMonitor;
 
 	public Wrapper() { }
 
 	public Wrapper(WrapperConfig config) {
-		_pollingDelay = config.PollingDelay;
-		_isTrackingEnabled = config.Tracked;
-		_isNotificationsEnabled = config.Notified;
+		PollingDelay = config.PollingDelay;
+		IsTrackingEnabled = config.Tracked;
+		IsNotificationsEnabled = config.Notified;
 
 		if (config.Name == null) {
 			IsInitialized = false;
@@ -69,9 +63,10 @@ public partial class Wrapper : ObservableObject {
 
 	public bool IsTrackingEnabled
 	{
-		get => _isTrackingEnabled;
-		private set {
-			_isTrackingEnabled = value;
+		get;
+		private set
+		{
+			field = value;
 			UpdateWrapper();
 			OnPropertyChanged();
 		}
@@ -79,9 +74,10 @@ public partial class Wrapper : ObservableObject {
 
 	public bool IsNotificationsEnabled
 	{
-		get => _isNotificationsEnabled;
-		private set {
-			_isNotificationsEnabled = value;
+		get;
+		private set
+		{
+			field = value;
 			UpdateWrapper();
 			OnPropertyChanged();
 		}
@@ -89,9 +85,10 @@ public partial class Wrapper : ObservableObject {
 
 	public int PollingDelay
 	{
-		get => _pollingDelay;
-		set {
-			_pollingDelay = value;
+		get;
+		set
+		{
+			field = value;
 			UpdateWrapper();
 			OnPropertyChanged();
 		}
@@ -147,7 +144,7 @@ public partial class Wrapper : ObservableObject {
 
 	private async Task<string?> Disable() {
 		try {
-			await ElevatedTaskExecutorProvider.Stop(Service!);
+			Service!.Stop();
 			IsWaitingForStatusChange = true;
 			await Task.Run(() => Service?.WaitForStatus(ServiceControllerStatus.Stopped));
 			IsWaitingForStatusChange = false;
@@ -159,7 +156,7 @@ public partial class Wrapper : ObservableObject {
 
 	private async Task<string?> Enable() {
 		try {
-			await ElevatedTaskExecutorProvider.Start(Service!);
+			Service!.Start();
 			IsWaitingForStatusChange = true;
 			await Task.Run(() => Service?.WaitForStatus(ServiceControllerStatus.Running));
 			IsWaitingForStatusChange = false;

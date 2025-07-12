@@ -165,8 +165,4 @@
             <Generator>MSBuild:Compile</Generator>
         </Page>
     </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\Wrappr.ElevatedService\Wrappr.ElevatedService.csproj"/>
-    </ItemGroup>
 </Project>
