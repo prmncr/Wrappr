@@ -5,8 +5,6 @@ VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wrappr", "src\Wrappr\Wrappr.csproj", "{3AF2A433-4476-474A-BB4D-BC67BAF9A999}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wrappr.ElevatedService", "src\Wrappr.ElevatedService\Wrappr.ElevatedService.csproj", "{C6B5E06F-82BF-40B1-9727-82EAED382F2B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,26 +43,6 @@ Global
 		{3AF2A433-4476-474A-BB4D-BC67BAF9A999}.Release|x64.Deploy.0 = Release|x64
 		{3AF2A433-4476-474A-BB4D-BC67BAF9A999}.Release|x86.ActiveCfg = Release|x64
 		{3AF2A433-4476-474A-BB4D-BC67BAF9A999}.Release|x86.Build.0 = Release|x64
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Debug|ARM.Build.0 = Debug|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Debug|x64.Build.0 = Debug|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Debug|x86.Build.0 = Debug|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Release|ARM.ActiveCfg = Release|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Release|ARM.Build.0 = Release|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Release|ARM64.Build.0 = Release|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Release|x64.ActiveCfg = Release|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Release|x64.Build.0 = Release|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Release|x86.ActiveCfg = Release|Any CPU
-		{C6B5E06F-82BF-40B1-9727-82EAED382F2B}.Release|x86.Build.0 = Release|Any CPU
 		{0CEF60E9-38EE-4F08-A4A2-8EFAF94FECFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0CEF60E9-38EE-4F08-A4A2-8EFAF94FECFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CEF60E9-38EE-4F08-A4A2-8EFAF94FECFD}.Debug|ARM.ActiveCfg = Debug|Any CPU

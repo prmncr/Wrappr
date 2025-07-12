@@ -23,8 +23,6 @@ public partial class App : Balloons.IBalloonSender {
 			Snackbars.ShowSnackbar(new SnackbarData(eventArgs.Exception));
 		};
 
-		ElevatedTaskExecutorProvider.Connect();
-
 		InitializeComponent();
 		Wrappers.Initialize();
 	}
