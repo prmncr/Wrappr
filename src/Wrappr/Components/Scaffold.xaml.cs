@@ -6,7 +6,8 @@ using Wrappr.Services;
 namespace Wrappr.Components;
 
 [ContentProperty(Name = nameof(Body))]
-public partial class Scaffold {
+public partial class Scaffold
+{
 	public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
 		nameof(Title), typeof(string), typeof(Scaffold), new PropertyMetadata(null)
 	);
@@ -37,11 +38,13 @@ public partial class Scaffold {
 		set => SetValue(BodyProperty, value);
 	}
 
-	public Scaffold() {
+	public Scaffold()
+	{
 		InitializeComponent();
 	}
 
-	private void NavigateToClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args) {
+	private void NavigateToClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
+	{
 		Navigation.BackTo(args.Index);
 	}
 }

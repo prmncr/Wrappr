@@ -4,14 +4,17 @@ using Wrappr.Resources;
 
 namespace Wrappr.Data;
 
-public partial class SnackbarData : ObservableObject {
-	public SnackbarData(string title, InfoBarSeverity severity, string? message = null) {
+public partial class SnackbarData : ObservableObject
+{
+	public SnackbarData(string title, InfoBarSeverity severity, string? message = null)
+	{
 		Title = title;
 		Severity = severity;
 		Message = message;
 	}
 
-	public SnackbarData(Exception exception) {
+	public SnackbarData(Exception exception)
+	{
 		#if DEBUG
 		Title = exception.Message;
 		Message = exception.StackTrace ?? "";

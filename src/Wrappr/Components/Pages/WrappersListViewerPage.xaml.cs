@@ -5,18 +5,22 @@ using Wrappr.Utilities;
 
 namespace Wrappr.Components.Pages;
 
-public partial class WrappersListViewerPage : INavigable {
-	public WrappersListViewerPage() {
+public partial class WrappersListViewerPage : INavigable
+{
+	public WrappersListViewerPage()
+	{
 		InitializeComponent();
 	}
 
 	public string LocalizedName => Strings.WrappersTitle;
 
-	private void WrapperCardClicked(object sender, RoutedEventArgs e) {
+	private void WrapperCardClicked(object sender, RoutedEventArgs e)
+	{
 		Navigation.ChangePage<WrapperSettingsPage>((sender as FrameworkElement)!.DataContext);
 	}
 
-	private void CreateWrapper(object sender, RoutedEventArgs e) {
+	private void CreateWrapper(object sender, RoutedEventArgs e)
+	{
 		Navigation.ChangePage<CreateWrapperPage>();
 	}
 }

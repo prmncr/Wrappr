@@ -1,6 +1,7 @@
 ﻿namespace Wrappr.Data;
 
-public record ServiceNamePresenter {
+public record ServiceNamePresenter
+{
 	public string ServiceName { get; init; } = "";
 
 	public string DisplayName { get; init; } = "";

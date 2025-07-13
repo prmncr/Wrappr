@@ -6,11 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:CommunityToolkit.WinUI.Converters"
     mc:Ignorable="d"
-    Loaded="OnLoaded"
     xmlns:resources="using:Wrappr.Resources"
-    xmlns:pages="using:Wrappr.Components.Pages"
-    xmlns:services="using:Wrappr.Services"
-    xmlns:utilities="using:Wrappr.Utilities">
+    xmlns:services="using:Wrappr.Services">
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Page.Resources>
@@ -23,12 +20,10 @@
         <Grid
             Canvas.ZIndex="10"
             Height="48"
-            x:Name="AppTitleBar"
             VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="16" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
             </Grid.ColumnDefinitions>
             <StackPanel
                 Spacing="12"
@@ -55,18 +50,10 @@
             x:Name="NavigationView"
             IsPaneOpen="False"
             PaneDisplayMode="Top"
-            IsBackButtonVisible="Collapsed"
-            SelectionChanged="OnRootNavigationSelectionChanged"
+            IsSettingsVisible="False"
+            IsBackEnabled="False"
+            IsPaneVisible="False"
             Grid.Row="1">
-            <NavigationView.MenuItems>
-                <NavigationViewItem
-                    Content="{x:Bind resources:Strings.WrappersPageTitle}"
-                    Tag="{utilities:NameOf Type=pages:WrappersListViewerPage}"
-                    IsSelected="True" />
-                <NavigationViewItem
-                    Content="{x:Bind resources:Strings.WrapperGroupsPageTitle}"
-                    Tag="{utilities:NameOf Type=pages:WrapperGroupsListViewerPage}" />
-            </NavigationView.MenuItems>
             <Frame
                 x:Name="NavigationFrame"
                 IsNavigationStackEnabled="True" />

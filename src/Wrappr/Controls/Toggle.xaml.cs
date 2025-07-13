@@ -4,7 +4,8 @@ using Microsoft.UI.Xaml.Input;
 
 namespace Wrappr.Controls;
 
-public sealed partial class Toggle {
+public sealed partial class Toggle
+{
 	public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
 		nameof(Value), typeof(bool), typeof(Toggle), new PropertyMetadata(false)
 	);
@@ -13,7 +14,8 @@ public sealed partial class Toggle {
 		nameof(OnCheckedCommand), typeof(ICommand), typeof(Toggle), new PropertyMetadata(null)
 	);
 
-	public Toggle() {
+	public Toggle()
+	{
 		InitializeComponent();
 	}
 
@@ -29,23 +31,28 @@ public sealed partial class Toggle {
 		set => SetValue(OnCheckedCommandProperty, value);
 	}
 
-	private void Toggled(object sender, RoutedEventArgs e) {
+	private void Toggled(object sender, RoutedEventArgs e)
+	{
 		OnCheckedCommand?.Execute(OutputToggleSwitch.IsOn);
 	}
 
-	private void Ghost_OnPointerEntered(object sender, PointerRoutedEventArgs e) {
+	private void Ghost_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+	{
 		VisualStateManager.GoToState(OutputToggleSwitch, "PointerOver", true);
 	}
 
-	private void Ghost_OnPointerExited(object sender, PointerRoutedEventArgs e) {
+	private void Ghost_OnPointerExited(object sender, PointerRoutedEventArgs e)
+	{
 		VisualStateManager.GoToState(OutputToggleSwitch, "Normal", true);
 	}
 
-	private void Ghost_OnPointerPressed(object sender, PointerRoutedEventArgs e) {
+	private void Ghost_OnPointerPressed(object sender, PointerRoutedEventArgs e)
+	{
 		VisualStateManager.GoToState(OutputToggleSwitch, "Pressed", true);
 	}
 
-	private void Ghost_OnPointerReleased(object sender, PointerRoutedEventArgs e) {
+	private void Ghost_OnPointerReleased(object sender, PointerRoutedEventArgs e)
+	{
 		VisualStateManager.GoToState(OutputToggleSwitch, "Normal", true);
 	}
 }

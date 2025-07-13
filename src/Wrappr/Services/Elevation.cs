@@ -6,14 +6,17 @@ using Microsoft.UI.Xaml;
 
 namespace Wrappr.Services;
 
-public static class Elevation {
+public static class Elevation
+{
 	private static ICommand? _elevateCommand;
 	public static bool IsElevated { get; } = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 
 	public static ICommand ElevateCommand => _elevateCommand ??= new RelayCommand(Elevate);
 
-	private static void Elevate() {
-		var processInfo = new ProcessStartInfo {
+	private static void Elevate()
+	{
+		var processInfo = new ProcessStartInfo
+		{
 			Verb = "runas",
 			UseShellExecute = true,
 			FileName = Environment.ProcessPath

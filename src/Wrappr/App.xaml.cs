@@ -12,14 +12,17 @@ using Wrappr.Utilities;
 
 namespace Wrappr;
 
-public partial class App : Balloons.IBalloonSender {
-	private static Window? _window;
+public partial class App : Balloons.IBalloonSender
+{
+	private static IWindow _window = null!;
 
-	public App() {
+	public App()
+	{
 		Instance = this;
 		Balloons.Initialize(this);
 
-		UnhandledException += (_, eventArgs) => {
+		UnhandledException += (_, eventArgs) =>
+		{
 			Snackbars.ShowSnackbar(new SnackbarData(eventArgs.Exception));
 		};
 
@@ -35,37 +38,41 @@ public partial class App : Balloons.IBalloonSender {
 
 	[field: AllowNull] [field: MaybeNull] public ICommand ExitApplicationCommand => field ??= new RelayCommand(ExitApplication);
 
-	public void ShowBalloonMessage(BalloonMessageData messageData) {
+	public void ShowBalloonMessage(BalloonMessageData messageData)
+	{
 		TaskbarIcon.ShowNotification(messageData.Title, messageData.Message, messageData.Icon);
 	}
 
-	protected override void OnLaunched(LaunchActivatedEventArgs args) {
+	protected override void OnLaunched(LaunchActivatedEventArgs args)
+	{
 		Arguments.Initialize(Environment.GetCommandLineArgs());
 		InitializeTrayIcon();
+
+		#if DEBUG
+		_window = new WinUiWindowAdapter(new MainWindow());
+		#else
+			_window = new PopupWindow(new MainWindow());
+		#endif
+
 		if (Arguments.Boot.IsSilentMode) return;
-		_window = new MainWindow();
-		_window.Activate();
-		_window.Closed += (_, _) => _window = null;
+		_window.Show();
 	}
 
-	private void InitializeTrayIcon() {
+	private void InitializeTrayIcon()
+	{
 		TaskbarIcon = new DynamicTaskbarIcon();
 		TaskbarIcon.ForceCreate();
 	}
 
-	private static void OpenWindow() {
-		if (_window != null) return;
-		_window = new MainWindow();
-		_window.Closed += (_, _) => _window = null;
+	private static void OpenWindow()
+	{
 		_window.Show();
 	}
 
-	private void ExitApplication() {
+	private void ExitApplication()
+	{
 		TaskbarIcon.Dispose();
-		_window?.Close();
-
-		if (_window == null) {
-			Environment.Exit(0);
-		}
+		_window.Close();
+		Environment.Exit(0);
 	}
 }

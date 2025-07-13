@@ -1,5 +1,4 @@
 using System.Drawing;
-using System.Runtime.InteropServices;
 using Windows.Graphics;
 using CommunityToolkit.Mvvm.Input;
 using H.NotifyIcon;
@@ -15,11 +14,13 @@ using WinRT.Interop;
 using Wrappr.Model;
 using Wrappr.Resources;
 using Wrappr.Services;
+using Wrappr.Utilities;
 using Size = Windows.Foundation.Size;
 
 namespace Wrappr.Controls;
 
-public partial class DynamicTaskbarIcon {
+public class DynamicTaskbarIcon
+{
 	private const string IconPath = "Assets/Images/icon64.ico";
 	private readonly AppWindow _appWindow;
 	private readonly Frame _frame;
@@ -30,8 +31,10 @@ public partial class DynamicTaskbarIcon {
 	private MenuFlyout _flyout;
 	private bool _isContextMenuVisible;
 
-	public DynamicTaskbarIcon() {
-		_taskbarIcon = new TaskbarIcon {
+	public DynamicTaskbarIcon()
+	{
+		_taskbarIcon = new TaskbarIcon
+		{
 			Visibility = Visibility.Visible,
 			ToolTipText = Strings.AppName,
 			ContextMenuMode = ContextMenuMode.SecondWindow,
@@ -43,7 +46,8 @@ public partial class DynamicTaskbarIcon {
 
 		_frame = new Frame { Background = new SolidColorBrush(Colors.Transparent) };
 
-		_window = new Window {
+		_window = new Window
+		{
 			Content = _frame,
 			Title = "Tray Dialog Helper"
 		};
@@ -68,19 +72,23 @@ public partial class DynamicTaskbarIcon {
 
 		_flyout = PrepareFlyout(GetItems().ToList());
 
-		_frame.Loaded += (_, _) => {
+		_frame.Loaded += (_, _) =>
+		{
 			HwndUtilities.SetWindowStyleAsPopupWindow(_hWnd);
 
 			_flyout.ShowAt(
-				_window.Content, new FlyoutShowOptions {
+				_window.Content, new FlyoutShowOptions
+				{
 					ShowMode = FlyoutShowMode.Transient
 				}
 			);
 			_flyout.Hide();
 		};
 
-		_window.Activated += (sender, args) => {
-			if (args.WindowActivationState == WindowActivationState.Deactivated) {
+		_window.Activated += (sender, args) =>
+		{
+			if (args.WindowActivationState == WindowActivationState.Deactivated)
+			{
 				_isContextMenuVisible = false;
 				_flyout.Hide();
 				_ = WindowUtilities.HideWindow(_hWnd);
@@ -89,20 +97,25 @@ public partial class DynamicTaskbarIcon {
 
 			_isContextMenuVisible = true;
 			_flyout.ShowAt(
-				_window.Content, new FlyoutShowOptions {
+				_window.Content, new FlyoutShowOptions
+				{
 					ShowMode = FlyoutShowMode.Transient
 				}
 			);
 		};
 	}
 
-	public static implicit operator TaskbarIcon(DynamicTaskbarIcon dynamicTaskbarIcon) {
+	public static implicit operator TaskbarIcon(DynamicTaskbarIcon dynamicTaskbarIcon)
+	{
 		return dynamicTaskbarIcon._taskbarIcon;
 	}
 
-	private static List<MenuFlyoutItemBase> GetTopControls() {
-		return [
-			new MenuFlyoutItem {
+	private static List<MenuFlyoutItemBase> GetTopControls()
+	{
+		return
+		[
+			new MenuFlyoutItem
+			{
 				Text = Strings.ContextMenuOpenApp,
 				Command = App.OpenWindowCommand,
 				Icon = new SymbolIcon(Symbol.Home)
@@ -111,10 +124,13 @@ public partial class DynamicTaskbarIcon {
 		];
 	}
 
-	private static List<MenuFlyoutItemBase> GetBottomControls() {
-		return [
+	private static List<MenuFlyoutItemBase> GetBottomControls()
+	{
+		return
+		[
 			new MenuFlyoutSeparator(),
-			new MenuFlyoutItem {
+			new MenuFlyoutItem
+			{
 				Text = Strings.ContextMenuCloseApp,
 				Icon = new FontIcon { Glyph = Icons.PowerButton },
 				Command = App.Instance.ExitApplicationCommand
@@ -122,24 +138,28 @@ public partial class DynamicTaskbarIcon {
 		];
 	}
 
-	private void UpdateFlyout() {
-		var point = new NativePoint();
-		GetCursorPos(ref point);
+	private void UpdateFlyout()
+	{
 		var content = GetItems().ToList();
 		_flyout = PrepareFlyout(content);
-		ShowContextMenu(point, content);
+		ShowContextMenu(Cursor.Position, content);
 	}
 
-	private static IEnumerable<MenuFlyoutItemBase> GetWrappers() {
-		if (Wrappers.Instance.Storage.Count == 0) {
-			yield return new MenuFlyoutItem {
+	private static IEnumerable<MenuFlyoutItemBase> GetWrappers()
+	{
+		if (Wrappers.Instance.Storage.Count == 0)
+		{
+			yield return new MenuFlyoutItem
+			{
 				IsEnabled = false,
 				Text = Strings.NoWrappersPopupPlaceholder
 			};
 			yield break;
 		}
-		foreach (var it in Wrappers.Instance.Storage) {
-			var item = new ToggleMenuFlyoutItem {
+		foreach (var it in Wrappers.Instance.Storage)
+		{
+			var item = new ToggleMenuFlyoutItem
+			{
 				Text = it.ServiceName,
 				IsChecked = it.Enabled,
 				IsEnabled = Elevation.IsElevated
@@ -150,20 +170,24 @@ public partial class DynamicTaskbarIcon {
 		}
 	}
 
-	private static IEnumerable<MenuFlyoutItemBase> GetItems() {
+	private static IEnumerable<MenuFlyoutItemBase> GetItems()
+	{
 		return GetTopControls().Concat(GetWrappers()).Concat(GetBottomControls());
 	}
 
-	private void ShowContextMenu(Point cursorPosition, IEnumerable<MenuFlyoutItemBase> content) {
+	private void ShowContextMenu(Point cursorPosition, IEnumerable<MenuFlyoutItemBase> content)
+	{
 		var maxSize = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
 		var width = 100.0;
 		var height = 8.0;
 
-		foreach (var item in content) {
+		foreach (var item in content)
+		{
 			item.Measure(maxSize);
 
-			if (item is MenuFlyoutItem i) {
+			if (item is MenuFlyoutItem i)
+			{
 				width = Math.Max(width, item.FontSize * i.Text.Length);
 			}
 			height += item.DesiredSize.Height;
@@ -183,21 +207,27 @@ public partial class DynamicTaskbarIcon {
 		WindowUtilities.SetForegroundWindow(_hWnd);
 	}
 
-	private MenuFlyout PrepareFlyout(IEnumerable<MenuFlyoutItemBase> content) {
-		var flyout = new MenuFlyout {
+	private MenuFlyout PrepareFlyout(IEnumerable<MenuFlyoutItemBase> content)
+	{
+		var flyout = new MenuFlyout
+		{
 			AreOpenCloseAnimationsEnabled = true,
 			Placement = FlyoutPlacementMode.Full
 		};
 
-		foreach (var flyoutItemBase in content) {
-			if (flyoutItemBase is not MenuFlyoutSeparator) {
+		foreach (var flyoutItemBase in content)
+		{
+			if (flyoutItemBase is not MenuFlyoutSeparator)
+			{
 				flyoutItemBase.Height = 32;
 				flyoutItemBase.Padding = new Thickness(11, 0, 11, 0);
 			}
 			flyout.Items.Add(flyoutItemBase);
 
-			if (flyoutItemBase is MenuFlyoutItem item) {
-				item.Click += (_, _) => {
+			if (flyoutItemBase is MenuFlyoutItem item)
+			{
+				item.Click += (_, _) =>
+				{
 					_isContextMenuVisible = false;
 					flyout.Hide();
 					_ = WindowUtilities.HideWindow(_hWnd);
@@ -205,33 +235,22 @@ public partial class DynamicTaskbarIcon {
 			}
 		}
 
-		flyout.Closed += async (_, _) => {
-			if (!flyout.AreOpenCloseAnimationsEnabled || !_isContextMenuVisible) {
+		flyout.Closed += async (_, _) =>
+		{
+			if (!flyout.AreOpenCloseAnimationsEnabled || !_isContextMenuVisible)
+			{
 				_ = WindowUtilities.HideWindow(_hWnd);
 				return;
 			}
 
 			await Task.Delay(1).ConfigureAwait(true);
 			flyout.ShowAt(
-				_window.Content, new FlyoutShowOptions {
+				_window.Content, new FlyoutShowOptions
+				{
 					ShowMode = FlyoutShowMode.Transient
 				}
 			);
 		};
 		return flyout;
-	}
-
-	[LibraryImport("User32.dll")]
-	[return: MarshalAs(UnmanagedType.Bool)]
-	private static partial void GetCursorPos(ref NativePoint nativePoint);
-
-	[StructLayout(LayoutKind.Sequential)]
-	private struct NativePoint {
-		public int X;
-		public int Y;
-
-		public static implicit operator Point(NativePoint nativePoint) {
-			return new Point(nativePoint.X, nativePoint.Y);
-		}
 	}
 }
