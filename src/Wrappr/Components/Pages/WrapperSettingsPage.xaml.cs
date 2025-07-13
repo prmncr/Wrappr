@@ -5,12 +5,15 @@ using Wrappr.Utilities;
 
 namespace Wrappr.Components.Pages;
 
-public sealed partial class WrapperSettingsPage : INavigable {
-	public WrapperSettingsPage() {
+public sealed partial class WrapperSettingsPage : INavigable
+{
+	public WrapperSettingsPage()
+	{
 		InitializeComponent();
 	}
 
-	private void AfterWrapperDeleted(object sender, RoutedEventArgs e) {
+	private void AfterWrapperDeleted(object sender, RoutedEventArgs e)
+	{
 		Navigation.Back();
 	}
 

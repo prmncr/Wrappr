@@ -11,17 +11,20 @@ using Wrappr.Utilities;
 
 namespace Wrappr.Model;
 
-public partial class Wrapper : ObservableObject {
+public partial class Wrapper : ObservableObject
+{
 	private ServiceStatusMonitor? _serviceStatusMonitor;
 
 	public Wrapper() { }
 
-	public Wrapper(WrapperConfig config) {
+	public Wrapper(WrapperConfig config)
+	{
 		PollingDelay = config.PollingDelay;
 		IsTrackingEnabled = config.Tracked;
 		IsNotificationsEnabled = config.Notified;
 
-		if (config.Name == null) {
+		if (config.Name == null)
+		{
 			IsInitialized = false;
 			ServiceName = Strings.EmptyWrapperDisplayName;
 			DisplayName = Strings.EmptyWrapperDisplayName;
@@ -34,7 +37,8 @@ public partial class Wrapper : ObservableObject {
 		DisplayName = Service?.DisplayName ?? Strings.EmptyWrapperDisplayName;
 		IsInitialized = true;
 
-		if (Service == null) {
+		if (Service == null)
+		{
 			return;
 		}
 		RecreateMonitor();
@@ -53,7 +57,8 @@ public partial class Wrapper : ObservableObject {
 	public bool Enabled
 	{
 		get;
-		set {
+		set
+		{
 			OnPropertyChanging();
 			field = value;
 			ServiceToggled?.Invoke(value);
@@ -96,24 +101,29 @@ public partial class Wrapper : ObservableObject {
 
 	public event Action<bool>? ServiceToggled;
 
-	private void UpdateWrapper() {
+	private void UpdateWrapper()
+	{
 		UpdateMonitor();
 		Wrappers.Instance.Save();
 	}
 
 	[RelayCommand]
-	public async Task ToggleService(bool switchedTo) {
-		if (Service == null) {
+	public async Task ToggleService(bool switchedTo)
+	{
+		if (Service == null)
+		{
 			Snackbars.ShowSnackbar(new SnackbarData(Strings.ErrorMessageTitle, InfoBarSeverity.Error, Strings.ServiceNotFoundMessage));
 			return;
 		}
 		string? message;
 		_serviceStatusMonitor?.Pause();
-		if (switchedTo) {
+		if (switchedTo)
+		{
 			message = await Disable();
 			await Task.Run(() => Service.WaitForStatus(ServiceControllerStatus.Stopped));
 			_serviceStatusMonitor?.ChangeInitialStatus(ServiceControllerStatus.Stopped);
-		} else {
+		} else
+		{
 			message = await Enable();
 			await Task.Run(() => Service.WaitForStatus(ServiceControllerStatus.Running));
 			_serviceStatusMonitor?.ChangeInitialStatus(ServiceControllerStatus.Running);
@@ -122,51 +132,62 @@ public partial class Wrapper : ObservableObject {
 		Service.Refresh();
 		Enabled = Service.Status == ServiceControllerStatus.Running;
 		_serviceStatusMonitor?.Resume();
-		if (message != null) {
+		if (message != null)
+		{
 			Snackbars.ShowSnackbar(new SnackbarData(Strings.ErrorMessageTitle, InfoBarSeverity.Error, message));
 		}
 	}
 
 	[RelayCommand]
-	private void ToggleNotifications() {
+	private void ToggleNotifications()
+	{
 		IsNotificationsEnabled = !IsNotificationsEnabled;
 	}
 
 	[RelayCommand]
-	private void ToggleTracking() {
+	private void ToggleTracking()
+	{
 		IsTrackingEnabled = !IsTrackingEnabled;
 	}
 
 	[RelayCommand]
-	private void DeleteWrapper() {
+	private void DeleteWrapper()
+	{
 		Wrappers.Instance.Storage.Remove(this);
 	}
 
-	private async Task<string?> Disable() {
-		try {
+	private async Task<string?> Disable()
+	{
+		try
+		{
 			Service!.Stop();
 			IsWaitingForStatusChange = true;
 			await Task.Run(() => Service?.WaitForStatus(ServiceControllerStatus.Stopped));
 			IsWaitingForStatusChange = false;
 			return null;
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			return e.Message;
 		}
 	}
 
-	private async Task<string?> Enable() {
-		try {
+	private async Task<string?> Enable()
+	{
+		try
+		{
 			Service!.Start();
 			IsWaitingForStatusChange = true;
 			await Task.Run(() => Service?.WaitForStatus(ServiceControllerStatus.Running));
 			IsWaitingForStatusChange = false;
 			return null;
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			return e.Message;
 		}
 	}
 
-	private void RecreateMonitor() {
+	private void RecreateMonitor()
+	{
 		if (Service == null) return;
 		if (!IsTrackingEnabled) return;
 		var dispatcher = DispatcherQueue.GetForCurrentThread();
@@ -175,32 +196,42 @@ public partial class Wrapper : ObservableObject {
 		_ = Task.Run(_serviceStatusMonitor!.WatchServiceStatus, _serviceStatusMonitor.CancellationTokenSource.Token);
 		return;
 
-		void StatusChangedCallback(ServiceControllerStatus newStatus) {
-			if (IsNotificationsEnabled) {
-				Balloons.ShowBalloonMessage(new BalloonMessageData {
-					Title = Strings.ServiceStatusWasChangedBalloonTitle,
-					Message = string.Format(Strings.ServiceStatusWasChangedBalloonText, Service?.ServiceName, newStatus),
-					Icon = NotificationIcon.Info
-				});
+		void StatusChangedCallback(ServiceControllerStatus newStatus)
+		{
+			if (IsNotificationsEnabled)
+			{
+				Balloons.ShowBalloonMessage(
+					new BalloonMessageData
+					{
+						Title = Strings.ServiceStatusWasChangedBalloonTitle,
+						Message = string.Format(Strings.ServiceStatusWasChangedBalloonText, Service?.ServiceName, newStatus),
+						Icon = NotificationIcon.Info
+					}
+				);
 			}
 			Service!.Refresh();
 			dispatcher.TryEnqueue(
-				DispatcherQueuePriority.High, () => {
+				DispatcherQueuePriority.High, () =>
+				{
 					Enabled = Service.Status == ServiceControllerStatus.Running;
 				}
 			);
 		}
 	}
 
-	private void UpdateMonitor() {
-		if (!IsTrackingEnabled) {
+	private void UpdateMonitor()
+	{
+		if (!IsTrackingEnabled)
+		{
 			_serviceStatusMonitor?.CancellationTokenSource.Cancel();
 			_serviceStatusMonitor = null;
 			return;
 		}
-		if (_serviceStatusMonitor != null) {
+		if (_serviceStatusMonitor != null)
+		{
 			_serviceStatusMonitor.PollingDelay = PollingDelay;
-		} else {
+		} else
+		{
 			RecreateMonitor();
 		}
 	}

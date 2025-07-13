@@ -3,7 +3,8 @@
 
 namespace Wrappr;
 
-public static class Icons {
+public static class Icons
+{
 	public const string GlobalNavButton = "\ue700";
 	public const string Wifi = "\ue701";
 	public const string Bluetooth = "\ue702";

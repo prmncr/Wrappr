@@ -2,7 +2,8 @@
 
 namespace Wrappr.Utilities;
 
-public class OneTimeEventExecutor<T> {
+public class OneTimeEventExecutor<T>
+{
 	private readonly Action<TypedEventHandler<object, T>> _remove;
 	private readonly TypedEventHandler<object, T> _eventHandler;
 
@@ -10,13 +11,15 @@ public class OneTimeEventExecutor<T> {
 		Action<TypedEventHandler<object, T>> add,
 		Action<TypedEventHandler<object, T>> remove,
 		TypedEventHandler<object, T> eventHandler
-	) {
+	)
+	{
 		_remove = remove;
 		_eventHandler = eventHandler;
 		add(Proxy);
 	}
 
-	private void Proxy(object o, T args) {
+	private void Proxy(object o, T args)
+	{
 		_eventHandler.Invoke(o, args);
 		_remove.Invoke(Proxy);
 	}
@@ -25,7 +28,8 @@ public class OneTimeEventExecutor<T> {
 		Action<TypedEventHandler<object, T>> add,
 		Action<TypedEventHandler<object, T>> remove,
 		TypedEventHandler<object, T> eventHandler
-	) {
+	)
+	{
 		_ = new OneTimeEventExecutor<T>(add, remove, eventHandler);
 	}
 }

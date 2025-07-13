@@ -5,8 +5,10 @@ using Wrappr.Utilities;
 
 namespace Wrappr.Components.Pages;
 
-public sealed partial class WrapperGroupsListViewerPage : INavigable {
-	public WrapperGroupsListViewerPage() {
+public sealed partial class WrapperGroupsListViewerPage : INavigable
+{
+	public WrapperGroupsListViewerPage()
+	{
 		InitializeComponent();
 	}
 

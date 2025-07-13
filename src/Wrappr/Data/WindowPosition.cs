@@ -2,7 +2,8 @@
 
 namespace Wrappr.Data;
 
-public record WindowPosition {
+public record WindowPosition
+{
 	[JsonInclude] public int PosX;
 	[JsonInclude] public int PosY;
 	[JsonInclude] public int Width = 490;

@@ -3,7 +3,8 @@ using Wrappr.Model;
 
 namespace Wrappr.Data;
 
-public record WrapperConfig {
+public record WrapperConfig
+{
 	[JsonInclude] public string? Name { get; init; }
 
 	[JsonInclude] public bool Tracked { get; init; }
@@ -12,8 +13,10 @@ public record WrapperConfig {
 
 	[JsonInclude] public int PollingDelay { get; init; }
 
-	public WrapperConfig(string? name = null, bool tracked = false, int pollingDelay = 1000, bool notified = false) {
-		if (name != null) {
+	public WrapperConfig(string? name = null, bool tracked = false, int pollingDelay = 1000, bool notified = false)
+	{
+		if (name != null)
+		{
 			Name = name;
 		}
 		Tracked = tracked;
@@ -21,8 +24,10 @@ public record WrapperConfig {
 		PollingDelay = pollingDelay;
 	}
 
-	public static WrapperConfig FromWrapper(Wrapper wrapper) {
-		return new WrapperConfig {
+	public static WrapperConfig FromWrapper(Wrapper wrapper)
+	{
+		return new WrapperConfig
+		{
 			Name = wrapper.ServiceName,
 			Tracked = wrapper.IsTrackingEnabled,
 			PollingDelay = wrapper.PollingDelay,

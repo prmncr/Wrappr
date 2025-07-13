@@ -9,29 +9,35 @@ using Wrappr.Services;
 
 namespace Wrappr.Components.Pages;
 
-public sealed partial class CreateWrapperPage : INavigable {
+public sealed partial class CreateWrapperPage : INavigable
+{
 	private readonly ServiceNamePresenterSource _source;
 
-	public CreateWrapperPage() {
+	public CreateWrapperPage()
+	{
 		InitializeComponent();
 
 		_source = new ServiceNamePresenterSource();
 		ServiceNames = new IncrementalLoadingCollection<ServiceNamePresenterSource, ServiceNamePresenter>(_source);
 
-		Loaded += (_, _) => {
+		Loaded += (_, _) =>
+		{
 			ServiceSearch.Focus(FocusState.Keyboard);
 		};
 	}
 
 	private IncrementalLoadingCollection<ServiceNamePresenterSource, ServiceNamePresenter> ServiceNames { get; }
 
-	private void ReloadSuggestions(object sender, TextChangedEventArgs e) {
+	private void ReloadSuggestions(object sender, TextChangedEventArgs e)
+	{
 		_source.Query = ((TextBox)sender).Text;
 		ServiceNames.RefreshAsync();
 	}
 
-	private void CreateWrapper(object sender, RoutedEventArgs e) {
-		if (ServiceList.SelectedItem is not ServiceNamePresenter service) {
+	private void CreateWrapper(object sender, RoutedEventArgs e)
+	{
+		if (ServiceList.SelectedItem is not ServiceNamePresenter service)
+		{
 			Snackbars.ShowSnackbar(
 				new SnackbarData(
 					Strings.NoServiceSelectedError,
@@ -45,27 +51,32 @@ public sealed partial class CreateWrapperPage : INavigable {
 		Navigation.DropCurrentPageAndChange<WrapperSettingsPage>(wrapper);
 	}
 
-	private class ServiceNamePresenterSource : IIncrementalSource<ServiceNamePresenter> {
+	private class ServiceNamePresenterSource : IIncrementalSource<ServiceNamePresenter>
+	{
 		private IEnumerable<ServiceNamePresenter> _source;
 
-		public ServiceNamePresenterSource() {
+		public ServiceNamePresenterSource()
+		{
 			_source = ReloadSuggestions();
 		}
 
 		public string Query
 		{
 			get;
-			set {
+			set
+			{
 				field = value;
 				_source = ReloadSuggestions();
 			}
 		} = "";
 
-		public Task<IEnumerable<ServiceNamePresenter>> GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken = new()) {
+		public Task<IEnumerable<ServiceNamePresenter>> GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken = new())
+		{
 			return Task.FromResult(_source.Skip(pageIndex * pageSize).Take(pageSize));
 		}
 
-		private List<ServiceNamePresenter> ReloadSuggestions() {
+		private List<ServiceNamePresenter> ReloadSuggestions()
+		{
 			var result = (string.IsNullOrEmpty(Query)
 					? Model.Services.GetAll()
 					: Model.Services.GetAll().Where(x => x.ServiceName.Contains(Query) || x.DisplayName.Contains(Query)))
@@ -78,7 +89,8 @@ public sealed partial class CreateWrapperPage : INavigable {
 		}
 	}
 
-	private void SelectedServiceChanged(object sender, SelectionChangedEventArgs e) {
+	private void SelectedServiceChanged(object sender, SelectionChangedEventArgs e)
+	{
 		CreateButton.IsEnabled = ServiceList.SelectedItem is ServiceNamePresenter;
 	}
 

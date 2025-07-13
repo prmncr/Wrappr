@@ -2,7 +2,8 @@
 
 namespace Wrappr.Utilities;
 
-public class ServiceStatusMonitor(ServiceController service, Action<ServiceControllerStatus> onStatusChanged) {
+public class ServiceStatusMonitor(ServiceController service, Action<ServiceControllerStatus> onStatusChanged)
+{
 	private ServiceControllerStatus _initialStatus = service.Status;
 	private bool _suppressed;
 
@@ -10,24 +11,30 @@ public class ServiceStatusMonitor(ServiceController service, Action<ServiceContr
 
 	public int PollingDelay { get; set; } = 1000;
 
-	public void Pause() {
+	public void Pause()
+	{
 		_suppressed = true;
 	}
 
-	public void Resume() {
+	public void Resume()
+	{
 		_suppressed = false;
 	}
 
-	public void ChangeInitialStatus(ServiceControllerStatus status) {
+	public void ChangeInitialStatus(ServiceControllerStatus status)
+	{
 		_initialStatus = status;
 	}
 
-	public void WatchServiceStatus() {
-		while (true) {
+	public void WatchServiceStatus()
+	{
+		while (true)
+		{
 			if (CancellationTokenSource.IsCancellationRequested) return;
 			if (_suppressed) continue;
 			service.Refresh();
-			if (_initialStatus == service.Status) {
+			if (_initialStatus == service.Status)
+			{
 				Thread.Sleep(PollingDelay);
 				continue;
 			}
