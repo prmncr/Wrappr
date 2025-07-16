@@ -4,102 +4,35 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:localization="using:Wrappr.Resources"
+    xmlns:components="using:Wrappr.Components"
+    xmlns:pages="using:Wrappr.Components.Pages"
     mc:Ignorable="d">
-    <Grid
-        Margin="36, 0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Border
-            Margin="4, 32, 4, 24">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock
-                    VerticalAlignment="Center"
-                    FontWeight="SemiBold"
-                    FontSize="20"
-                    Text="{x:Bind localization:Strings.SettingsTitle}" />
-            </Grid>
-        </Border>
-        <Grid
-            Grid.Row="1">
-            <ScrollView
-                Margin="0, 0, 0, 48">
-                <StackPanel
-                    HorizontalAlignment="Stretch"
-                    Orientation="Vertical"
-                    Spacing="8">
-                    <controls:SettingsCard
-                        Header="{x:Bind localization:Strings.AddTaskToSchedulerTitle}"
-                        Description="{x:Bind localization:Strings.AddTaskToSchedulerSubtitle}">
-                        <controls:SettingsCard.Resources>
-                            <!-- ReSharper disable Xaml.RedundantResource -->
-                            <x:Double x:Key="SettingsCardWrapThreshold">500</x:Double>
-                            <!-- ReSharper restore Xaml.RedundantResource -->
-                        </controls:SettingsCard.Resources>
-                        <ComboBox
-                            x:Name="AutostartComboBox"
-                            SelectionChanged="OnAutostartSettingChanged"
-                            MaxWidth="300"
-                            MinWidth="300" />
-                    </controls:SettingsCard>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontWeight="SemiBold"
-                            FontSize="20"
-                            Margin="0, 20"
-                            Text="{x:Bind localization:Strings.AboutWindowTitle}" />
-                        <TextBlock
-                            TextWrapping="WrapWholeWords"
-                            Grid.Row="1">
-                            <Run Text="{x:Bind localization:Strings.AppName}" />, version
-                            <Run Text="{x:Bind localization:Strings.AppVersion}" />,
-                            <Run>by prmncr.</Run>
-                        </TextBlock>
-                        <TextBlock TextWrapping="WrapWholeWords" Grid.Row="2">
-                            <Run Text="{x:Bind localization:Strings.SourcesPrefix}" />
-                            <Hyperlink
-                                ToolTipService.ToolTip="https://github.com/prmncr/Wrappr"
-                                NavigateUri="https://github.com/prmncr/Wrappr">
-                                GitHub
-                            </Hyperlink>
-                            ,
-                            <Run Text="{x:Bind localization:Strings.CheckUpdates}" />
-                            <Hyperlink
-                                ToolTipService.ToolTip="https://github.com/prmncr/Wrappr/releases"
-                                NavigateUri="https://github.com/prmncr/Wrappr/releases">
-                                Releases
-                            </Hyperlink>
-                            .
-                        </TextBlock>
-                        <TextBlock TextWrapping="WrapWholeWords" Grid.Row="3">
-                            <Run Text="{x:Bind localization:Strings.LogoCreditsPrefix}" />
-                            <Hyperlink
-                                NavigateUri="https://www.flaticon.com/free-icons/settings"
-                                ToolTipService.ToolTip="https://www.flaticon.com/free-icons/settings">
-                                <Run Text="{x:Bind localization:Strings.LogoCreditsLink}" />
-                            </Hyperlink>
-                            .
-                        </TextBlock>
-                    </Grid>
-                </StackPanel>
-            </ScrollView>
-        </Grid>
-    </Grid>
+    <components:Scaffold>
+        <components:Scaffold.Header>
+            <components:PageHeader Title="{x:Bind localization:Strings.AppName}"/>
+        </components:Scaffold.Header>
+        <components:Scaffold.Actions>
+            <Border
+                Background="#55000000"
+                CornerRadius="8"
+                Padding="8,0">
+                <SelectorBar SelectionChanged="SubPageSelectionChanged">
+                    <SelectorBarItem 
+                        IsSelected="True" 
+                        Tag="{x:Bind pages:SettingsPage.SettingsTag}"
+                        Text="{x:Bind localization:Strings.SettingsTitle}"/>
+                    <SelectorBarItem 
+                        Tag="{x:Bind pages:SettingsPage.AboutTag}"
+                        Text="{x:Bind localization:Strings.AboutWindowTitle}"/>
+                </SelectorBar>
+            </Border>
+        </components:Scaffold.Actions>
+        <Frame 
+            Background="#55000000"
+            Padding="8"
+            Margin="0,8"
+            CornerRadius="8"
+            x:Name="SubFrame" IsNavigationStackEnabled="False"/>
+    </components:Scaffold>
 </Page>

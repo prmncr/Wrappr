@@ -108,7 +108,7 @@ public partial class Wrapper : ObservableObject
 	}
 
 	[RelayCommand]
-	public async Task ToggleService(bool switchedTo)
+	public async Task ToggleService(bool switchedFrom)
 	{
 		if (Service == null)
 		{
@@ -117,7 +117,7 @@ public partial class Wrapper : ObservableObject
 		}
 		string? message;
 		_serviceStatusMonitor?.Pause();
-		if (switchedTo)
+		if (switchedFrom)
 		{
 			message = await Disable();
 			await Task.Run(() => Service.WaitForStatus(ServiceControllerStatus.Stopped));

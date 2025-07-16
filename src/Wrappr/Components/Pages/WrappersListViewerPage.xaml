@@ -7,9 +7,12 @@
     xmlns:ctrl="using:Wrappr.Controls"
     xmlns:resources="using:Wrappr.Resources"
     xmlns:components="using:Wrappr.Components"
+    xmlns:services="using:Wrappr.Services"
+    xmlns:converters="using:CommunityToolkit.WinUI.Converters"
     Tag="{x:Bind resources:Strings.WrappersTitle}"
     x:Class="Wrappr.Components.Pages.WrappersListViewerPage">
     <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <DataTemplate x:Name="WrapperTemplate" x:DataType="model:Wrapper">
             <ItemContainer HorizontalAlignment="Stretch">
                 <controls:SettingsCard
@@ -34,39 +37,122 @@
         </DataTemplate>
     </Page.Resources>
     <components:Scaffold Title="{x:Bind resources:Strings.WrappersTitle}">
-        <components:Scaffold.Actions>
-            <Button
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                Click="CreateWrapper">
+        <components:Scaffold.Header>
+            <Grid
+                Canvas.ZIndex="10"
+                Margin="20,4"
+                Height="64"
+                VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
                 <StackPanel
+                    Spacing="12"
+                    Grid.Column="1"
                     Orientation="Horizontal"
-                    Spacing="8">
+                    VerticalAlignment="Center">
+                    <Image
+                        x:Name="Logo"
+                        VerticalAlignment="Center"
+                        Source="/Assets/Images/logo64.png"
+                        Width="24"
+                        Height="24" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Canvas.ZIndex="10"
+                        FontWeight="Bold"
+                        FontSize="16"
+                        Text="{x:Bind resources:Strings.AppName}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontWeight="Light"
+                        Text="{x:Bind resources:Strings.ElevatedTitlebarText}"
+                        Visibility="{x:Bind services:Elevation.IsElevated, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Foreground="{StaticResource AppBarItemDisabledForegroundThemeBrush}" />
+                </StackPanel>
+                <Button
+                    Grid.Column="2"
+                    BorderBrush="Transparent"
+                    Background="Transparent"
+                    VerticalAlignment="Center"
+                    Padding="6">
                     <FontIcon
                         FontSize="16"
-                        Glyph="{x:Bind fonts:Icons.Add}" />
-                    <TextBlock
-                        Text="{x:Bind resources:Strings.CreateWrapperPageRedirectButtonText}" />
-                </StackPanel>
-            </Button>
+                        Glyph="{x:Bind fonts:Icons.More}" />
+                    <Button.Flyout>
+                        <MenuFlyout x:Name="OptionsFlyout">
+                            <MenuFlyoutItem 
+                                Click="SettingsButtonClicked"
+                                Text="{x:Bind resources:Strings.SettingsTitle}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon
+                                        FontSize="14"
+                                        Glyph="{x:Bind fonts:Icons.Settings}"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem
+                                Click="Exit"
+                                Text="{x:Bind resources:Strings.CloseApp}">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon
+                                        FontSize="14"
+                                        Glyph="{x:Bind fonts:Icons.PowerButton}"/>
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </Grid>
+        </components:Scaffold.Header>
+        <components:Scaffold.Actions>
+            <Border
+                Margin="0,0,0,8"
+                Background="#55000000"
+                Padding="8"
+                CornerRadius="8">
+                <components:ActionPanel>
+                    <Button
+                        HorizontalAlignment="Right"
+                        Click="CreateWrapper">
+                        <StackPanel
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <FontIcon
+                                FontSize="16"
+                                Glyph="{x:Bind fonts:Icons.Add}" />
+                            <TextBlock
+                                Text="{x:Bind resources:Strings.CreateWrapperPageRedirectButtonText}" />
+                        </StackPanel>
+                    </Button>
+                </components:ActionPanel>
+            </Border>
         </components:Scaffold.Actions>
-        <ScrollView
-            Padding="0"
-            Margin="0">
-            <ListView
-                ItemsSource="{x:Bind model:Wrappers.Instance.Storage}"
-                ItemTemplate="{StaticResource WrapperTemplate}"
+        <Border
+            Margin="0,0,0,8"
+            Background="#55000000"
+            Padding="8"
+            CornerRadius="8">
+            <ScrollView
                 Padding="0"
-                Margin="0"
-                SelectionMode="None">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Margin" Value="0,0,0,8" />
-                        <Setter Property="Padding" Value="0" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
-        </ScrollView>
+                Margin="0">
+                <ListView
+                    ItemsSource="{x:Bind model:Wrappers.Instance.Storage}"
+                    ItemTemplate="{StaticResource WrapperTemplate}"
+                    Padding="0"
+                    Margin="0"
+                    SelectionMode="None">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0,0,0,4" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </ScrollView>
+        </Border>
     </components:Scaffold>
 </Page>

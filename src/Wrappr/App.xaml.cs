@@ -14,7 +14,7 @@ namespace Wrappr;
 
 public partial class App : Balloons.IBalloonSender
 {
-	private static IWindow _window = null!;
+	private static IWindowAdapter _windowAdapter = null!;
 
 	public App()
 	{
@@ -28,6 +28,7 @@ public partial class App : Balloons.IBalloonSender
 
 		InitializeComponent();
 		Wrappers.Initialize();
+		RequestedTheme = ApplicationTheme.Dark;
 	}
 
 	public static App Instance { get; private set; } = null!;
@@ -49,14 +50,30 @@ public partial class App : Balloons.IBalloonSender
 		InitializeTrayIcon();
 
 		#if DEBUG
-		_window = new WinUiWindowAdapter(new MainWindow());
+		_windowAdapter = new WinUiWindowAdapter(new MainWindow());
 		#else
-			_window = new PopupWindow(new MainWindow());
+		_window = new PopupWindow(new MainWindow());
 		#endif
 
 		if (Arguments.Boot.IsSilentMode) return;
-		_window.Show();
+		_windowAdapter.Show();
 	}
+
+	#if DEBUG
+	public static void ChangeMainWindowFormat()
+	{
+		_windowAdapter.Close();
+        Navigation.Clear();
+		if (_windowAdapter is WinUiWindowAdapter)
+		{
+			_windowAdapter = new PopupWindowAdapter(new MainWindow());
+		} else
+		{
+			_windowAdapter = new WinUiWindowAdapter(new MainWindow());
+		}
+		_windowAdapter.Show();
+	}
+	#endif
 
 	private void InitializeTrayIcon()
 	{
@@ -66,13 +83,13 @@ public partial class App : Balloons.IBalloonSender
 
 	private static void OpenWindow()
 	{
-		_window.Show();
+		_windowAdapter.Show();
 	}
 
 	private void ExitApplication()
 	{
 		TaskbarIcon.Dispose();
-		_window.Close();
+		_windowAdapter.Close();
 		Environment.Exit(0);
 	}
 }
