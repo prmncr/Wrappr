@@ -131,7 +131,7 @@ public class DynamicTaskbarIcon
 			new MenuFlyoutSeparator(),
 			new MenuFlyoutItem
 			{
-				Text = Strings.ContextMenuCloseApp,
+				Text = Strings.CloseApp,
 				Icon = new FontIcon { Glyph = Icons.PowerButton },
 				Command = App.Instance.ExitApplicationCommand
 			}

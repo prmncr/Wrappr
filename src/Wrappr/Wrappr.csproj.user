@@ -24,9 +24,23 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Page Update="Components\Pages\WrapperGroupsListViewerPage.xaml">
+    <Page Update="Components\Pages\AboutSubPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Components\Pages\SettingsSubPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Components\ActionPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Components\PageHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

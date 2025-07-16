@@ -7,7 +7,11 @@
     xmlns:localization="using:Wrappr.Resources"
     xmlns:pages="using:Wrappr.Components.Pages"
     Title="{x:Bind localization:Strings.AppName}">
-    <Frame x:Name="MainFrame" Loaded="FrameLoaded">
-        <pages:NavigationRoot />
-    </Frame>
+    <Grid>
+        <Frame x:Name="MainFrame" Loaded="FrameLoaded"/>
+        <InfoBar
+            VerticalAlignment="Bottom"
+            Margin="20, 0, 20, 40"
+            x:Name="InfoBar" />
+    </Grid>
 </Window>

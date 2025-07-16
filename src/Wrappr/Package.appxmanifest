@@ -6,7 +6,7 @@
         xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
         IgnorableNamespaces="uap rescap">
 
-    <Identity Name="Wrappr" Publisher="CN=prmncr" Version="2.0.0.0"/>
+    <Identity Name="Wrappr" Publisher="CN=prmncr" Version="2.1.0.0"/>
 
     <mp:PhoneIdentity PhoneProductId="7949c9a3-f3c1-4ed5-a171-269318dcec97" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

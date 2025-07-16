@@ -9,7 +9,7 @@ using WinRT.Interop;
 
 namespace Wrappr.Components.Windows;
 
-public partial class PopupWindow : IWindow
+public partial class PopupWindowAdapter : IWindowAdapter
 {
 	private delegate nint WndProc(nint hWnd, uint msg, nint wParam, nint lParam);
 
@@ -27,7 +27,7 @@ public partial class PopupWindow : IWindow
 	private const int HtCaption = 2;
 	private const int GwlpWndProc = -4;
 
-	public PopupWindow(Window window)
+	public PopupWindowAdapter(Window window)
 	{
 		_window = window;
 
@@ -42,7 +42,7 @@ public partial class PopupWindow : IWindow
 
 		var size = _window.AppWindow.Size;
 		var screenSize = DisplayArea.Primary.WorkArea;
-		_windowRect = new RectInt32(screenSize.Width - size.Width - 10, screenSize.Height - size.Height - 10, size.Width, size.Height);
+		_windowRect = new RectInt32(screenSize.Width - size.Width - 8, screenSize.Height - size.Height - 8, size.Width, size.Height);
 
 		var presenter = (OverlappedPresenter)_appWindow.Presenter;
 		presenter.IsMaximizable = false;

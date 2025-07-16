@@ -1,6 +1,6 @@
 ﻿namespace Wrappr.Components.Windows;
 
-public interface IWindow
+public interface IWindowAdapter
 {
 	public void Show();
 

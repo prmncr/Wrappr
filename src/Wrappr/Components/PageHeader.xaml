@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="Wrappr.Components.PageHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Wrappr.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fonts="using:Wrappr"
+    xmlns:services="using:Wrappr.Services"
+    mc:Ignorable="d">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <HyperlinkButton
+            Padding="4, 0"
+            Click="BackButtonClick">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="4"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <FontIcon
+                    Margin="0,2,0,0"
+                    FontSize="10"
+                    VerticalAlignment="Center"
+                    Glyph="{x:Bind fonts:Icons.ChromeBack}" />
+                <TextBlock
+                    Grid.Column="2"
+                    FontSize="13"
+                    VerticalAlignment="Center"
+                    Text="{x:Bind services:Navigation.PreviousLocalizedTitle}"/>
+            </Grid>
+        </HyperlinkButton>
+        <TextBlock
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            FontSize="20"
+            FontWeight="Bold"
+            Text="{x:Bind Title}"/>
+    </Grid>
+</UserControl>
