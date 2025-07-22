@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml.Input;
 
 namespace Wrappr.Controls;
 
-public sealed partial class Toggle
+public partial class Toggle
 {
 	public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
 		nameof(Value), typeof(bool), typeof(Toggle), new PropertyMetadata(false)

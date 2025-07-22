@@ -23,7 +23,7 @@ public partial class App : Balloons.IBalloonSender
 
 		UnhandledException += (_, eventArgs) =>
 		{
-			Snackbars.ShowSnackbar(new SnackbarData(eventArgs.Exception));
+			Snackbars.ShowSnackbar(eventArgs.Exception);
 		};
 
 		InitializeComponent();
@@ -52,7 +52,7 @@ public partial class App : Balloons.IBalloonSender
 		#if DEBUG
 		_windowAdapter = new WinUiWindowAdapter(new MainWindow());
 		#else
-		_window = new PopupWindow(new MainWindow());
+		_windowAdapter = new PopupWindowAdapter(new MainWindow());
 		#endif
 
 		if (Arguments.Boot.IsSilentMode) return;
@@ -63,7 +63,7 @@ public partial class App : Balloons.IBalloonSender
 	public static void ChangeMainWindowFormat()
 	{
 		_windowAdapter.Close();
-        Navigation.Clear();
+		Navigation.Clear();
 		if (_windowAdapter is WinUiWindowAdapter)
 		{
 			_windowAdapter = new PopupWindowAdapter(new MainWindow());

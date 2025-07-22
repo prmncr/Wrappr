@@ -12,8 +12,8 @@ public partial class WrappersListViewerPage : INavigable
 	public WrappersListViewerPage()
 	{
 		InitializeComponent();
-        #if DEBUG
-        CreateDebugMenu();
+		#if DEBUG
+		CreateDebugMenu();
 		#endif
 	}
 
@@ -34,33 +34,55 @@ public partial class WrappersListViewerPage : INavigable
 		Navigation.ChangePage<SettingsPage>();
 	}
 
-    #if DEBUG
-    private void CreateDebugMenu()
-    {
-        OptionsFlyout.Items.Add(new MenuFlyoutSubItem
-        {
-            BorderBrush = null,
-            Background = null,
-            Text = "Debug features",
-            Icon = new FontIcon
-            {
-                Glyph = Icons.Bug,
-                FontSize = 14
-            },
-            Items =
-            {
-                new MenuFlyoutItem
-                {
-                    Text = "Switch window mode",
-                    Command = new RelayCommand(App.ChangeMainWindowFormat)
-                }
-            }
-        });
-    }
-    #endif
+	#if DEBUG
+	private void CreateDebugMenu()
+	{
+		OptionsFlyout.Items.Add(
+			new MenuFlyoutSubItem
+			{
+				BorderBrush = null,
+				Background = null,
+				Text = "Debug features",
+				Icon = new FontIcon
+				{
+					Glyph = Icons.Bug,
+					FontSize = 14
+				},
+				Items =
+				{
+					new MenuFlyoutItem
+					{
+						Text = "Switch window mode",
+						Command = new RelayCommand(App.ChangeMainWindowFormat)
+					}
+				}
+			}
+		);
+	}
+	#endif
 
-    private void Exit(object sender, RoutedEventArgs e)
-    {
-	    Application.Current.Exit();
-    }
+	private void Exit(object sender, RoutedEventArgs e)
+	{
+		Application.Current.Exit();
+	}
+
+	private async void NotElevatedButtonClick(object sender, RoutedEventArgs e)
+	{
+		try
+		{
+			await new ContentDialog
+			{
+				XamlRoot = XamlRoot,
+				Title = Strings.ReadOnlyModeTitle,
+				Content = Strings.ReadOnlyModeDescription,
+				PrimaryButtonText = Strings.ReloadAppButtonText,
+				PrimaryButtonCommand = Elevation.ElevateCommand,
+				DefaultButton = ContentDialogButton.Primary,
+				CloseButtonText = Strings.Cancel
+			}.ShowAsync();
+		} catch (Exception exception)
+		{
+			Snackbars.ShowSnackbar(exception);
+		}
+	}
 }

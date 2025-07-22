@@ -1,11 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml.Controls;
+#if !DEBUG
 using Wrappr.Resources;
+#endif
 
 namespace Wrappr.Data;
 
 public partial class SnackbarData : ObservableObject
 {
+	[ObservableProperty] public partial string Title { get; set; }
+
+	[ObservableProperty] public partial string? Message { get; set; }
+
+	[ObservableProperty] public partial InfoBarSeverity Severity { get; set; } = InfoBarSeverity.Informational;
+
 	public SnackbarData(string title, InfoBarSeverity severity, string? message = null)
 	{
 		Title = title;
@@ -13,7 +21,7 @@ public partial class SnackbarData : ObservableObject
 		Message = message;
 	}
 
-	public SnackbarData(Exception exception)
+	private SnackbarData(Exception exception)
 	{
 		#if DEBUG
 		Title = exception.Message;
@@ -25,9 +33,8 @@ public partial class SnackbarData : ObservableObject
 		Severity = InfoBarSeverity.Error;
 	}
 
-	[ObservableProperty] public partial string Title { get; set; }
-
-	[ObservableProperty] public partial string? Message { get; set; }
-
-	[ObservableProperty] public partial InfoBarSeverity Severity { get; set; } = InfoBarSeverity.Informational;
+	public static implicit operator SnackbarData(Exception exception)
+	{
+		return new SnackbarData(exception);
+	}
 }

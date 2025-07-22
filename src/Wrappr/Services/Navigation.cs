@@ -5,7 +5,7 @@ namespace Wrappr.Services;
 
 public static class Navigation
 {
-	public static string PreviousLocalizedTitle { get; private set; }
+	public static string? PreviousLocalizedTitle { get; private set; }
 
 	private static INavigator? _navigator;
 
@@ -18,7 +18,7 @@ public static class Navigation
 		ChangePage(typeof(TNavigable), dataContext);
 	}
 
-	public static void ChangePage(Type pageType, object? dataContext = null)
+	private static void ChangePage(Type pageType, object? dataContext = null)
 	{
 		if (BackStack.TryPeek(out var last))
 		{
@@ -40,11 +40,11 @@ public static class Navigation
 	{
 		BackStack.Pop();
 		_navigator?.Back();
-        if (BackStack.TryPeek(out var last))
-        {
-            PreviousLocalizedTitle = last.LocalizedName;
-        }
-    }
+		if (BackStack.TryPeek(out var last))
+		{
+			PreviousLocalizedTitle = last.LocalizedName;
+		}
+	}
 
 	public static void BackTo(int index)
 	{
@@ -59,13 +59,13 @@ public static class Navigation
 		_navigator = navigator;
 	}
 
-    public static void Clear()
-    {
+	public static void Clear()
+	{
 		BackStack.Clear();
 		_navigator?.Clear();
-    }
+	}
 
-    public interface INavigator
+	public interface INavigator
 	{
 		public bool ChangePage(Type pageType, out Page? page);
 

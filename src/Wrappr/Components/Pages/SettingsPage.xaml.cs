@@ -4,27 +4,27 @@ using Wrappr.Utilities;
 
 namespace Wrappr.Components.Pages;
 
-public sealed partial class SettingsPage : INavigable
+public partial class SettingsPage : INavigable
 {
-    public static string SettingsTag => "settings";
-    public static string AboutTag => "about";
+	public static string SettingsTag => "settings";
+	public static string AboutTag => "about";
 
-    public SettingsPage()
-    {
-        InitializeComponent();
-    }
+	public SettingsPage()
+	{
+		InitializeComponent();
+	}
 
-    public string LocalizedName => Strings.SettingsTitle;
+	public string LocalizedName => Strings.SettingsTitle;
 
-    private void SubPageSelectionChanged(SelectorBar sender, SelectorBarSelectionChangedEventArgs args)
-    {
-        var item = sender.SelectedItem;
-        if ((string)item.Tag == SettingsTag)
-        {
-            SubFrame.Navigate(typeof(SettingsSubPage));
-        } else if ((string)item.Tag == AboutTag)
-        {
-            SubFrame.Navigate(typeof(AboutSubPage));
-        }
-    }
+	private void SubPageSelectionChanged(SelectorBar sender, SelectorBarSelectionChangedEventArgs args)
+	{
+		var item = sender.SelectedItem;
+		if ((string)item.Tag == SettingsTag)
+		{
+			SubFrame.Navigate(typeof(PreferencesSubPage));
+		} else if ((string)item.Tag == AboutTag)
+		{
+			SubFrame.Navigate(typeof(AboutSubPage));
+		}
+	}
 }

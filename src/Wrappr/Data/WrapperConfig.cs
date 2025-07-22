@@ -13,7 +13,7 @@ public record WrapperConfig
 
 	[JsonInclude] public int PollingDelay { get; init; }
 
-	public WrapperConfig(string? name = null, bool tracked = false, int pollingDelay = 1000, bool notified = false)
+	public WrapperConfig(string? name = null, bool tracked = true, int pollingDelay = 1000, bool notified = true)
 	{
 		if (name != null)
 		{

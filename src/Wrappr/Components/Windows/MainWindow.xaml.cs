@@ -19,18 +19,16 @@ public partial class MainWindow : Navigation.INavigator, Snackbars.ISnackbarView
 	public MainWindow()
 	{
 		InitializeComponent();
-		ApplicationWindowProvider.Initialize(this);
 		var size = new SizeInt32(400, 550);
 		AppWindow.Resize(size);
 		AppWindow.SetIcon("Assets/Images/logo32.ico");
 		Navigation.Initialize(this);
 		Snackbars.Initialize(this);
+		SetAcrylicBackdrop();
 	}
 
 	private void FrameLoaded(object sender, RoutedEventArgs e)
 	{
-		//MainFrame.Background = new BackgroundGradientBrush(this);
-		TrySetAcrylicBackdrop(true);
 		Navigation.ChangePage<WrappersListViewerPage>();
 	}
 
@@ -63,63 +61,41 @@ public partial class MainWindow : Navigation.INavigator, Snackbars.ISnackbarView
 		InfoBar.Message = message.Message;
 	}
 
-	private void TrySetAcrylicBackdrop(bool useAcrylicThin)
+	private void SetAcrylicBackdrop()
 	{
 		if (!DesktopAcrylicController.IsSupported()) return;
 
 		_wsdqHelper = new WindowsSystemDispatcherQueueHelper();
-	    _wsdqHelper.EnsureWindowsSystemDispatcherQueueController();
+		_wsdqHelper.EnsureWindowsSystemDispatcherQueueController();
 
-	    _configurationSource = new SystemBackdropConfiguration();
-	    Activated += Window_Activated;
-	    Closed += Window_Closed;
-	    ((FrameworkElement)Content).ActualThemeChanged += Window_ThemeChanged;
+		_configurationSource = new SystemBackdropConfiguration();
+		Activated += OnWindowActivated;
+		Closed += OnWindowClosed;
 
-	    _configurationSource.IsInputActive = true;
-	    SetConfigurationSourceTheme();
-
-	    _acrylicController = new DesktopAcrylicController();
-
-	    _acrylicController.Kind = useAcrylicThin ? DesktopAcrylicKind.Thin : DesktopAcrylicKind.Base;
-
-	    _acrylicController.AddSystemBackdropTarget(this.As<Microsoft.UI.Composition.ICompositionSupportsSystemBackdrop>());
-	    _acrylicController.SetSystemBackdropConfiguration(_configurationSource);
-	}
-
-	private void Window_Activated(object sender, WindowActivatedEventArgs args)
-	{
-		if (_configurationSource == null) return;
-	    _configurationSource.IsInputActive = args.WindowActivationState != WindowActivationState.Deactivated;
-	}
-
-	private void Window_Closed(object sender, WindowEventArgs args)
-	{
-	    if (_acrylicController != null)
-	    {
-	        _acrylicController.Dispose();
-	        _acrylicController = null;
-	    }
-	    Activated -= Window_Activated;
-	    _configurationSource = null;
-	}
-
-	private void Window_ThemeChanged(FrameworkElement sender, object args)
-	{
-	    if (_configurationSource != null)
-	    {
-	        SetConfigurationSourceTheme();
-	    }
-	}
-
-	private void SetConfigurationSourceTheme()
-	{
-		if (_configurationSource == null) return;
-		_configurationSource.Theme = ((FrameworkElement)Content).ActualTheme switch
+		_configurationSource.IsInputActive = true;
+		_configurationSource.Theme = SystemBackdropTheme.Dark;
+		_acrylicController = new DesktopAcrylicController
 		{
-			ElementTheme.Dark => SystemBackdropTheme.Dark,
-			ElementTheme.Light => SystemBackdropTheme.Light,
-			ElementTheme.Default => SystemBackdropTheme.Default,
-			_ => _configurationSource.Theme
+			Kind = DesktopAcrylicKind.Thin
 		};
+		_acrylicController.AddSystemBackdropTarget(this.As<Microsoft.UI.Composition.ICompositionSupportsSystemBackdrop>());
+		_acrylicController.SetSystemBackdropConfiguration(_configurationSource);
+	}
+
+	private void OnWindowActivated(object sender, WindowActivatedEventArgs args)
+	{
+		if (_configurationSource == null) return;
+		_configurationSource.IsInputActive = args.WindowActivationState != WindowActivationState.Deactivated;
+	}
+
+	private void OnWindowClosed(object sender, WindowEventArgs args)
+	{
+		if (_acrylicController != null)
+		{
+			_acrylicController.Dispose();
+			_acrylicController = null;
+		}
+		Activated -= OnWindowActivated;
+		_configurationSource = null;
 	}
 }

@@ -49,5 +49,5 @@ public partial class Scaffold
 	public Scaffold()
 	{
 		InitializeComponent();
-    }
+	}
 }
