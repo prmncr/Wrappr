@@ -25,7 +25,7 @@
             <StackPanel Orientation="Horizontal" Spacing="4">
                 <FontIcon
                     FontSize="12"
-                    Glyph="{x:Bind fonts:Icons.Link}"/>
+                    Glyph="{x:Bind fonts:Icons.Link}" />
                 <TextBlock Text="{x:Bind localization:Strings.SourcesPrefix}" />
             </StackPanel>
         </HyperlinkButton>
@@ -33,7 +33,7 @@
             <StackPanel Orientation="Horizontal" Spacing="4">
                 <FontIcon
                     FontSize="12"
-                    Glyph="{x:Bind fonts:Icons.Link}"/>
+                    Glyph="{x:Bind fonts:Icons.Link}" />
                 <TextBlock Text="{x:Bind localization:Strings.CheckUpdates}" />
             </StackPanel>
         </HyperlinkButton>

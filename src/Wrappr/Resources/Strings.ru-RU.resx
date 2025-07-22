@@ -1,262 +1,249 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
+    <!--
+      Microsoft ResX Schema
 
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+      Version 2.0
+
+      The primary goals of this format is to allow a simple XML format
+      that is mostly human readable. The generation and parsing of the
+      various data types are done through the TypeConverter classes
+      associated with the data types.
+
+      Example:
+
+      ... ado.net/XML headers & schema ...
+      <resheader name="resmimetype">text/microsoft-resx</resheader>
+      <resheader name="version">2.0</resheader>
+      <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+      <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+      <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+      <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+      <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+          <value>[base64 mime encoded serialized .NET Framework object]</value>
+      </data>
+      <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+          <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+          <comment>This is a comment</comment>
+      </data>
+
+      There are any number of "resheader" rows that contain simple
+      name/value pairs.
+
+      Each data row contains a name, and value. The row also contains a
+      type or mimetype. Type corresponds to a .NET class that support
+      text/value conversion through the TypeConverter architecture.
+      Classes that don't support this are serialized and stored with the
+      mimetype set.
+
+      The mimetype is used for serialized objects, and tells the
+      ResXResourceReader how to depersist the object. This is currently not
+      extensible. For a given mimetype the value must be set accordingly:
+
+      Note - application/x-microsoft.net.object.binary.base64 is the format
+      that the ResXResourceWriter will generate, however the reader can
+      read any of the formats listed below.
+
+      mimetype: application/x-microsoft.net.object.binary.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.soap.base64
+      value   : The object must be serialized with
+              : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+              : and then encoded with base64 encoding.
+
+      mimetype: application/x-microsoft.net.object.bytearray.base64
+      value   : The object must be serialized into a byte array
+              : using a System.ComponentModel.TypeConverter
+              : and then encoded with base64 encoding.
+      -->
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                            <xsd:attribute name="mimetype" type="xsd:string"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string"/>
+                            <xsd:attribute name="name" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+                            <xsd:attribute ref="xml:space"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="ContextMenuOpenApp" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ContextMenuOpenApp" xml:space="preserve">
     <value>Открыть Wrappr</value>
   </data>
-  <data name="CloseApp" xml:space="preserve">
+    <data name="CloseApp" xml:space="preserve">
     <value>Выйти из Wrappr</value>
   </data>
-  <data name="AppName" xml:space="preserve">
+    <data name="AppName" xml:space="preserve">
     <value>Wrappr</value>
   </data>
-  <data name="DeleteWrapperButtonToolTip" xml:space="preserve">
+    <data name="DeleteWrapperButtonToolTip" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="EmptyWrappersListPlaceholder" xml:space="preserve">
-    <value>Чтобы создать новую обертку,
-нажмите кнопку ниже</value>
+    <data name="CreateWrapperButtonText" xml:space="preserve">
+    <value>Добавить</value>
   </data>
-  <data name="CreateWrapperButtonText" xml:space="preserve">
-    <value>Создать</value>
-  </data>
-  <data name="EmptyWrapperDisplayName" xml:space="preserve">
+    <data name="EmptyWrapperDisplayName" xml:space="preserve">
     <value>Новая обёртка</value>
   </data>
-  <data name="EmptyWrapperServiceName" xml:space="preserve">
+    <data name="EmptyWrapperServiceName" xml:space="preserve">
     <value>Сервис не выбран</value>
   </data>
-  <data name="ServiceNotFoundMessage" xml:space="preserve">
+    <data name="ServiceNotFoundMessage" xml:space="preserve">
     <value>Сервис с таким именем не был найден</value>
   </data>
-  <data name="ErrorMessageTitle" xml:space="preserve">
+    <data name="ErrorMessageTitle" xml:space="preserve">
     <value>Ошибка</value>
   </data>
-  <data name="AboutWindowTitle" xml:space="preserve">
+    <data name="AboutWindowTitle" xml:space="preserve">
     <value>О Wrappr</value>
   </data>
-  <data name="AboutDescriptionText" xml:space="preserve">
-    <value>Wrappr - приложение, позволяющее быстро и удобно включать и выключать сервисы Windows и отслеживать их статусы.</value>
-  </data>
-  <data name="AboutAppButtonToolTip" xml:space="preserve">
-    <value>О Wrappr</value>
-  </data>
-  <data name="ServiceStatusWasChangedBalloonTitle" xml:space="preserve">
+    <data name="ServiceStatusWasChangedBalloonTitle" xml:space="preserve">
     <value>Статус сервиса был изменен</value>
   </data>
-  <data name="ServiceStatusWasChangedBalloonText" xml:space="preserve">
-    <value>Статус сервиса '{0}' был изменен на '{1}' вне Wrappr</value>
+    <data name="ServiceStatusWasChangedBalloonText" xml:space="preserve">
+    <value>{0} был {1}</value>
   </data>
-  <data name="WrapperTrackingToggleText" xml:space="preserve">
-    <value>Отслеживать</value>
+    <data name="WrapperTrackingToggleText" xml:space="preserve">
+    <value>Отслеживание</value>
   </data>
-  <data name="WrapperTrackingToggleToolTip" xml:space="preserve">
-    <value>Включает/выключает отслеживание статуса сервиса. Если включено, Wrappr будет обновлять статус сервиса, если он изменится не из Wrappr.</value>
+    <data name="WrapperTrackingToggleToolTip" xml:space="preserve">
+    <value>Если статус сервиса будет изменен другим приложением, то это отразится и здесь.</value>
   </data>
-  <data name="WrapperPoolingDelayHint" xml:space="preserve">
+    <data name="WrapperPoolingDelayHint" xml:space="preserve">
     <value>Задержка опроса</value>
   </data>
-  <data name="WrapperPoolingDelayToolTip" xml:space="preserve">
-    <value>Устанавливает время между проверками статуса сервиса (в мс). Более низкое значение может вызвать большую нагрузку на систему.</value>
+    <data name="WrapperPoolingDelayToolTip" xml:space="preserve">
+    <value>Время между проверками статуса сервиса (в мс). Низкие значения могут приводить к повышенной нагрузке.</value>
   </data>
-  <data name="WrapperNotificationsToggleText" xml:space="preserve">
+    <data name="WrapperNotificationsToggleText" xml:space="preserve">
     <value>Уведомления</value>
   </data>
-  <data name="WrapperNotificationsToggleToolTip" xml:space="preserve">
-    <value>Включает/выключает уведомления об изменении статуса сервиса. Если включено, Wrappr будет отправлять уведомления всякий раз, когда статус сервиса изменится не из Wrappr.</value>
+    <data name="WrapperNotificationsToggleToolTip" xml:space="preserve">
+    <value>Определяет, стоит ли отправлять уведомления о том, что статус сервиса был изменен.</value>
   </data>
-  <data name="NoServiceFoundPlaceholder" xml:space="preserve">
+    <data name="NoServiceFoundPlaceholder" xml:space="preserve">
     <value>Сервисов не найдено</value>
   </data>
-  <data name="WrappersTitle" xml:space="preserve">
-    <value>Обёртки</value>
+    <data name="WrappersTitle" xml:space="preserve">
+    <value>Сервисы</value>
   </data>
-  <data name="CreateNewWrapperTitle" xml:space="preserve">
-    <value>Создание обёртки</value>
+    <data name="CreateNewWrapperTitle" xml:space="preserve">
+    <value>Добавление сервиса</value>
   </data>
-  <data name="WrapperSearchPlaceholder" xml:space="preserve">
+    <data name="WrapperSearchPlaceholder" xml:space="preserve">
     <value>Начните вводить имя сервиса...</value>
   </data>
-  <data name="WrappersPageTitle" xml:space="preserve">
-    <value>Обёртки</value>
+    <data name="CreateWrapperPageRedirectButtonText" xml:space="preserve">
+    <value>Добавить...</value>
   </data>
-  <data name="CreateWrapperPageRedirectButtonText" xml:space="preserve">
-    <value>Создать...</value>
-  </data>
-  <data name="ReloadAppButtonText" xml:space="preserve">
+    <data name="ReloadAppButtonText" xml:space="preserve">
     <value>Перезапустить</value>
   </data>
-  <data name="ReadOnlyModeDescription" xml:space="preserve">
+    <data name="ReadOnlyModeDescription" xml:space="preserve">
     <value>Это означает, что Wrappr не сможет включать/выключать сервисы, а также изменять настройки автозапуска, но всё также сможет отслеживать статусы сервисов. Для использования полного функционала Wrappr, пожалуйста, перезапустите приложение с правами администратора.</value>
   </data>
-  <data name="ReadOnlyModeTitle" xml:space="preserve">
+    <data name="ReadOnlyModeTitle" xml:space="preserve">
     <value>В данный момент Wrappr запущен без прав администратора.</value>
   </data>
-  <data name="ElevatedTitlebarText" xml:space="preserve">
+    <data name="ElevatedTitlebarText" xml:space="preserve">
     <value>Администратор</value>
   </data>
-  <data name="NotElevatedTipTitlebarText" xml:space="preserve">
+    <data name="NotElevatedTipTitlebarText" xml:space="preserve">
     <value>Только просмотр</value>
   </data>
-  <data name="NoWrappersPopupPlaceholder" xml:space="preserve">
-    <value>Нет оберток</value>
+    <data name="NoWrappersPopupPlaceholder" xml:space="preserve">
+    <value>Нет отслеживаемых сервисов</value>
   </data>
-  <data name="SettingsTitle" xml:space="preserve">
-    <value>Параметры</value>
+    <data name="SettingsTitle" xml:space="preserve">
+    <value>Настройки</value>
   </data>
-  <data name="AddTaskToSchedulerTitle" xml:space="preserve">
+    <data name="AddTaskToSchedulerTitle" xml:space="preserve">
     <value>Запускать Wrappr при входе в систему</value>
   </data>
-  <data name="AddTaskToSchedulerSubtitle" xml:space="preserve">
+    <data name="AddTaskToSchedulerSubtitle" xml:space="preserve">
     <value>Пожалуйста, убедитесь, что Wrappr находится в безопасной папке, чтобы предотвратить случайное удаление.</value>
   </data>
-  <data name="AddedToAutoStartTitle" xml:space="preserve">
+    <data name="AddedToAutoStartTitle" xml:space="preserve">
     <value>Wrappr был успешно добавлен в автозапуск!</value>
   </data>
-  <data name="AutostartDisabled" xml:space="preserve">
+    <data name="AutostartDisabled" xml:space="preserve">
     <value>Отключено</value>
   </data>
-  <data name="ShowAtStart" xml:space="preserve">
+    <data name="ShowAtStart" xml:space="preserve">
     <value>Открывать при входе в систему</value>
   </data>
-  <data name="HideAtStart" xml:space="preserve">
-    <value>Открывать в трее при входе в систему</value>
+    <data name="HideAtStart" xml:space="preserve">
+    <value>Запускать в трее при входе в систему</value>
   </data>
-  <data name="AppVersion" xml:space="preserve">
-    <value>2.1</value>
+    <data name="AppVersion" xml:space="preserve">
+    <value>3.0</value>
   </data>
-  <data name="SourcesPrefix" xml:space="preserve">
+    <data name="SourcesPrefix" xml:space="preserve">
     <value>Исходный код</value>
   </data>
-  <data name="CheckUpdates" xml:space="preserve">
+    <data name="CheckUpdates" xml:space="preserve">
     <value>Проверить обновления</value>
   </data>
-  <data name="LogoCreditsPrefix" xml:space="preserve">
-    <value>Лого сделано с использованием</value>
-  </data>
-  <data name="LogoCreditsLink" xml:space="preserve">
-    <value>материалов от Gregor Cresnar Premium для Flaticon</value>
-  </data>
-  <data name="NoServiceSelectedError" xml:space="preserve">
+    <data name="NoServiceSelectedError" xml:space="preserve">
     <value>Сервис не выбран</value>
   </data>
-  <data name="WrapperGroupsPageTitle" xml:space="preserve">
-    <value>Группы</value>
+    <data name="ServiceToggleButtonEnabled" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+    <data name="ServiceToggleButtonDisabled" xml:space="preserve">
+    <value>Выключено</value>
+  </data>
+    <data name="Cancel" xml:space="preserve">
+    <value>Отменить</value>
   </data>
 </root>

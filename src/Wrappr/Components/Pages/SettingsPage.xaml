@@ -10,7 +10,7 @@
     mc:Ignorable="d">
     <components:Scaffold>
         <components:Scaffold.Header>
-            <components:PageHeader Title="{x:Bind localization:Strings.AppName}"/>
+            <components:PageHeader Title="{x:Bind localization:Strings.AppName}" />
         </components:Scaffold.Header>
         <components:Scaffold.Actions>
             <Border
@@ -18,21 +18,21 @@
                 CornerRadius="8"
                 Padding="8,0">
                 <SelectorBar SelectionChanged="SubPageSelectionChanged">
-                    <SelectorBarItem 
-                        IsSelected="True" 
+                    <SelectorBarItem
+                        IsSelected="True"
                         Tag="{x:Bind pages:SettingsPage.SettingsTag}"
-                        Text="{x:Bind localization:Strings.SettingsTitle}"/>
-                    <SelectorBarItem 
+                        Text="{x:Bind localization:Strings.SettingsTitle}" />
+                    <SelectorBarItem
                         Tag="{x:Bind pages:SettingsPage.AboutTag}"
-                        Text="{x:Bind localization:Strings.AboutWindowTitle}"/>
+                        Text="{x:Bind localization:Strings.AboutWindowTitle}" />
                 </SelectorBar>
             </Border>
         </components:Scaffold.Actions>
-        <Frame 
+        <Frame
             Background="#55000000"
             Padding="8"
             Margin="0,8"
             CornerRadius="8"
-            x:Name="SubFrame" IsNavigationStackEnabled="False"/>
+            x:Name="SubFrame" IsNavigationStackEnabled="False" />
     </components:Scaffold>
 </Page>

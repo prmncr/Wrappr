@@ -20,23 +20,27 @@
     <components:Scaffold
         Title="{Binding Path=ServiceName}">
         <components:Scaffold.Header>
-            <components:PageHeader Title="{Binding Path=ServiceName}"/>
+            <components:PageHeader Title="{Binding Path=ServiceName}" />
         </components:Scaffold.Header>
         <components:Scaffold.Actions>
             <Border Background="#55000000" CornerRadius="8" Padding="8">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <ToggleButton
-                        x:Name="ToggleServiceButton"
                         VerticalAlignment="Center"
                         IsChecked="{Binding Path=Enabled}"
                         IsEnabled="{x:Bind services:Elevation.IsElevated}"
                         Click="ServiceStatusButtonClick">
-                        <TextBlock x:Name="ToggleServiceButtonText"/>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon
+                                FontSize="14"
+                                Glyph="{x:Bind fonts:Icons.PowerButton}" />
+                            <TextBlock x:Name="ToggleServiceButtonText" />
+                        </StackPanel>
                     </ToggleButton>
                     <Button
                         Grid.Column="2"
@@ -60,49 +64,52 @@
                     HorizontalAlignment="Stretch"
                     Orientation="Vertical"
                     Spacing="8">
-                    <controls:SettingsCard
+                    <controls:SettingsExpander
                         Header="{x:Bind localization:Strings.WrapperTrackingToggleText}"
-                        Description="{x:Bind localization:Strings.WrapperTrackingToggleToolTip}">
-                        <controls:SettingsCard.Resources>
+                        Description="{x:Bind localization:Strings.WrapperTrackingToggleToolTip}"
+                        IsExpanded="True">
+                        <controls:SettingsExpander.Resources>
                             <!-- ReSharper disable Xaml.RedundantResource -->
                             <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
                             <!-- ReSharper restore Xaml.RedundantResource -->
-                        </controls:SettingsCard.Resources>
+                        </controls:SettingsExpander.Resources>
                         <CheckBox
                             IsChecked="{Binding Path=IsTrackingEnabled}"
                             Command="{Binding Path=ToggleTrackingCommand}"
                             MinWidth="0" />
-                    </controls:SettingsCard>
-                    <controls:SettingsCard
-                        Header="{x:Bind localization:Strings.WrapperPoolingDelayHint}"
-                        Description="{x:Bind localization:Strings.WrapperPoolingDelayToolTip}"
-                        IsEnabled="{Binding Path=IsTrackingEnabled}">
-                        <controls:SettingsCard.Resources>
-                            <!-- ReSharper disable Xaml.RedundantResource -->
-                            <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
-                            <!-- ReSharper restore Xaml.RedundantResource -->
-                        </controls:SettingsCard.Resources>
-                        <NumberBox
-                            FontSize="14"
-                            MinWidth="100"
-                            SmallChange="100"
-                            LargeChange="1000"
-                            Text="{Binding Path=PollingDelay, Mode=TwoWay}" />
-                    </controls:SettingsCard>
-                    <controls:SettingsCard
-                        Header="{x:Bind localization:Strings.WrapperNotificationsToggleText}"
-                        Description="{x:Bind localization:Strings.WrapperNotificationsToggleToolTip}"
-                        IsEnabled="{Binding Path=IsTrackingEnabled}">
-                        <controls:SettingsCard.Resources>
-                            <!-- ReSharper disable Xaml.RedundantResource -->
-                            <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
-                            <!-- ReSharper restore Xaml.RedundantResource -->
-                        </controls:SettingsCard.Resources>
-                        <CheckBox
-                            Command="{Binding Path=ToggleNotificationsCommand}"
-                            IsChecked="{Binding Path=IsNotificationsEnabled}"
-                            MinWidth="0" />
-                    </controls:SettingsCard>
+                        <controls:SettingsExpander.Items>
+                            <controls:SettingsCard
+                                Header="{x:Bind localization:Strings.WrapperPoolingDelayHint}"
+                                Description="{x:Bind localization:Strings.WrapperPoolingDelayToolTip}"
+                                IsEnabled="{Binding Path=IsTrackingEnabled}">
+                                <controls:SettingsCard.Resources>
+                                    <!-- ReSharper disable Xaml.RedundantResource -->
+                                    <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
+                                    <!-- ReSharper restore Xaml.RedundantResource -->
+                                </controls:SettingsCard.Resources>
+                                <NumberBox
+                                    FontSize="14"
+                                    MinWidth="80"
+                                    SmallChange="100"
+                                    LargeChange="1000"
+                                    Text="{Binding Path=PollingDelay, Mode=TwoWay}" />
+                            </controls:SettingsCard>
+                            <controls:SettingsCard
+                                Header="{x:Bind localization:Strings.WrapperNotificationsToggleText}"
+                                Description="{x:Bind localization:Strings.WrapperNotificationsToggleToolTip}"
+                                IsEnabled="{Binding Path=IsTrackingEnabled}">
+                                <controls:SettingsCard.Resources>
+                                    <!-- ReSharper disable Xaml.RedundantResource -->
+                                    <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
+                                    <!-- ReSharper restore Xaml.RedundantResource -->
+                                </controls:SettingsCard.Resources>
+                                <CheckBox
+                                    Command="{Binding Path=ToggleNotificationsCommand}"
+                                    IsChecked="{Binding Path=IsNotificationsEnabled}"
+                                    MinWidth="0" />
+                            </controls:SettingsCard>
+                        </controls:SettingsExpander.Items>
+                    </controls:SettingsExpander>
                 </StackPanel>
             </ScrollView>
         </Border>

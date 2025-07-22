@@ -6,25 +6,25 @@ using Wrappr.Services;
 namespace Wrappr.Components;
 
 [ContentProperty(Name = nameof(Actions))]
-public sealed partial class ActionPanel
+public partial class ActionPanel
 {
-    public ActionPanel()
-    {
-        InitializeComponent();
-    }
+	public ActionPanel()
+	{
+		InitializeComponent();
+	}
 
-    public static readonly DependencyProperty ActionsProperty = DependencyProperty.Register(
-        nameof(Actions), typeof(UIElement), typeof(Scaffold), new PropertyMetadata(null)
-    );
+	public static readonly DependencyProperty ActionsProperty = DependencyProperty.Register(
+		nameof(Actions), typeof(UIElement), typeof(Scaffold), new PropertyMetadata(null)
+	);
 
-    public UIElement Actions
-    {
-        get => (UIElement)GetValue(ActionsProperty);
-        set => SetValue(ActionsProperty, value);
-    }
+	public UIElement Actions
+	{
+		get => (UIElement)GetValue(ActionsProperty);
+		set => SetValue(ActionsProperty, value);
+	}
 
-    private void NavigateToClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
-    {
-        Navigation.BackTo(args.Index);
-    }
+	private void NavigateToClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
+	{
+		Navigation.BackTo(args.Index);
+	}
 }

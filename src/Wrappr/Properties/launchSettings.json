@@ -1,10 +1,11 @@
 {
   "profiles": {
-    "Wrappr (Package)": {
-      "commandName": "MsixPackage"
-    },
-    "Wrappr (Unpackaged)": {
+    "Wrappr": {
       "commandName": "Project"
+    },
+    "Wrappr (silent)": {
+      "commandName": "Project",
+      "commandLineArgs": "--silent"
     }
   }
 }

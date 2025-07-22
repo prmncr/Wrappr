@@ -5,7 +5,13 @@ namespace Wrappr.Components.Windows;
 
 public class WinUiWindowAdapter(Window window) : IWindowAdapter
 {
-	public void Show() => window.Show();
+	public void Show()
+	{
+		window.Show();
+	}
 
-	public void Close() => window.Close();
+	public void Close()
+	{
+		window.Close();
+	}
 }

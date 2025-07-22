@@ -1,6 +1,6 @@
 ﻿namespace Wrappr.Data;
 
-public record ServiceNamePresenter
+public record ServiceSearchEntryAdapter
 {
 	public string ServiceName { get; init; } = "";
 
