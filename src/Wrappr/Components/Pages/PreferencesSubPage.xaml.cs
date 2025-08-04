@@ -80,6 +80,11 @@ public partial class PreferencesSubPage
 			task.Triggers.Add(new LogonTrigger { Delay = new TimeSpan(0, 0, 0, 10) });
 			task.Actions.Add(silent ? new ExecAction(Environment.ProcessPath!, SilentArg) : new ExecAction(Environment.ProcessPath!));
 			task.Principal.RunLevel = TaskRunLevel.Highest;
+			task.Settings.IdleSettings.StopOnIdleEnd = false;
+			task.Settings.StopIfGoingOnBatteries = false;
+			task.Settings.DisallowStartIfOnBatteries = false;
+			task.Settings.StartWhenAvailable = true;
+			task.Settings.ExecutionTimeLimit = TimeSpan.Zero;
 			var createdTask = _taskService.RootFolder.RegisterTaskDefinition(
 				TaskName,
 				task,
