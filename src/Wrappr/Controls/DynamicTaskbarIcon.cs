@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Runtime.InteropServices;
 using Windows.Graphics;
 using CommunityToolkit.Mvvm.Input;
 using H.NotifyIcon;
@@ -19,7 +20,7 @@ using Size = Windows.Foundation.Size;
 
 namespace Wrappr.Controls;
 
-public class DynamicTaskbarIcon
+public partial class DynamicTaskbarIcon
 {
 	private const string IconPath = "Assets/Images/icon64.ico";
 	private readonly AppWindow _appWindow;
@@ -205,6 +206,7 @@ public class DynamicTaskbarIcon
 		WindowUtilities.ShowWindow(_hWnd);
 		_appWindow.MoveAndResize(new RectInt32(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
 		WindowUtilities.SetForegroundWindow(_hWnd);
+		BringWindowToTop(_hWnd);
 	}
 
 	private MenuFlyout PrepareFlyout(IEnumerable<MenuFlyoutItemBase> content)
@@ -253,4 +255,7 @@ public class DynamicTaskbarIcon
 		};
 		return flyout;
 	}
+
+	[LibraryImport("user32.dll")]
+    private static partial void BringWindowToTop(nint hWnd);
 }

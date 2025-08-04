@@ -10,10 +10,7 @@ Wrappr is a desktop application that allows you to quickly and easily enable/dis
 
 ## Requirements
 
-- installed .NET 8;
-- **only x64 systems**.
-
-There can be some incompatibilities with Windows 10 (app was tested only on Windows 11).
+- installed [.NET Runtime 9](https://dotnet.microsoft.com/en-us/download/dotnet/9.0).
 
 ## Installation
 
@@ -23,7 +20,7 @@ Download latest version installer from [releases](https://github.com/prmncr/Wrap
 
 ### Prerequisites
 
-- .NET SDK 8
+- [.NET SDK 9](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
 
 ### Building
 
