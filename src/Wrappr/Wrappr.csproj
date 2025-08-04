@@ -1,39 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <TargetFramework>net9.0-windows10.0.19041</TargetFramework>
+        <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net8.0-windows10.0.22621</TargetFramework>
-        <RootNamespace>Wrappr</RootNamespace>
-        <Platforms>x64;ARM64</Platforms>
-        <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+
         <UseWinUI>true</UseWinUI>
-        <Version>3.0.0</Version>
-        <Configurations>Debug;Release</Configurations>
-        <EnableMsixTooling>true</EnableMsixTooling>
-        <LangVersion>preview</LangVersion>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
-        <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+        <EnableMsixTooling>false</EnableMsixTooling>
         <WindowsPackageType>None</WindowsPackageType>
+
+        <RootNamespace>Wrappr</RootNamespace>
+        <Version>3.0.0</Version>
+        <LangVersion>preview</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+
+        <Platforms>x86;x64</Platforms>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+        <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+        <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
     </PropertyGroup>
-    <ItemGroup>
-        <None Remove="Components\ActionPanel.xaml"/>
-        <None Remove="Components\PageHeader.xaml"/>
-        <None Remove="Components\Pages\AboutSubPage.xaml"/>
-        <None Remove="Components\Pages\Scaffold.xaml"/>
-        <None Remove="Components\Pages\SettingsPage.xaml"/>
-        <None Remove="Components\Pages\SettingsSubPage.xaml"/>
-        <None Remove="Components\Pages\WrapperGroupsListViewerPage.xaml"/>
-        <None Remove="Components\ToolbarIconResource.xaml"/>
-        <None Remove="Controls\Toggle.xaml"/>
-        <None Remove="Pages\CreateWrapperPage.xaml"/>
-        <None Remove="Pages\NavigationRootPage.xaml"/>
-        <None Remove="Pages\WrapperSettingsPage.xaml"/>
-    </ItemGroup>
 
     <ItemGroup>
-        <Manifest Include="$(ApplicationManifest)"/>
+        <Manifest Include="$(ApplicationManifest)" />
     </ItemGroup>
 
     <ItemGroup>
@@ -48,19 +39,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
-        <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.2.250402"/>
-        <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.2.250402"/>
-        <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.250402"/>
-        <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.2.250402"/>
-        <PackageReference Include="CoreWCF.Http" Version="1.7.0"/>
-        <PackageReference Include="H.NotifyIcon.WinUI" Version="2.3.0"/>
-        <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.3.2"/>
-        <PackageReference Include="System.ServiceModel.Http" Version="8.1.2"/>
-        <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.4"/>
-        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742"/>
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.250108002"/>
-        <PackageReference Include="TaskScheduler" Version="2.12.1"/>
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+        <PackageReference Include="CommunityToolkit.WinUI.Behaviors" Version="8.2.250402" />
+        <PackageReference Include="CommunityToolkit.WinUI.Collections" Version="8.2.250402" />
+        <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.250402" />
+        <PackageReference Include="CommunityToolkit.WinUI.Converters" Version="8.2.250402" />
+        <PackageReference Include="H.NotifyIcon.WinUI" Version="2.3.0" />
+        <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.7" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
+        <PackageReference Include="TaskScheduler" Version="2.12.2" />
     </ItemGroup>
 
     <!--
@@ -71,9 +58,6 @@
     <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
         <ProjectCapability Include="Msix"/>
     </ItemGroup>
-    <PropertyGroup Label="Globals">
-        <WebView2EnableCsWinRTProjection>False</WebView2EnableCsWinRTProjection>
-    </PropertyGroup>
 
     <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
@@ -86,16 +70,13 @@
 
     <!-- Publish Properties -->
     <PropertyGroup>
-        <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
-        <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
-
         <Title>Wrappr</Title>
         <Authors>prmncr</Authors>
         <PackageIcon>logo128.png</PackageIcon>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/prmncr/Wrappr</RepositoryUrl>
-        <AssemblyVersion>2.0</AssemblyVersion>
-        <FileVersion>2.0</FileVersion>
+        <AssemblyVersion>3.0</AssemblyVersion>
+        <FileVersion>3.0</FileVersion>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
         <ApplicationIcon>Assets\Images\icon64.ico</ApplicationIcon>
@@ -112,15 +93,15 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Update="Assets\Images\icon64.ico"/>
-        <Content Update="Assets\Fonts\JetBrainsMono.ttf"/>
-        <Content Update="Assets\Images\logo1024.png"/>
-        <Content Update="Assets\Images\logo128.png"/>
-        <Content Update="Assets\Images\logo256.png"/>
-        <Content Update="Assets\Images\logo512.png"/>
-        <Content Update="Assets\Images\logo64.png"/>
-        <Content Update="Assets\Fonts\SegoeIcons.ttf"/>
-        <Content Update="Assets\Fonts\SegoeUI-Semibold.ttf"/>
+        <Content Update="Assets\Images\icon64.ico" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
+        <Content Update="Assets\Fonts\JetBrainsMono.ttf" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
+        <Content Update="Assets\Images\logo1024.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
+        <Content Update="Assets\Images\logo128.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
+        <Content Update="Assets\Images\logo256.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
+        <Content Update="Assets\Images\logo512.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
+        <Content Update="Assets\Images\logo64.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
+        <Content Update="Assets\Fonts\SegoeIcons.ttf" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
+        <Content Update="Assets\Fonts\SegoeUI-Semibold.ttf" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
     </ItemGroup>
 
     <ItemGroup>
