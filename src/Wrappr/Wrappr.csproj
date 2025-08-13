@@ -148,10 +148,4 @@
             <Generator>MSBuild:Compile</Generator>
         </Page>
     </ItemGroup>
-
-    <ItemGroup>
-        <Page Update="Controls\Toggle.xaml">
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-    </ItemGroup>
 </Project>

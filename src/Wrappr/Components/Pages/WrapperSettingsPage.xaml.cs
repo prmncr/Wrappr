@@ -1,7 +1,5 @@
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
-using Wrappr.Data;
 using Wrappr.Model;
 using Wrappr.Resources;
 using Wrappr.Services;
@@ -28,19 +26,13 @@ public partial class WrapperSettingsPage : INavigable
 
 	public string LocalizedName => (DataContext as Wrapper)!.ServiceName;
 
-	private async void ServiceStatusButtonClick(object sender, RoutedEventArgs e)
+	private void ServiceStatusButtonClick(object sender, RoutedEventArgs e)
 	{
-		try
-		{
-			var button = (sender as ToggleButton)!;
-			var wrapper = (DataContext as Wrapper)!;
-			await wrapper.ToggleService(!button.IsChecked ?? true);
-			button.IsChecked = wrapper.Enabled;
-			SetToggleServiceButtonText(wrapper.Enabled);
-		} catch (Exception ex)
-		{
-			Snackbars.ShowSnackbar(new SnackbarData(Strings.ErrorMessageTitle, InfoBarSeverity.Error, ex.Message));
-		}
+		var button = (sender as ToggleButton)!;
+		var wrapper = (DataContext as Wrapper)!;
+		wrapper.Enabled = button.IsChecked ?? false;
+		button.IsChecked = wrapper.Enabled;
+		SetToggleServiceButtonText(wrapper.Enabled);
 	}
 
 	private void SetToggleServiceButtonText(bool isEnabled)

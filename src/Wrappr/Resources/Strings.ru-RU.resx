@@ -250,6 +250,6 @@
       <value>Wrappr был успешно удален из автозапуска!</value>
     </data>
     <data name="TrayMenuWrappersInTopSetting" xml:space="preserve">
-      <value>Разместить сервисы вверху в контекстном меню иконки в трее</value>
+      <value>Разместить сервисы в начале контекстного меню иконки в трее</value>
     </data>
 </root>

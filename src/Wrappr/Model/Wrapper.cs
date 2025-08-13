@@ -19,36 +19,8 @@ public partial class Wrapper : ObservableObject
 	private int _pollingDelay;
 	private bool _isNotificationsEnabled;
 	private bool _isTrackingEnabled;
+	private bool _enabled;
 	// ReSharper restore ReplaceWithFieldKeyword
-
-	public Wrapper() { }
-
-	public Wrapper(WrapperConfig config)
-	{
-		_pollingDelay = config.PollingDelay;
-		_isTrackingEnabled = config.Tracked;
-		_isNotificationsEnabled = config.Notified;
-
-		if (config.Name == null)
-		{
-			IsInitialized = false;
-			ServiceName = Strings.EmptyWrapperDisplayName;
-			DisplayName = Strings.EmptyWrapperDisplayName;
-			return;
-		}
-
-		Service = Services.GetAll().FirstOrDefault(service => config.Name == service!.ServiceName, null);
-		Enabled = Service?.Status == ServiceControllerStatus.Running;
-		ServiceName = Service?.ServiceName ?? Strings.EmptyWrapperServiceName;
-		DisplayName = Service?.DisplayName ?? Strings.EmptyWrapperDisplayName;
-		IsInitialized = true;
-
-		if (Service == null)
-		{
-			return;
-		}
-		RecreateMonitor();
-	}
 
 	private ServiceController? Service { get; }
 
@@ -62,11 +34,12 @@ public partial class Wrapper : ObservableObject
 
 	public bool Enabled
 	{
-		get;
+		get => _enabled;
 		set
 		{
 			OnPropertyChanging();
-			field = value;
+			Task.Run(() => ToggleService(value));
+			_enabled = value;
 			ServiceToggled?.Invoke(value);
 			OnPropertyChanged();
 		}
@@ -105,7 +78,37 @@ public partial class Wrapper : ObservableObject
 		}
 	}
 
+
 	public event Action<bool>? ServiceToggled;
+
+	public Wrapper() { }
+
+	public Wrapper(WrapperConfig config)
+	{
+		_pollingDelay = config.PollingDelay;
+		_isTrackingEnabled = config.Tracked;
+		_isNotificationsEnabled = config.Notified;
+
+		if (config.Name == null)
+		{
+			IsInitialized = false;
+			ServiceName = Strings.EmptyWrapperDisplayName;
+			DisplayName = Strings.EmptyWrapperDisplayName;
+			return;
+		}
+
+		Service = Services.GetAll().FirstOrDefault(service => config.Name == service!.ServiceName, null);
+		Enabled = Service?.Status == ServiceControllerStatus.Running;
+		ServiceName = Service?.ServiceName ?? Strings.EmptyWrapperServiceName;
+		DisplayName = Service?.DisplayName ?? Strings.EmptyWrapperDisplayName;
+		IsInitialized = true;
+
+		if (Service == null)
+		{
+			return;
+		}
+		RecreateMonitor();
+	}
 
 	private async Task UpdateWrapper()
 	{
@@ -113,8 +116,7 @@ public partial class Wrapper : ObservableObject
 		await WrappersStorage.Save();
 	}
 
-	[RelayCommand]
-	public async Task ToggleService(bool switchedFrom)
+	private async Task ToggleService(bool switchedTo)
 	{
 		if (Service == null)
 		{
@@ -123,7 +125,7 @@ public partial class Wrapper : ObservableObject
 		}
 		string? message;
 		_serviceStatusMonitor?.Pause();
-		if (switchedFrom)
+		if (!switchedTo)
 		{
 			message = await Disable();
 			await Task.Run(() => Service.WaitForStatus(ServiceControllerStatus.Stopped));
@@ -136,7 +138,6 @@ public partial class Wrapper : ObservableObject
 		}
 
 		Service.Refresh();
-		Enabled = Service.Status == ServiceControllerStatus.Running;
 		_serviceStatusMonitor?.Resume();
 		if (message != null)
 		{

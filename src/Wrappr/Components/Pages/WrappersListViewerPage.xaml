@@ -4,7 +4,6 @@
     xmlns:model="using:Wrappr.Model"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:fonts="using:Wrappr"
-    xmlns:ctrl="using:Wrappr.Controls"
     xmlns:resources="using:Wrappr.Resources"
     xmlns:components="using:Wrappr.Components"
     xmlns:services="using:Wrappr.Services"
@@ -40,11 +39,10 @@
                     </controls:SettingsCard.Resources>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <ProgressRing IsActive="{x:Bind IsWaitingForStatusChange}" />
-                        <ctrl:Toggle
+                        <ToggleSwitch
                             IsEnabled="{x:Bind services:Elevation.IsElevated}"
                             MinWidth="0"
-                            Value="{x:Bind Path=Enabled, Mode=TwoWay}"
-                            OnCheckedCommand="{Binding Path=ToggleServiceCommand}" />
+                            IsOn="{x:Bind Path=Enabled, Mode=TwoWay}" />
                     </StackPanel>
                 </controls:SettingsCard>
             </ItemContainer>

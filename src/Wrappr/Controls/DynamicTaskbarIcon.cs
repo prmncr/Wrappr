@@ -138,16 +138,16 @@ public partial class DynamicTaskbarIcon
 			};
 			yield break;
 		}
-		foreach (var it in WrappersStorage.Items)
+		foreach (var wrapper in WrappersStorage.Items)
 		{
 			var item = new ToggleMenuFlyoutItem
 			{
-				Text = it.ServiceName,
-				IsChecked = it.Enabled,
+				Text = wrapper.ServiceName,
+				IsChecked = wrapper.Enabled,
 				IsEnabled = Elevation.IsElevated
 			};
-			it.ServiceToggled += newValue => item.IsChecked = newValue;
-			item.Click += async (_, _) => await it.ToggleService(!item.IsChecked);
+			wrapper.ServiceToggled += newValue => item.IsChecked = newValue;
+			item.Click += (_, _) => wrapper.Enabled = item.IsChecked;
 			yield return item;
 		}
 	}
