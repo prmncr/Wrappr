@@ -48,6 +48,7 @@ public partial class CreateWrapperPage : INavigable
 		}
 		var wrapper = new Wrapper(new WrapperConfig(service.ServiceName));
 		Wrappers.Instance.Storage.Add(wrapper);
+		Properties.Save();
 		Navigation.DropCurrentPageAndChange<WrapperSettingsPage>(wrapper);
 	}
 

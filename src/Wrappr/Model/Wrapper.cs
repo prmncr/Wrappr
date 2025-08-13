@@ -14,14 +14,20 @@ namespace Wrappr.Model;
 public partial class Wrapper : ObservableObject
 {
 	private ServiceStatusMonitor? _serviceStatusMonitor;
+	// private fields is used in constructor to avoid saving of empty wrappers
+	// ReSharper disable ReplaceWithFieldKeyword
+	private int _pollingDelay;
+	private bool _isNotificationsEnabled;
+	private bool _isTrackingEnabled;
+	// ReSharper restore ReplaceWithFieldKeyword
 
 	public Wrapper() { }
 
 	public Wrapper(WrapperConfig config)
 	{
-		PollingDelay = config.PollingDelay;
-		IsTrackingEnabled = config.Tracked;
-		IsNotificationsEnabled = config.Notified;
+		_pollingDelay = config.PollingDelay;
+		_isTrackingEnabled = config.Tracked;
+		_isNotificationsEnabled = config.Notified;
 
 		if (config.Name == null)
 		{
@@ -68,10 +74,10 @@ public partial class Wrapper : ObservableObject
 
 	public bool IsTrackingEnabled
 	{
-		get;
+		get => _isTrackingEnabled;
 		private set
 		{
-			field = value;
+			_isTrackingEnabled = value;
 			UpdateWrapper();
 			OnPropertyChanged();
 		}
@@ -79,10 +85,10 @@ public partial class Wrapper : ObservableObject
 
 	public bool IsNotificationsEnabled
 	{
-		get;
+		get => _isNotificationsEnabled;
 		private set
 		{
-			field = value;
+			_isNotificationsEnabled = value;
 			UpdateWrapper();
 			OnPropertyChanged();
 		}
@@ -90,10 +96,10 @@ public partial class Wrapper : ObservableObject
 
 	public int PollingDelay
 	{
-		get;
+		get => _pollingDelay;
 		set
 		{
-			field = value;
+			_pollingDelay = value;
 			UpdateWrapper();
 			OnPropertyChanged();
 		}

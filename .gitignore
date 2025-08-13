@@ -5,3 +5,4 @@ riderModule.iml
 /_ReSharper.Caches/
 /Wrappr.csproj.DotSettings
 *.csproj.user
+Directory.Build.*
