@@ -9,8 +9,6 @@ public static class Navigation
 
 	private static INavigator? _navigator;
 
-	public static IEnumerable<string> Trace => BackStack.Select(it => it.LocalizedName).Reverse();
-
 	private static readonly Stack<INavigable> BackStack = new();
 
 	public static void ChangePage<TNavigable>(object? dataContext = null) where TNavigable : Page, INavigable
@@ -43,14 +41,6 @@ public static class Navigation
 		if (BackStack.TryPeek(out var last))
 		{
 			PreviousLocalizedTitle = last.LocalizedName;
-		}
-	}
-
-	public static void BackTo(int index)
-	{
-		while (BackStack.Count - 1 != index)
-		{
-			Back();
 		}
 	}
 

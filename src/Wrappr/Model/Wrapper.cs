@@ -52,13 +52,13 @@ public partial class Wrapper : ObservableObject
 
 	private ServiceController? Service { get; }
 
-	[ObservableProperty] public partial string ServiceName { get; set; } = Strings.EmptyWrapperServiceName;
+	[ObservableProperty] public partial string ServiceName { get; private set; } = Strings.EmptyWrapperServiceName;
 
-	[ObservableProperty] public partial string DisplayName { get; set; } = Strings.EmptyWrapperDisplayName;
+	[ObservableProperty] public partial string DisplayName { get; private set; } = Strings.EmptyWrapperDisplayName;
 
-	[ObservableProperty] public partial bool IsInitialized { get; set; }
+	[ObservableProperty] public partial bool IsInitialized { get; private set; }
 
-	[ObservableProperty] public partial bool IsWaitingForStatusChange { get; set; }
+	[ObservableProperty] public partial bool IsWaitingForStatusChange { get; private set; }
 
 	public bool Enabled
 	{
@@ -78,7 +78,7 @@ public partial class Wrapper : ObservableObject
 		private set
 		{
 			_isTrackingEnabled = value;
-			UpdateWrapper();
+			Task.Run(UpdateWrapper);
 			OnPropertyChanged();
 		}
 	}
@@ -89,7 +89,7 @@ public partial class Wrapper : ObservableObject
 		private set
 		{
 			_isNotificationsEnabled = value;
-			UpdateWrapper();
+			Task.Run(UpdateWrapper);
 			OnPropertyChanged();
 		}
 	}
@@ -100,17 +100,17 @@ public partial class Wrapper : ObservableObject
 		set
 		{
 			_pollingDelay = value;
-			UpdateWrapper();
+			Task.Run(UpdateWrapper);
 			OnPropertyChanged();
 		}
 	}
 
 	public event Action<bool>? ServiceToggled;
 
-	private void UpdateWrapper()
+	private async Task UpdateWrapper()
 	{
 		UpdateMonitor();
-		Wrappers.Instance.Save();
+		await WrappersStorage.Save();
 	}
 
 	[RelayCommand]
@@ -154,12 +154,6 @@ public partial class Wrapper : ObservableObject
 	private void ToggleTracking()
 	{
 		IsTrackingEnabled = !IsTrackingEnabled;
-	}
-
-	[RelayCommand]
-	private void DeleteWrapper()
-	{
-		Wrappers.Instance.Storage.Remove(this);
 	}
 
 	private async Task<string?> Disable()

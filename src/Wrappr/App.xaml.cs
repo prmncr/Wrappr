@@ -6,7 +6,6 @@ using Microsoft.UI.Xaml;
 using Wrappr.Components.Windows;
 using Wrappr.Controls;
 using Wrappr.Data;
-using Wrappr.Model;
 using Wrappr.Services;
 
 namespace Wrappr;
@@ -26,7 +25,6 @@ public partial class App : Balloons.IBalloonSender
 		};
 
 		InitializeComponent();
-		Wrappers.Initialize();
 		RequestedTheme = ApplicationTheme.Dark;
 	}
 

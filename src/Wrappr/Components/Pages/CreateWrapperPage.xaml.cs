@@ -18,7 +18,7 @@ public partial class CreateWrapperPage : INavigable
 		InitializeComponent();
 
 		_source = new ServiceNamePresenterSource();
-		ServiceNames = new IncrementalLoadingCollection<ServiceNamePresenterSource, ServiceSearchEntryAdapter>(_source);
+		ServiceNames = new IncrementalLoadingCollection<ServiceNamePresenterSource, ServiceSearchEntry>(_source);
 
 		Loaded += (_, _) =>
 		{
@@ -26,7 +26,7 @@ public partial class CreateWrapperPage : INavigable
 		};
 	}
 
-	private IncrementalLoadingCollection<ServiceNamePresenterSource, ServiceSearchEntryAdapter> ServiceNames { get; }
+	private IncrementalLoadingCollection<ServiceNamePresenterSource, ServiceSearchEntry> ServiceNames { get; }
 
 	private void ReloadSuggestions(object sender, TextChangedEventArgs e)
 	{
@@ -36,7 +36,7 @@ public partial class CreateWrapperPage : INavigable
 
 	private void CreateWrapper(object sender, RoutedEventArgs e)
 	{
-		if (ServiceList.SelectedItem is not ServiceSearchEntryAdapter service)
+		if (ServiceList.SelectedItem is not ServiceSearchEntry service)
 		{
 			Snackbars.ShowSnackbar(
 				new SnackbarData(
@@ -47,14 +47,13 @@ public partial class CreateWrapperPage : INavigable
 			return;
 		}
 		var wrapper = new Wrapper(new WrapperConfig(service.ServiceName));
-		Wrappers.Instance.Storage.Add(wrapper);
-		Properties.Save();
+		WrappersStorage.Add(wrapper);
 		Navigation.DropCurrentPageAndChange<WrapperSettingsPage>(wrapper);
 	}
 
-	private class ServiceNamePresenterSource : IIncrementalSource<ServiceSearchEntryAdapter>
+	private class ServiceNamePresenterSource : IIncrementalSource<ServiceSearchEntry>
 	{
-		private IEnumerable<ServiceSearchEntryAdapter> _source;
+		private IEnumerable<ServiceSearchEntry> _source;
 
 		public ServiceNamePresenterSource()
 		{
@@ -71,28 +70,28 @@ public partial class CreateWrapperPage : INavigable
 			}
 		} = "";
 
-		public Task<IEnumerable<ServiceSearchEntryAdapter>> GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken = new())
+		public Task<IEnumerable<ServiceSearchEntry>> GetPagedItemsAsync(int pageIndex, int pageSize, CancellationToken cancellationToken = new())
 		{
 			return Task.FromResult(_source.Skip(pageIndex * pageSize).Take(pageSize));
 		}
 
-		private List<ServiceSearchEntryAdapter> ReloadSuggestions()
+		private List<ServiceSearchEntry> ReloadSuggestions()
 		{
 			var result = (string.IsNullOrEmpty(Query)
 					? Model.Services.GetAll()
 					: Model.Services.GetAll().Where(x => x.ServiceName.Contains(Query) || x.DisplayName.Contains(Query)))
-				.Select(x => new ServiceSearchEntryAdapter { DisplayName = x.DisplayName, ServiceName = x.ServiceName })
+				.Select(x => new ServiceSearchEntry { DisplayName = x.DisplayName, ServiceName = x.ServiceName })
 				.ToList();
 
 			return result.Count > 0
 				? result
-				: [new ServiceSearchEntryAdapter { IsPlaceholder = true, DisplayName = Strings.NoServiceFoundPlaceholder }];
+				: [new ServiceSearchEntry { IsPlaceholder = true, DisplayName = Strings.NoServiceFoundPlaceholder }];
 		}
 	}
 
 	private void SelectedServiceChanged(object sender, SelectionChangedEventArgs e)
 	{
-		CreateButton.IsEnabled = ServiceList.SelectedItem is ServiceSearchEntryAdapter;
+		CreateButton.IsEnabled = ServiceList.SelectedItem is ServiceSearchEntry;
 	}
 
 	public string LocalizedName => Strings.CreateNewWrapperTitle;

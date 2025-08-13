@@ -4,9 +4,9 @@ Wrappr is a desktop application that allows you to quickly and easily enable/dis
 
 ## Features
 
-1. Accessible from system tray at any moment.
-2. Fast access to status of any service on your computer: you can track only services that you need.
-3. Possibility to notify if service status was changes outside Wrappr app.
+1. Accessible from a system tray at any moment.
+2. Fast access to the status of any service on your computer: you can track only services that you need.
+3. Possibility to notify if service status was changed outside Wrappr app.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ Wrappr is a desktop application that allows you to quickly and easily enable/dis
 
 ## Installation
 
-Download latest version installer from [releases](https://github.com/prmncr/Wrappr/releases), and launch it!
+Download the latest version installer from [releases](https://github.com/prmncr/Wrappr/releases), and launch it!
 
 ## Building from sources
 
@@ -24,7 +24,7 @@ Download latest version installer from [releases](https://github.com/prmncr/Wrap
 
 ### Building
 
-Simply run in project folder:
+Run in the project folder:
 
 ```shell
 dotnet build

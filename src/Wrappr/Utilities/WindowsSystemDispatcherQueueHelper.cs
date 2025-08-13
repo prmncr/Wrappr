@@ -13,7 +13,7 @@ internal class WindowsSystemDispatcherQueueHelper
 
 		if (_dispatcherQueueController != null) return;
 		DispatcherQueueOptions options;
-		options.dwSize = Marshal.SizeOf(typeof(DispatcherQueueOptions));
+		options.dwSize = Marshal.SizeOf<DispatcherQueueOptions>();
 		options.threadType = 2;
 		options.apartmentType = 2;
 

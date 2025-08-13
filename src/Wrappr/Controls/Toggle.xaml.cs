@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Input;
 
 namespace Wrappr.Controls;
 
+[Obsolete("Use WinUI 3 ToggleSwitch instead")]
 public partial class Toggle
 {
 	public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(

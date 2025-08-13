@@ -226,8 +226,8 @@
     <value>Launch in system tray at log in</value>
   </data>
     <data name="AppVersion" xml:space="preserve">
-    <value>3.0</value>
-  </data>
+      <value>3.1</value>
+    </data>
     <data name="SourcesPrefix" xml:space="preserve">
     <value>Source code</value>
   </data>
@@ -246,4 +246,10 @@
     <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+    <data name="DeletedFromAutoStartTitle" xml:space="preserve">
+      <value>Deleted from autostart successfully!</value>
+    </data>
+    <data name="TrayMenuWrappersInTopSetting" xml:space="preserve">
+      <value>Put services in the top of the tray icon's menu</value>
+    </data>
 </root>

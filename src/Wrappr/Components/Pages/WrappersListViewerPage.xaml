@@ -16,10 +16,23 @@
         <DataTemplate x:Name="WrapperTemplate" x:DataType="model:Wrapper">
             <ItemContainer HorizontalAlignment="Stretch">
                 <controls:SettingsCard
-                    Header="{Binding Path=ServiceName, Mode=OneWay}"
-                    Description="{Binding Path=DisplayName, Mode=OneWay}"
                     Click="WrapperCardClicked"
                     IsClickEnabled="True">
+                    <controls:SettingsCard.Header>
+                        <TextBlock
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            FontFamily="{StaticResource JetBrainsMono}"
+                            Text="{Binding Path=ServiceName}"
+                            MaxLines="1"
+                            TextTrimming="CharacterEllipsis"/>
+                    </controls:SettingsCard.Header>
+                    <controls:SettingsCard.Description>
+                        <TextBlock
+                            Text="{Binding Path=DisplayName}"
+                            MaxLines="1"
+                            TextTrimming="CharacterEllipsis"/>
+                    </controls:SettingsCard.Description>
                     <controls:SettingsCard.Resources>
                         <!-- ReSharper disable Xaml.RedundantResource -->
                         <x:Double x:Key="SettingsCardWrapThreshold">150</x:Double>
@@ -131,7 +144,8 @@
                 Background="#55000000"
                 Padding="8"
                 CornerRadius="8">
-                <components:ActionPanel>
+                <Grid>
+                    <TextBlock VerticalAlignment="Center" Text="{x:Bind resources:Strings.WrappersTitle}"/>
                     <Button
                         HorizontalAlignment="Right"
                         Click="CreateWrapper">
@@ -145,7 +159,7 @@
                                 Text="{x:Bind resources:Strings.CreateWrapperPageRedirectButtonText}" />
                         </StackPanel>
                     </Button>
-                </components:ActionPanel>
+                </Grid>
             </Border>
         </components:Scaffold.Actions>
         <Border
@@ -157,7 +171,7 @@
                 Padding="0"
                 Margin="0">
                 <ListView
-                    ItemsSource="{x:Bind model:Wrappers.Instance.Storage}"
+                    ItemsSource="{x:Bind model:WrappersStorage.Items}"
                     ItemTemplate="{StaticResource WrapperTemplate}"
                     Padding="0"
                     Margin="0"

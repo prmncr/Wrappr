@@ -9,7 +9,7 @@
         <WindowsPackageType>None</WindowsPackageType>
 
         <RootNamespace>Wrappr</RootNamespace>
-        <Version>3.0.0</Version>
+        <Version>3.1.0</Version>
         <LangVersion>preview</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -75,8 +75,8 @@
         <PackageIcon>logo128.png</PackageIcon>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/prmncr/Wrappr</RepositoryUrl>
-        <AssemblyVersion>3.0</AssemblyVersion>
-        <FileVersion>3.0</FileVersion>
+        <AssemblyVersion>3.1</AssemblyVersion>
+        <FileVersion>3.1</FileVersion>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
         <ApplicationIcon>Assets\Images\icon64.ico</ApplicationIcon>
@@ -136,9 +136,6 @@
             <Generator>MSBuild:Compile</Generator>
         </Page>
         <Page Update="Components\PageHeader.xaml">
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Update="Components\ActionPanel.xaml">
             <Generator>MSBuild:Compile</Generator>
         </Page>
         <Page Update="Controls\TrayIcon">

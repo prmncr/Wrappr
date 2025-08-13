@@ -15,6 +15,7 @@
             <SolidColorBrush x:Key="PositiveBrush" Color="{StaticResource PositiveColor}" />
             <SolidColorBrush x:Key="NegativeBrush" Color="{StaticResource NegativeColor}" />
 
+            <!-- ReSharper disable once Xaml.ConstructorWarning -->
             <media:FontFamily x:Key="JetBrainsMono">ms-appx:///Assets/JetBrainsMono.ttf/#JetBrains Mono</media:FontFamily>
         </ResourceDictionary>
     </Application.Resources>

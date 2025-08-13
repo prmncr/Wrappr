@@ -19,7 +19,7 @@ public static partial class Cursor
 	private static partial void GetCursorPos(ref Point point);
 
 	[StructLayout(LayoutKind.Sequential)]
-	public struct Point
+	private struct Point
 	{
 		public int X;
 		public int Y;

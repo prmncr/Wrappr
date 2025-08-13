@@ -2,10 +2,6 @@
   "profiles": {
     "Wrappr": {
       "commandName": "Project"
-    },
-    "Wrappr (silent)": {
-      "commandName": "Project",
-      "commandLineArgs": "--silent"
     }
   }
 }

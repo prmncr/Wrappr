@@ -6,7 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:localization="using:Wrappr.Resources"
-    xmlns:ctrl="using:Wrappr.Controls"
     xmlns:services="using:Wrappr.Services"
     mc:Ignorable="d">
     <Grid>
@@ -15,19 +14,24 @@
             Orientation="Vertical"
             Spacing="8">
             <controls:SettingsCard
+                IsEnabled="{x:Bind services:Elevation.IsElevated}"
                 Header="{x:Bind localization:Strings.AddTaskToSchedulerTitle}">
                 <controls:SettingsCard.Resources>
                     <!-- ReSharper disable Xaml.RedundantResource -->
                     <x:Double x:Key="SettingsCardWrapThreshold">500</x:Double>
                     <!-- ReSharper restore Xaml.RedundantResource -->
                 </controls:SettingsCard.Resources>
-                <ctrl:Toggle
-                    Value="{Binding Path=IsEnabled, Mode=TwoWay}"
-                    OnCheckedCommand="{Binding Path=ToggleAutostartCommand}">
-                    <ctrl:Toggle.DataContext>
+                <ToggleSwitch
+                    IsOn="{Binding Path=IsEnabled, Mode=TwoWay}">
+                    <ToggleSwitch.DataContext>
                         <services:Autostart/>
-                    </ctrl:Toggle.DataContext>
-                </ctrl:Toggle>
+                    </ToggleSwitch.DataContext>
+                </ToggleSwitch>
+            </controls:SettingsCard>
+            <controls:SettingsCard
+                Header="{x:Bind localization:Strings.TrayMenuWrappersInTopSetting}">
+                <ToggleSwitch
+                    IsOn="{x:Bind services:DataStore.Settings.TrayMenuWrappersInTop, Mode=TwoWay}"/>
             </controls:SettingsCard>
         </StackPanel>
     </Grid>

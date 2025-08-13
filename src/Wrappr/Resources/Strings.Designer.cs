@@ -105,7 +105,7 @@ namespace Wrappr.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 3.0.
+        ///   Looks up a localized string similar to 3.1.
         /// </summary>
         public static string AppVersion {
             get {
@@ -182,6 +182,15 @@ namespace Wrappr.Resources {
         public static string CreateWrapperPageRedirectButtonText {
             get {
                 return ResourceManager.GetString("CreateWrapperPageRedirectButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted from autostart successfully!.
+        /// </summary>
+        public static string DeletedFromAutoStartTitle {
+            get {
+                return ResourceManager.GetString("DeletedFromAutoStartTitle", resourceCulture);
             }
         }
         
@@ -371,6 +380,15 @@ namespace Wrappr.Resources {
         public static string SourcesPrefix {
             get {
                 return ResourceManager.GetString("SourcesPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Put services in the top of the tray icon&apos;s menu.
+        /// </summary>
+        public static string TrayMenuWrappersInTopSetting {
+            get {
+                return ResourceManager.GetString("TrayMenuWrappersInTopSetting", resourceCulture);
             }
         }
         

@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Win32.TaskScheduler;
 using Wrappr.Data;
@@ -9,8 +8,31 @@ namespace Wrappr.Services;
 
 public partial class Autostart : ObservableObject
 {
-	[ObservableProperty]
-	public partial bool IsEnabled { get; set; }
+	public bool IsEnabled
+	{
+		get => _isEnabled;
+		set
+		{
+			OnPropertyChanging();
+			if (!value)
+			{
+				_taskService.RootFolder.DeleteTask(TaskName, false);
+				Snackbars.ShowSnackbar(
+					new SnackbarData(
+						Strings.DeletedFromAutoStartTitle,
+						InfoBarSeverity.Success
+					)
+				);
+			} else
+			{
+				CreateTask();
+			}
+			_isEnabled = value;
+			OnPropertyChanged();
+		}
+	}
+
+	private bool _isEnabled;
 	private const string TaskName = "Wrappr";
 	private readonly TaskService _taskService = new();
 
@@ -21,21 +43,8 @@ public partial class Autostart : ObservableObject
 		var action = task.Definition.Actions.First();
 		if (action.ActionType == TaskActionType.Execute && ((ExecAction)action).Path == Environment.ProcessPath)
 		{
-			IsEnabled = true;
+			_isEnabled = true;
 		}
-	}
-
-	[RelayCommand]
-	private void ToggleAutostart(bool switchedFrom)
-	{
-		if (switchedFrom)
-		{
-			_taskService.RootFolder.DeleteTask(TaskName, false);
-		} else
-		{
-			CreateTask();
-		}
-		IsEnabled = !switchedFrom;
 	}
 
 	private void CreateTask()

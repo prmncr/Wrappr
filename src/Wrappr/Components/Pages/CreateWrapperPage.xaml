@@ -76,7 +76,7 @@
                         IncrementalLoadingThreshold="1"
                         IncrementalLoadingTrigger="Edge">
                         <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="data:ServiceSearchEntryAdapter">
+                            <DataTemplate x:DataType="data:ServiceSearchEntry">
                                 <StackPanel
                                     Margin="0, 10"
                                     IsHitTestVisible="{Binding Path=IsPlaceholder, Converter={StaticResource BoolNegationConverter}}"

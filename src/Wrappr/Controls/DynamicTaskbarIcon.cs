@@ -32,6 +32,11 @@ public partial class DynamicTaskbarIcon
 	private MenuFlyout _flyout;
 	private bool _isContextMenuVisible;
 
+	private const nint HWndTopmost = -1;
+	private const uint SwpNoMove = 0x0002;
+	private const uint SwpNoSize = 0x0001;
+	private const uint SwpNoActivate = 0x0010;
+
 	public DynamicTaskbarIcon()
 	{
 		_taskbarIcon = new TaskbarIcon
@@ -115,34 +120,6 @@ public partial class DynamicTaskbarIcon
 		return dynamicTaskbarIcon._taskbarIcon;
 	}
 
-	private static List<MenuFlyoutItemBase> GetTopControls()
-	{
-		return
-		[
-			new MenuFlyoutItem
-			{
-				Text = Strings.ContextMenuOpenApp,
-				Command = App.OpenWindowCommand,
-				Icon = new SymbolIcon(Symbol.Home)
-			},
-			new MenuFlyoutSeparator()
-		];
-	}
-
-	private static List<MenuFlyoutItemBase> GetBottomControls()
-	{
-		return
-		[
-			new MenuFlyoutSeparator(),
-			new MenuFlyoutItem
-			{
-				Text = Strings.CloseApp,
-				Icon = new FontIcon { Glyph = Icons.PowerButton },
-				Command = App.Instance.ExitApplicationCommand
-			}
-		];
-	}
-
 	private void UpdateFlyout()
 	{
 		var content = GetItems().ToList();
@@ -152,7 +129,7 @@ public partial class DynamicTaskbarIcon
 
 	private static IEnumerable<MenuFlyoutItemBase> GetWrappers()
 	{
-		if (Wrappers.Instance.Storage.Count == 0)
+		if (WrappersStorage.Items.Count == 0)
 		{
 			yield return new MenuFlyoutItem
 			{
@@ -161,7 +138,7 @@ public partial class DynamicTaskbarIcon
 			};
 			yield break;
 		}
-		foreach (var it in Wrappers.Instance.Storage)
+		foreach (var it in WrappersStorage.Items)
 		{
 			var item = new ToggleMenuFlyoutItem
 			{
@@ -177,7 +154,29 @@ public partial class DynamicTaskbarIcon
 
 	private static IEnumerable<MenuFlyoutItemBase> GetItems()
 	{
-		return GetTopControls().Concat(GetWrappers()).Concat(GetBottomControls());
+		var openApp = new MenuFlyoutItem
+		{
+			Text = Strings.ContextMenuOpenApp,
+			Command = App.OpenWindowCommand,
+			Icon = new SymbolIcon(Symbol.Home)
+		};
+		var closeApp = new MenuFlyoutItem
+		{
+			Text = Strings.CloseApp,
+			Icon = new FontIcon { Glyph = Icons.PowerButton },
+			Command = App.Instance.ExitApplicationCommand
+		};
+		if (DataStore.Settings.TrayMenuWrappersInTop)
+		{
+			return GetWrappers().Concat(
+				[
+					new MenuFlyoutSeparator(),
+					openApp,
+					closeApp
+				]
+			);
+		}
+		return new List<MenuFlyoutItemBase> { openApp, new MenuFlyoutSeparator() }.Concat(GetWrappers()).Concat([new MenuFlyoutSeparator(), closeApp]);
 	}
 
 	private void ShowContextMenu(Point cursorPosition, IEnumerable<MenuFlyoutItemBase> content)
@@ -209,8 +208,10 @@ public partial class DynamicTaskbarIcon
 
 		WindowUtilities.ShowWindow(_hWnd);
 		_appWindow.MoveAndResize(new RectInt32(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
-		WindowUtilities.SetForegroundWindow(_hWnd);
 		BringWindowToTop(_hWnd);
+		SetWindowPos(_hWnd, HWndTopmost, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, SwpNoMove | SwpNoSize | SwpNoActivate);
+		WindowUtilities.SetForegroundWindow(_hWnd);
+		SetActiveWindow(_hWnd);
 	}
 
 	private MenuFlyout PrepareFlyout(IEnumerable<MenuFlyoutItemBase> content)
@@ -262,4 +263,10 @@ public partial class DynamicTaskbarIcon
 
 	[LibraryImport("user32.dll")]
     private static partial void BringWindowToTop(nint hWnd);
+
+	[LibraryImport("user32.dll")]
+	private static partial void SetActiveWindow(nint hWnd);
+
+	[LibraryImport("user32.dll", SetLastError = true)]
+	private static partial void SetWindowPos(nint hWnd, nint hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 }

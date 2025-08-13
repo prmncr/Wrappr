@@ -226,8 +226,8 @@
     <value>Запускать в трее при входе в систему</value>
   </data>
     <data name="AppVersion" xml:space="preserve">
-    <value>3.0</value>
-  </data>
+      <value>3.1</value>
+    </data>
     <data name="SourcesPrefix" xml:space="preserve">
     <value>Исходный код</value>
   </data>
@@ -246,4 +246,10 @@
     <data name="Cancel" xml:space="preserve">
     <value>Отменить</value>
   </data>
+    <data name="DeletedFromAutoStartTitle" xml:space="preserve">
+      <value>Wrappr был успешно удален из автозапуска!</value>
+    </data>
+    <data name="TrayMenuWrappersInTopSetting" xml:space="preserve">
+      <value>Разместить сервисы вверху в контекстном меню иконки в трее</value>
+    </data>
 </root>

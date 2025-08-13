@@ -1,10 +1,9 @@
 ﻿using System.Text.Json;
 using Wrappr.Data;
-using Wrappr.Utilities;
 
 namespace Wrappr.Services;
 
-public static class Properties
+public static class DataStore
 {
 	private const string SettingsFileName = "wrappr-config.json";
 	private static readonly string SettingsPath = AppDomain.CurrentDomain.BaseDirectory + SettingsFileName;
@@ -20,7 +19,7 @@ public static class Properties
 			{
 				try
 				{
-					_settings = JsonSerializer.Deserialize(File.ReadAllText(SettingsPath), SettingsHolderSerializationContext.Default.Settings) ?? new Settings();
+					_settings = JsonSerializer.Deserialize(File.ReadAllText(SettingsPath), SettingsSerializationContext.Default.Settings) ?? new Settings();
 				} catch (JsonException)
 				{
 					_settings = new Settings();
@@ -33,8 +32,8 @@ public static class Properties
 		}
 	}
 
-	public static void Save()
+	public static async Task Save()
 	{
-		File.WriteAllText(SettingsPath, JsonSerializer.Serialize(_settings, SettingsHolderSerializationContext.Default.Settings!));
+		await File.WriteAllTextAsync(SettingsPath, JsonSerializer.Serialize(_settings, SettingsSerializationContext.Default.Settings!));
 	}
 }

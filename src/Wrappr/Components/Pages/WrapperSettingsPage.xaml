@@ -47,7 +47,8 @@
                         VerticalAlignment="Center"
                         Click="AfterWrapperDeleted"
                         Foreground="{StaticResource NegativeColor}"
-                        Command="{Binding Path=DeleteWrapperCommand}">
+                        Command="{x:Bind Path=model:WrappersStorage.RemoveCommand}"
+                        CommandParameter="{Binding}">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon
                                 FontSize="14"
