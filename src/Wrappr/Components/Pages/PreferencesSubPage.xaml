@@ -6,6 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:localization="using:Wrappr.Resources"
+    xmlns:ctrl="using:Wrappr.Controls"
+    xmlns:services="using:Wrappr.Services"
     mc:Ignorable="d">
     <Grid>
         <StackPanel
@@ -19,11 +21,13 @@
                     <x:Double x:Key="SettingsCardWrapThreshold">500</x:Double>
                     <!-- ReSharper restore Xaml.RedundantResource -->
                 </controls:SettingsCard.Resources>
-                <ComboBox
-                    x:Name="AutostartComboBox"
-                    SelectionChanged="OnAutostartSettingChanged"
-                    MaxWidth="300"
-                    MinWidth="300" />
+                <ctrl:Toggle
+                    Value="{Binding Path=IsEnabled, Mode=TwoWay}"
+                    OnCheckedCommand="{Binding Path=ToggleAutostartCommand}">
+                    <ctrl:Toggle.DataContext>
+                        <services:Autostart/>
+                    </ctrl:Toggle.DataContext>
+                </ctrl:Toggle>
             </controls:SettingsCard>
         </StackPanel>
     </Grid>

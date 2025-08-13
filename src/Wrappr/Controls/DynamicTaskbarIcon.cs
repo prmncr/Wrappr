@@ -37,7 +37,11 @@ public partial class DynamicTaskbarIcon
 		_taskbarIcon = new TaskbarIcon
 		{
 			Visibility = Visibility.Visible,
+			#if DEBUG
+			ToolTipText = Strings.AppName + " [dev]",
+			#else
 			ToolTipText = Strings.AppName,
+			#endif
 			ContextMenuMode = ContextMenuMode.SecondWindow,
 			LeftClickCommand = App.OpenWindowCommand,
 			NoLeftClickDelay = true,

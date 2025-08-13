@@ -8,7 +8,6 @@ using Wrappr.Controls;
 using Wrappr.Data;
 using Wrappr.Model;
 using Wrappr.Services;
-using Wrappr.Utilities;
 
 namespace Wrappr;
 
@@ -46,7 +45,6 @@ public partial class App : Balloons.IBalloonSender
 
 	protected override void OnLaunched(LaunchActivatedEventArgs args)
 	{
-		Arguments.Initialize(Environment.GetCommandLineArgs());
 		InitializeTrayIcon();
 
 		#if DEBUG
@@ -54,9 +52,6 @@ public partial class App : Balloons.IBalloonSender
 		#else
 		_windowAdapter = new PopupWindowAdapter(new MainWindow());
 		#endif
-
-		if (Arguments.Boot.IsSilentMode) return;
-		_windowAdapter.Show();
 	}
 
 	#if DEBUG
