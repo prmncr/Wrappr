@@ -10,7 +10,7 @@ using Microsoft.UI.Composition.SystemBackdrops;
 
 namespace Wrappr.Components.Windows;
 
-public partial class MainWindow : Navigation.INavigator, Snackbars.ISnackbarViewport
+public partial class MainWindow : Navigation.INavigator, Notifications.INotifier
 {
 	private WindowsSystemDispatcherQueueHelper? _wsdqHelper;
 	private DesktopAcrylicController? _acrylicController;
@@ -23,7 +23,7 @@ public partial class MainWindow : Navigation.INavigator, Snackbars.ISnackbarView
 		AppWindow.Resize(size);
 		AppWindow.SetIcon("Assets/Images/logo32.ico");
 		Navigation.Initialize(this);
-		Snackbars.Initialize(this);
+		Notifications.InAppNotifier = this;
 		SetAcrylicBackdrop();
 	}
 
@@ -53,12 +53,19 @@ public partial class MainWindow : Navigation.INavigator, Snackbars.ISnackbarView
 		MainFrame.ForwardStack.Clear();
 	}
 
-	public void ShowInfoBarMessage(SnackbarData message)
+	public void Show(Notification notification)
 	{
 		InfoBar.IsOpen = true;
-		InfoBar.Severity = message.Severity;
-		InfoBar.Title = message.Title;
-		InfoBar.Message = message.Message;
+		InfoBar.Severity = notification.NotificationSeverity switch
+		{
+			Notification.Severity.Info => InfoBarSeverity.Informational,
+			Notification.Severity.Warning => InfoBarSeverity.Warning,
+			Notification.Severity.Error => InfoBarSeverity.Error,
+			Notification.Severity.Success => InfoBarSeverity.Success,
+			_ => InfoBarSeverity.Informational
+		};
+		InfoBar.Title = notification.Title;
+		InfoBar.Message = notification.Message;
 	}
 
 	private void SetAcrylicBackdrop()

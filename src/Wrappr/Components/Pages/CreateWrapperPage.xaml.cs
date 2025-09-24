@@ -38,10 +38,10 @@ public partial class CreateWrapperPage : INavigable
 	{
 		if (ServiceList.SelectedItem is not ServiceSearchEntry service)
 		{
-			Snackbars.ShowSnackbar(
-				new SnackbarData(
+			Notifications.ShowNearestNotification(
+				new Notification(
 					Strings.NoServiceSelectedError,
-					InfoBarSeverity.Error
+					NotificationSeverity: Notification.Severity.Error
 				)
 			);
 			return;

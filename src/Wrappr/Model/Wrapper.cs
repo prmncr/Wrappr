@@ -1,9 +1,7 @@
 ﻿using System.ServiceProcess;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using H.NotifyIcon.Core;
 using Microsoft.UI.Dispatching;
-using Microsoft.UI.Xaml.Controls;
 using Wrappr.Data;
 using Wrappr.Resources;
 using Wrappr.Services;
@@ -37,6 +35,7 @@ public partial class Wrapper : ObservableObject
 		get => _enabled;
 		set
 		{
+			if (value == _enabled) return;
 			OnPropertyChanging();
 			Task.Run(() => ToggleService(value));
 			_enabled = value;
@@ -98,7 +97,7 @@ public partial class Wrapper : ObservableObject
 		}
 
 		Service = Services.GetAll().FirstOrDefault(service => config.Name == service!.ServiceName, null);
-		Enabled = Service?.Status == ServiceControllerStatus.Running;
+		_enabled = Service?.Status == ServiceControllerStatus.Running;
 		ServiceName = Service?.ServiceName ?? Strings.EmptyWrapperServiceName;
 		DisplayName = Service?.DisplayName ?? Strings.EmptyWrapperDisplayName;
 		IsInitialized = true;
@@ -120,7 +119,7 @@ public partial class Wrapper : ObservableObject
 	{
 		if (Service == null)
 		{
-			Snackbars.ShowSnackbar(new SnackbarData(Strings.ErrorMessageTitle, InfoBarSeverity.Error, Strings.ServiceNotFoundMessage));
+			Notifications.ShowNearestNotification(new Notification(Strings.ErrorMessageTitle, Strings.ServiceNotFoundMessage, Notification.Severity.Error));
 			return;
 		}
 		string? message;
@@ -141,7 +140,7 @@ public partial class Wrapper : ObservableObject
 		_serviceStatusMonitor?.Resume();
 		if (message != null)
 		{
-			Snackbars.ShowSnackbar(new SnackbarData(Strings.ErrorMessageTitle, InfoBarSeverity.Error, message));
+			Notifications.ShowNearestNotification(new Notification(Strings.ErrorMessageTitle, message, Notification.Severity.Error));
 		}
 	}
 
@@ -201,13 +200,11 @@ public partial class Wrapper : ObservableObject
 		{
 			if (IsNotificationsEnabled)
 			{
-				Balloons.ShowBalloonMessage(
-					new BalloonMessageData
-					{
-						Title = Strings.ServiceStatusWasChangedBalloonTitle,
-						Message = string.Format(Strings.ServiceStatusWasChangedBalloonText, Service?.ServiceName, newStatus),
-						Icon = NotificationIcon.Info
-					}
+				Notifications.ShowNearestNotification(
+					new Notification(
+						Strings.ServiceStatusWasChangedBalloonTitle,
+						string.Format(Strings.ServiceStatusWasChangedBalloonText, Service?.ServiceName, newStatus)
+					)
 				);
 			}
 			Service!.Refresh();

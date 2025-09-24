@@ -82,7 +82,7 @@ public partial class WrappersListViewerPage : INavigable
 			}.ShowAsync();
 		} catch (Exception exception)
 		{
-			Snackbars.ShowSnackbar(exception);
+			Notifications.ShowNearestNotification(exception);
 		}
 	}
 }

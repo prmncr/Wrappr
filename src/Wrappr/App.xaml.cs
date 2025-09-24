@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using H.NotifyIcon;
+using H.NotifyIcon.Core;
 using Microsoft.UI.Xaml;
 using Wrappr.Components.Windows;
 using Wrappr.Controls;
@@ -10,18 +11,18 @@ using Wrappr.Services;
 
 namespace Wrappr;
 
-public partial class App : Balloons.IBalloonSender
+public partial class App : Notifications.INotifier
 {
 	private static IWindowAdapter _windowAdapter = null!;
 
 	public App()
 	{
 		Instance = this;
-		Balloons.Initialize(this);
+		Notifications.BalloonNotifier = this;
 
 		UnhandledException += (_, eventArgs) =>
 		{
-			Snackbars.ShowSnackbar(eventArgs.Exception);
+			Notifications.ShowNearestNotification(eventArgs.Exception);
 		};
 
 		InitializeComponent();
@@ -32,24 +33,22 @@ public partial class App : Balloons.IBalloonSender
 
 	private TaskbarIcon TaskbarIcon { get; set; } = null!;
 
-	[field: AllowNull] [field: MaybeNull] public static ICommand OpenWindowCommand => field ??= new RelayCommand(OpenWindow);
+	[field: AllowNull, MaybeNull]
+	public static ICommand OpenWindowCommand => field ??= new RelayCommand(OpenWindow);
 
-	[field: AllowNull] [field: MaybeNull] public ICommand ExitApplicationCommand => field ??= new RelayCommand(ExitApplication);
-
-	public void ShowBalloonMessage(BalloonMessageData messageData)
-	{
-		TaskbarIcon.ShowNotification(messageData.Title, messageData.Message, messageData.Icon);
-	}
+	[field: AllowNull, MaybeNull]
+	public ICommand ExitApplicationCommand => field ??= new RelayCommand(ExitApplication);
 
 	protected override void OnLaunched(LaunchActivatedEventArgs args)
 	{
 		InitializeTrayIcon();
-
+		var window = new MainWindow();
 		#if DEBUG
-		_windowAdapter = new WinUiWindowAdapter(new MainWindow());
+		_windowAdapter = new WinUiWindowAdapter(window);
 		#else
-		_windowAdapter = new PopupWindowAdapter(new MainWindow());
+		_windowAdapter = new PopupWindowAdapter(window);
 		#endif
+		Notifications.HookWindow(window);
 	}
 
 	#if DEBUG
@@ -84,5 +83,21 @@ public partial class App : Balloons.IBalloonSender
 		TaskbarIcon.Dispose();
 		_windowAdapter.Close();
 		Environment.Exit(0);
+	}
+
+	public void Show(Notification notification)
+	{
+		TaskbarIcon.ShowNotification(
+			notification.Title,
+			notification.Message ?? "",
+			notification.NotificationSeverity switch
+			{
+				Notification.Severity.None => NotificationIcon.None,
+				Notification.Severity.Info => NotificationIcon.Info,
+				Notification.Severity.Warning => NotificationIcon.Warning,
+				Notification.Severity.Error => NotificationIcon.Error,
+				_ => NotificationIcon.None
+			}
+		);
 	}
 }

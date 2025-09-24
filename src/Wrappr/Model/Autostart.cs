@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.Win32.TaskScheduler;
 using Wrappr.Data;
 using Wrappr.Resources;
@@ -17,10 +16,10 @@ public partial class Autostart : ObservableObject
 			if (!value)
 			{
 				_taskService.RootFolder.DeleteTask(TaskName, false);
-				Snackbars.ShowSnackbar(
-					new SnackbarData(
+				Notifications.ShowNearestNotification(
+					new Notification(
 						Strings.DeletedFromAutoStartTitle,
-						InfoBarSeverity.Success
+						NotificationSeverity: Notification.Severity.Success
 					)
 				);
 			} else
@@ -70,16 +69,16 @@ public partial class Autostart : ObservableObject
 			);
 			if (createdTask != null)
 			{
-				Snackbars.ShowSnackbar(
-					new SnackbarData(
+				Notifications.ShowNearestNotification(
+					new Notification(
 						Strings.AddedToAutoStartTitle,
-						InfoBarSeverity.Success
+						NotificationSeverity: Notification.Severity.Success
 					)
 				);
 			}
 		} catch (Exception exception)
 		{
-			Snackbars.ShowSnackbar(exception);
+			Notifications.ShowNearestNotification(exception);
 		}
 	}
 }
