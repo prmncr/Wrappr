@@ -36,6 +36,7 @@ public partial class DynamicTaskbarIcon
 	private const uint SwpNoMove = 0x0002;
 	private const uint SwpNoSize = 0x0001;
 	private const uint SwpNoActivate = 0x0010;
+	private const int GwlExStyle = -20;
 
 	public DynamicTaskbarIcon()
 	{
@@ -61,12 +62,19 @@ public partial class DynamicTaskbarIcon
 			Content = _frame,
 			Title = "Tray Dialog Helper"
 		};
-
 		_taskbarIcon.ActualThemeChanged += (_, _) => _frame.RequestedTheme = _taskbarIcon.ActualTheme;
 
 		_hWnd = WindowNative.GetWindowHandle(_window);
 		DesktopWindowsManagerMethods.SetRoundedCorners(_hWnd);
 		WindowUtilities.MakeTransparent(_hWnd);
+
+		var exStyle = Convert.ToInt64(GetWindowLongPtrW(_hWnd, GwlExStyle));
+		exStyle |= 0x00000080;   // WS_EX_TOOLWINDOW
+		exStyle &= ~0x00040000;  // ~WS_EX_APPWINDOW
+		checked
+		{
+			SetWindowLongPtrW(_hWnd, GwlExStyle, (IntPtr)exStyle);
+		}
 
 		var id = Win32Interop.GetWindowIdFromWindow(_hWnd);
 		_appWindow = AppWindow.GetFromWindowId(id);
@@ -269,4 +277,10 @@ public partial class DynamicTaskbarIcon
 
 	[LibraryImport("user32.dll", SetLastError = true)]
 	private static partial void SetWindowPos(nint hWnd, nint hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
+
+	[LibraryImport("user32.dll", SetLastError = true)]
+	private static partial uint GetWindowLongPtrW(IntPtr hWnd, int nIndex);
+
+	[LibraryImport("user32.dll", SetLastError = true)]
+	private static partial void SetWindowLongPtrW(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 }
