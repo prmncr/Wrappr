@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
-using Wrappr.Model;
+using Wrappr.Models;
+using Wrapper = Wrappr.ViewModels.Wrapper;
 
 namespace Wrappr.Data;
 

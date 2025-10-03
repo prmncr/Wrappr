@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
-using Wrappr.Model;
+using Wrappr.Models;
 using Wrappr.UI;
+using Wrapper = Wrappr.ViewModels.Wrapper;
 
 namespace Wrappr.Views;
 

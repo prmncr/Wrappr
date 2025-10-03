@@ -1,9 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Win32.TaskScheduler;
 using Wrappr.Data;
+using Wrappr.Models;
 using Wrappr.Resources;
 
-namespace Wrappr.Model;
+namespace Wrappr.ViewModels;
 
 public partial class Autostart : ObservableObject
 {

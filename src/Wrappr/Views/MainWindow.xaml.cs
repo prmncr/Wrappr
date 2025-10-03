@@ -3,7 +3,7 @@ using CommunityToolkit.WinUI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Wrappr.Data;
-using Wrappr.Model;
+using Wrappr.Models;
 using Wrappr.Interop;
 using WinRT;
 using Microsoft.UI.Composition.SystemBackdrops;
@@ -30,7 +30,7 @@ public partial class MainWindow : Navigation.INavigator, Notifications.INotifier
 
 	private void FrameLoaded(object sender, RoutedEventArgs e)
 	{
-		Navigation.ChangePage<WrappersListViewerPage>();
+		Navigation.ChangePage<WrappersListView>();
 	}
 
 	public bool ChangePage(Type pageType, out Page? page)

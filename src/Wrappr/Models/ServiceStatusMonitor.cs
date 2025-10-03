@@ -1,9 +1,8 @@
 ﻿using System.ServiceProcess;
 using Wrappr.Data;
 using Wrappr.Resources;
-using Wrappr.Model;
 
-namespace Wrappr.Interop;
+namespace Wrappr.Models;
 
 public class ServiceStatusMonitor(
 	ServiceController service,

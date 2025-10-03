@@ -4,7 +4,7 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 
-namespace Wrappr.Model;
+namespace Wrappr.Models;
 
 public static class Elevation
 {

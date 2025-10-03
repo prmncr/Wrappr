@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:fonts="using:Wrappr"
-    xmlns:services="using:Wrappr.Model"
+    xmlns:services="using:Wrappr.Models"
     xmlns:resources="using:Wrappr.Resources"
     mc:Ignorable="d">
     <Grid Margin="8">

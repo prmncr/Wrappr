@@ -1,42 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Wrappr.Models;
 using Wrappr.Resources;
-using Wrappr.Model;
 using Wrappr.UI;
 
 namespace Wrappr.Views;
 
-public partial class WrappersListViewerPage : INavigable
+public partial class WrappersListView : INavigable
 {
-	public WrappersListViewerPage()
+	public WrappersListView()
 	{
 		InitializeComponent();
 		#if DEBUG
-		CreateDebugMenu();
-		#endif
-	}
-
-	public string LocalizedName => Strings.WrappersTitle;
-
-	private void WrapperCardClicked(object sender, RoutedEventArgs e)
-	{
-		Navigation.ChangePage<WrapperSettingsPage>((sender as FrameworkElement)!.DataContext);
-	}
-
-	private void CreateWrapper(object sender, RoutedEventArgs e)
-	{
-		Navigation.ChangePage<CreateWrapperPage>();
-	}
-
-	private void SettingsButtonClicked(object sender, RoutedEventArgs e)
-	{
-		Navigation.ChangePage<SettingsPage>();
-	}
-
-	#if DEBUG
-	private void CreateDebugMenu()
-	{
 		OptionsFlyout.Items.Add(
 			new MenuFlyoutSubItem
 			{
@@ -58,15 +33,12 @@ public partial class WrappersListViewerPage : INavigable
 				}
 			}
 		);
-	}
-	#endif
-
-	private void Exit(object sender, RoutedEventArgs e)
-	{
-		Application.Current.Exit();
+		#endif
 	}
 
-	private async void NotElevatedButtonClick(object sender, RoutedEventArgs e)
+	public string LocalizedName => Strings.WrappersTitle;
+
+	private async void OpenElevationDialog(object? sender, object? args)
 	{
 		try
 		{
@@ -80,9 +52,9 @@ public partial class WrappersListViewerPage : INavigable
 				DefaultButton = ContentDialogButton.Primary,
 				CloseButtonText = Strings.Cancel
 			}.ShowAsync();
-		} catch (Exception exception)
+		} catch (Exception e)
 		{
-			Notifications.ShowNearestNotification(exception);
+			Notifications.ShowNearestNotification(e);
 		}
 	}
 }

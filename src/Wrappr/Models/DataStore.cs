@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using Wrappr.Data;
 
-namespace Wrappr.Model;
+namespace Wrappr.Models;
 
 public static class DataStore
 {

@@ -5,10 +5,10 @@ using H.NotifyIcon;
 using H.NotifyIcon.Core;
 using Microsoft.UI.Xaml;
 using Wrappr.Views;
-using Wrappr.Controls;
 using Wrappr.Data;
-using Wrappr.Model;
+using Wrappr.Models;
 using Wrappr.UI;
+using DynamicTaskbarIcon = Wrappr.Interop.DynamicTaskbarIcon;
 
 namespace Wrappr;
 

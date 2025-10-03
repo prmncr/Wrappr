@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Wrappr.Data;
 
-namespace Wrappr.Model;
+namespace Wrappr.Models;
 
 public static class Notifications
 {

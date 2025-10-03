@@ -1,6 +1,6 @@
 using System.Windows.Input;
 using Microsoft.UI.Xaml;
-using Wrappr.Model;
+using Wrappr.Models;
 
 namespace Wrappr.Views;
 

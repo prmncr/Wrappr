@@ -1,6 +1,6 @@
 ﻿using System.ServiceProcess;
 
-namespace Wrappr.Model;
+namespace Wrappr.Models;
 
 public static class Services
 {

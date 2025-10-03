@@ -6,7 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:localization="using:Wrappr.Resources"
-    xmlns:services="using:Wrappr.Model"
+    xmlns:services="using:Wrappr.Models"
+    xmlns:viewModels="using:Wrappr.ViewModels"
     mc:Ignorable="d">
     <Grid>
         <StackPanel
@@ -24,7 +25,7 @@
                 <ToggleSwitch
                     IsOn="{Binding Path=IsEnabled, Mode=TwoWay}">
                     <ToggleSwitch.DataContext>
-                        <services:Autostart/>
+                        <viewModels:Autostart/>
                     </ToggleSwitch.DataContext>
                 </ToggleSwitch>
             </controls:SettingsCard>

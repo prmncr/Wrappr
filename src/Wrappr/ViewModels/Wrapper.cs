@@ -3,11 +3,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Dispatching;
 using Wrappr.Data;
+using Wrappr.Models;
 using Wrappr.Resources;
-using Wrappr.Model;
-using Wrappr.Interop;
 
-namespace Wrappr.Model;
+namespace Wrappr.ViewModels;
 
 public partial class Wrapper : ObservableObject
 {

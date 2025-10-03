@@ -7,14 +7,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:localization="using:Wrappr.Resources"
-    xmlns:model="using:Wrappr.Model"
-    xmlns:fonts="using:Wrappr"
+    xmlns:model="using:Wrappr.Models"
     Tag="{x:Bind localization:Strings.SettingsTitle}"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:components="using:Wrappr.Views"
+    xmlns:viewModels="using:Wrappr.ViewModels"
     mc:Ignorable="d">
     <Page.DataContext>
-        <model:Wrapper />
+        <viewModels:Wrapper />
     </Page.DataContext>
     <components:Scaffold
         Title="{Binding Path=ServiceName}">

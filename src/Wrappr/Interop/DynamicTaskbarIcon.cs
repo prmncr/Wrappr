@@ -12,12 +12,11 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Media;
 using WinRT.Interop;
-using Wrappr.Model;
+using Wrappr.Models;
 using Wrappr.Resources;
-using Wrappr.Interop;
 using Size = Windows.Foundation.Size;
 
-namespace Wrappr.Controls;
+namespace Wrappr.Interop;
 
 public partial class DynamicTaskbarIcon
 {

@@ -3,8 +3,9 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Wrappr.UI;
 using Wrappr.Data;
-using Wrappr.Model;
+using Wrappr.Models;
 using Wrappr.Resources;
+using Wrapper = Wrappr.ViewModels.Wrapper;
 
 namespace Wrappr.Views;
 
@@ -77,8 +78,8 @@ public partial class CreateWrapperPage : INavigable
 		private List<ServiceSearchEntry> ReloadSuggestions()
 		{
 			var result = (string.IsNullOrEmpty(Query)
-					? Model.Services.GetAll()
-					: Model.Services.GetAll().Where(x => x.ServiceName.Contains(Query) || x.DisplayName.Contains(Query)))
+					? Services.GetAll()
+					: Services.GetAll().Where(x => x.ServiceName.Contains(Query) || x.DisplayName.Contains(Query)))
 				.Select(x => new ServiceSearchEntry { DisplayName = x.DisplayName, ServiceName = x.ServiceName })
 				.ToList();
 

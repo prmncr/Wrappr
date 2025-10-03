@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Wrappr.UI;
 
-namespace Wrappr.Model;
+namespace Wrappr.Models;
 
 public static class Navigation
 {
