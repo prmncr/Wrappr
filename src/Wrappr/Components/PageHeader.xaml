@@ -16,7 +16,8 @@
         </Grid.RowDefinitions>
         <HyperlinkButton
             Padding="4, 0"
-            Click="BackButtonClick">
+            Click="BackButtonClick"
+            Command="{x:Bind OnBackButtonClick}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />

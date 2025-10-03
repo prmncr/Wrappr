@@ -1,4 +1,5 @@
 ﻿using Windows.Graphics;
+using CommunityToolkit.WinUI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Wrappr.Components.Pages;
@@ -7,6 +8,7 @@ using Wrappr.Services;
 using Wrappr.Utilities;
 using WinRT;
 using Microsoft.UI.Composition.SystemBackdrops;
+using WindowActivatedEventArgs = Microsoft.UI.Xaml.WindowActivatedEventArgs;
 
 namespace Wrappr.Components.Windows;
 
@@ -55,17 +57,21 @@ public partial class MainWindow : Navigation.INavigator, Notifications.INotifier
 
 	public void Show(Notification notification)
 	{
-		InfoBar.IsOpen = true;
-		InfoBar.Severity = notification.NotificationSeverity switch
-		{
-			Notification.Severity.Info => InfoBarSeverity.Informational,
-			Notification.Severity.Warning => InfoBarSeverity.Warning,
-			Notification.Severity.Error => InfoBarSeverity.Error,
-			Notification.Severity.Success => InfoBarSeverity.Success,
-			_ => InfoBarSeverity.Informational
-		};
-		InfoBar.Title = notification.Title;
-		InfoBar.Message = notification.Message;
+		DispatcherQueue.EnqueueAsync(() =>
+			{
+				InfoBar.IsOpen = true;
+				InfoBar.Severity = notification.NotificationSeverity switch
+				{
+					Notification.Severity.Info => InfoBarSeverity.Informational,
+					Notification.Severity.Warning => InfoBarSeverity.Warning,
+					Notification.Severity.Error => InfoBarSeverity.Error,
+					Notification.Severity.Success => InfoBarSeverity.Success,
+					_ => InfoBarSeverity.Informational
+				};
+				InfoBar.Title = notification.Title;
+				InfoBar.Message = notification.Message;
+			}
+		);
 	}
 
 	private void SetAcrylicBackdrop()

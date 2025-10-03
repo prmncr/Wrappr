@@ -9,18 +9,18 @@ public static class Notifications
 
 	public static INotifier? BalloonNotifier { get; set; }
 
-	private static INotifier? _nearest;
+	private static INotifier? _nearest = BalloonNotifier;
 
 	public static void HookWindow(Window window)
 	{
-		window.Activated += (_, args) =>
+		window.VisibilityChanged += (_, args) =>
 		{
-			switch (args.WindowActivationState)
+			if (args.Visible)
 			{
-				case WindowActivationState.PointerActivated:
-				case WindowActivationState.CodeActivated: SetNearestToInApp(); break;
-				case WindowActivationState.Deactivated:
-				default: SetNearestToBalloons(); break;
+				SetNearestToInApp();
+			} else
+			{
+				SetNearestToBalloons();
 			}
 		};
 	}

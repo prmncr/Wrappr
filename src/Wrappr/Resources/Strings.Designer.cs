@@ -393,6 +393,15 @@ namespace Wrappr.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string UpdateWrapper {
+            get {
+                return ResourceManager.GetString("UpdateWrapper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notify.
         /// </summary>
         public static string WrapperNotificationsToggleText {

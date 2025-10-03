@@ -252,4 +252,7 @@
     <data name="TrayMenuWrappersInTopSetting" xml:space="preserve">
       <value>Put services in the top of the tray icon's menu</value>
     </data>
+    <data name="UpdateWrapper" xml:space="preserve">
+      <value>Save</value>
+    </data>
 </root>

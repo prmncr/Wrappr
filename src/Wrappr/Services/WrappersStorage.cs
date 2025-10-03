@@ -25,7 +25,7 @@ public static class WrappersStorage
 
 	public static async Task Save()
 	{
-		DataStore.Settings.WrappedServices = Items.Where(it => it.IsInitialized).Select(WrapperConfig.FromWrapper).ToList();
+		DataStore.Settings.WrappedServices = Items.Select(WrapperConfig.FromWrapper).ToList();
 		await DataStore.Save();
 	}
 
@@ -37,5 +37,12 @@ public static class WrappersStorage
 	public static void Remove(Wrapper wrapper)
 	{
 		Storage.Remove(wrapper);
+	}
+
+	public static WrapperSettings GetBackupFor(Wrapper wrapper)
+	{
+		var config = DataStore.Settings.WrappedServices
+			.FirstOrDefault(it => it?.Name == wrapper.ServiceName, null);
+		return config ?? throw new NullReferenceException($"Wrapper of '{wrapper.ServiceName}' was not found during backup process");
 	}
 }

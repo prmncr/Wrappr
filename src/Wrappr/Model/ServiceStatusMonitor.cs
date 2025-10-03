@@ -1,15 +1,24 @@
 ﻿using System.ServiceProcess;
+using Wrappr.Data;
+using Wrappr.Resources;
+using Wrappr.Services;
 
 namespace Wrappr.Utilities;
 
-public class ServiceStatusMonitor(ServiceController service, Action<ServiceControllerStatus> onStatusChanged)
-{
+public class ServiceStatusMonitor(
+	ServiceController service,
+	bool notify,
+	int pollingDelay,
+	Action callback
+) {
 	private ServiceControllerStatus _initialStatus = service.Status;
 	private bool _suppressed;
 
 	public CancellationTokenSource CancellationTokenSource { get; } = new();
 
-	public int PollingDelay { get; set; } = 1000;
+	public int PollingDelay { get; set; } = pollingDelay;
+
+	public bool Notify { get; set; } = notify;
 
 	public void Pause()
 	{
@@ -38,7 +47,17 @@ public class ServiceStatusMonitor(ServiceController service, Action<ServiceContr
 				Thread.Sleep(PollingDelay);
 				continue;
 			}
-			onStatusChanged.Invoke(service.Status);
+
+			if (Notify)
+			{
+				Notifications.ShowBalloonNotification(
+					new Notification(
+						Strings.ServiceStatusWasChangedBalloonTitle,
+						string.Format(Strings.ServiceStatusWasChangedBalloonText, service.ServiceName, service.Status)
+					)
+				);
+			}
+			callback?.Invoke();
 			_initialStatus = service.Status;
 		}
 	}

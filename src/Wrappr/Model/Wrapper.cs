@@ -11,112 +11,68 @@ namespace Wrappr.Model;
 
 public partial class Wrapper : ObservableObject
 {
-	private ServiceStatusMonitor? _serviceStatusMonitor;
-	// private fields is used in constructor to avoid saving of empty wrappers
-	// ReSharper disable ReplaceWithFieldKeyword
-	private int _pollingDelay;
-	private bool _isNotificationsEnabled;
-	private bool _isTrackingEnabled;
-	private bool _enabled;
-	// ReSharper restore ReplaceWithFieldKeyword
+	public WrapperSettings Settings { get; private set; }
 
-	private ServiceController? Service { get; }
+	public string ServiceName { get; } = Strings.EmptyWrapperServiceName;
 
-	[ObservableProperty] public partial string ServiceName { get; private set; } = Strings.EmptyWrapperServiceName;
+	public string DisplayName { get; } = Strings.EmptyWrapperDisplayName;
 
-	[ObservableProperty] public partial string DisplayName { get; private set; } = Strings.EmptyWrapperDisplayName;
+	[ObservableProperty]
+	public partial bool IsWaitingForStatusChange { get; private set; }
 
-	[ObservableProperty] public partial bool IsInitialized { get; private set; }
-
-	[ObservableProperty] public partial bool IsWaitingForStatusChange { get; private set; }
-
-	public bool Enabled
-	{
-		get => _enabled;
-		set
-		{
-			if (value == _enabled) return;
-			OnPropertyChanging();
-			Task.Run(() => ToggleService(value));
-			_enabled = value;
-			ServiceToggled?.Invoke(value);
-			OnPropertyChanged();
-		}
-	}
-
-	public bool IsTrackingEnabled
-	{
-		get => _isTrackingEnabled;
-		private set
-		{
-			_isTrackingEnabled = value;
-			Task.Run(UpdateWrapper);
-			OnPropertyChanged();
-		}
-	}
-
-	public bool IsNotificationsEnabled
-	{
-		get => _isNotificationsEnabled;
-		private set
-		{
-			_isNotificationsEnabled = value;
-			Task.Run(UpdateWrapper);
-			OnPropertyChanged();
-		}
-	}
-
-	public int PollingDelay
-	{
-		get => _pollingDelay;
-		set
-		{
-			_pollingDelay = value;
-			Task.Run(UpdateWrapper);
-			OnPropertyChanged();
-		}
-	}
-
+	[ObservableProperty]
+	public partial bool Enabled { get; set; }
 
 	public event Action<bool>? ServiceToggled;
 
-	public Wrapper() { }
+	public Wrapper()
+	{
+		Settings = new WrapperSettings();
+	}
 
 	public Wrapper(WrapperConfig config)
 	{
-		_pollingDelay = config.PollingDelay;
-		_isTrackingEnabled = config.Tracked;
-		_isNotificationsEnabled = config.Notified;
+		Settings = config;
 
 		if (config.Name == null)
 		{
-			IsInitialized = false;
 			ServiceName = Strings.EmptyWrapperDisplayName;
 			DisplayName = Strings.EmptyWrapperDisplayName;
 			return;
 		}
 
 		Service = Services.GetAll().FirstOrDefault(service => config.Name == service!.ServiceName, null);
-		_enabled = Service?.Status == ServiceControllerStatus.Running;
+		Enabled = Service?.Status == ServiceControllerStatus.Running;
 		ServiceName = Service?.ServiceName ?? Strings.EmptyWrapperServiceName;
 		DisplayName = Service?.DisplayName ?? Strings.EmptyWrapperDisplayName;
-		IsInitialized = true;
 
-		if (Service == null)
+		if (Service != null)
 		{
-			return;
+			CreateMonitor();
 		}
-		RecreateMonitor();
 	}
 
+	private ServiceController? Service { get; }
+
+	private ServiceStatusMonitor? _serviceStatusMonitor;
+
+	[RelayCommand]
 	private async Task UpdateWrapper()
 	{
-		UpdateMonitor();
 		await WrappersStorage.Save();
+		UpdateMonitor();
 	}
 
-	private async Task ToggleService(bool switchedTo)
+	[RelayCommand]
+	private void RevertChanges()
 	{
+		Settings = WrappersStorage.GetBackupFor(this);
+	}
+
+	[RelayCommand]
+	private async Task ToggleService()
+	{
+		var switchedTo = !Enabled;
 		if (Service == null)
 		{
 			Notifications.ShowNearestNotification(new Notification(Strings.ErrorMessageTitle, Strings.ServiceNotFoundMessage, Notification.Severity.Error));
@@ -142,18 +98,8 @@ public partial class Wrapper : ObservableObject
 		{
 			Notifications.ShowNearestNotification(new Notification(Strings.ErrorMessageTitle, message, Notification.Severity.Error));
 		}
-	}
-
-	[RelayCommand]
-	private void ToggleNotifications()
-	{
-		IsNotificationsEnabled = !IsNotificationsEnabled;
-	}
-
-	[RelayCommand]
-	private void ToggleTracking()
-	{
-		IsTrackingEnabled = !IsTrackingEnabled;
+		Enabled = switchedTo;
+		ServiceToggled?.Invoke(Enabled);
 	}
 
 	private async Task<string?> Disable()
@@ -186,40 +132,24 @@ public partial class Wrapper : ObservableObject
 		}
 	}
 
-	private void RecreateMonitor()
+	private void CreateMonitor()
 	{
 		if (Service == null) return;
-		if (!IsTrackingEnabled) return;
+		if (!Settings.Tracked) return;
 		var dispatcher = DispatcherQueue.GetForCurrentThread();
 
-		_serviceStatusMonitor = new ServiceStatusMonitor(Service, StatusChangedCallback) { PollingDelay = PollingDelay };
+		_serviceStatusMonitor = new ServiceStatusMonitor(
+			Service,
+			Settings.Notified,
+			Settings.PollingDelay,
+			() => dispatcher.TryEnqueue(DispatcherQueuePriority.High, () => Enabled = Service.Status == ServiceControllerStatus.Running)
+		);
 		_ = Task.Run(_serviceStatusMonitor!.WatchServiceStatus, _serviceStatusMonitor.CancellationTokenSource.Token);
-		return;
-
-		void StatusChangedCallback(ServiceControllerStatus newStatus)
-		{
-			if (IsNotificationsEnabled)
-			{
-				Notifications.ShowNearestNotification(
-					new Notification(
-						Strings.ServiceStatusWasChangedBalloonTitle,
-						string.Format(Strings.ServiceStatusWasChangedBalloonText, Service?.ServiceName, newStatus)
-					)
-				);
-			}
-			Service!.Refresh();
-			dispatcher.TryEnqueue(
-				DispatcherQueuePriority.High, () =>
-				{
-					Enabled = Service.Status == ServiceControllerStatus.Running;
-				}
-			);
-		}
 	}
 
 	private void UpdateMonitor()
 	{
-		if (!IsTrackingEnabled)
+		if (!Settings.Tracked)
 		{
 			_serviceStatusMonitor?.CancellationTokenSource.Cancel();
 			_serviceStatusMonitor = null;
@@ -227,10 +157,11 @@ public partial class Wrapper : ObservableObject
 		}
 		if (_serviceStatusMonitor != null)
 		{
-			_serviceStatusMonitor.PollingDelay = PollingDelay;
+			_serviceStatusMonitor.PollingDelay = Settings.PollingDelay;
+			_serviceStatusMonitor.Notify = Settings.Notified;
 		} else
 		{
-			RecreateMonitor();
+			CreateMonitor();
 		}
 	}
 }

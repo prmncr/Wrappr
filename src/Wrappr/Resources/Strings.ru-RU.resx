@@ -252,4 +252,7 @@
     <data name="TrayMenuWrappersInTopSetting" xml:space="preserve">
       <value>Разместить сервисы в начале контекстного меню иконки в трее</value>
     </data>
+    <data name="UpdateWrapper" xml:space="preserve">
+      <value>Сохранить</value>
+    </data>
 </root>

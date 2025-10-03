@@ -8,6 +8,7 @@
     xmlns:components="using:Wrappr.Components"
     xmlns:services="using:Wrappr.Services"
     xmlns:converters="using:CommunityToolkit.WinUI.Converters"
+    xmlns:utilities="using:Wrappr.Utilities"
     Tag="{x:Bind resources:Strings.WrappersTitle}"
     x:Class="Wrappr.Components.Pages.WrappersListViewerPage">
     <Page.Resources>
@@ -42,7 +43,8 @@
                         <ToggleSwitch
                             IsEnabled="{x:Bind services:Elevation.IsElevated}"
                             MinWidth="0"
-                            IsOn="{x:Bind Path=Enabled, Mode=TwoWay}" />
+                            IsOn="{x:Bind Path=Enabled, Mode=OneWay}"
+                            utilities:ToggleSwitchExtensions.ToggledCommand="{x:Bind ToggleServiceCommand}"/>
                     </StackPanel>
                 </controls:SettingsCard>
             </ItemContainer>

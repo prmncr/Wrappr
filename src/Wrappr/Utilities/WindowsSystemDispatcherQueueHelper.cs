@@ -23,7 +23,7 @@ internal class WindowsSystemDispatcherQueueHelper
 	private object? _dispatcherQueueController;
 
 	[DllImport("CoreMessaging.dll")]
-	private static extern int CreateDispatcherQueueController(
+	private static extern void CreateDispatcherQueueController(
 		[In] DispatcherQueueOptions options,
 		[In] [Out] [MarshalAs(UnmanagedType.IUnknown)]
 		ref object? dispatcherQueueController

@@ -1,3 +1,4 @@
+using System.Windows.Input;
 using Microsoft.UI.Xaml;
 using Wrappr.Services;
 
@@ -13,6 +14,16 @@ public partial class PageHeader
 	{
 		get => (string)GetValue(TitleProperty);
 		set => SetValue(TitleProperty, value);
+	}
+
+	public static readonly DependencyProperty OnBackButtonClickProperty = DependencyProperty.Register(
+		nameof(OnBackButtonClick), typeof(ICommand), typeof(PageHeader), new PropertyMetadata(null)
+	);
+
+	public ICommand OnBackButtonClick
+	{
+		get => (ICommand)GetValue(OnBackButtonClickProperty);
+		set => SetValue(OnBackButtonClickProperty, value);
 	}
 
 	public PageHeader()
