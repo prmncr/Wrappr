@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Page
+    x:Class="Wrappr.Views.CreateWrapperPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:CommunityToolkit.WinUI.Converters"
+    xmlns:data="using:Wrappr.Data"
+    xmlns:fonts="using:Wrappr"
+    xmlns:resources="using:Wrappr.Resources"
+    xmlns:components="using:Wrappr.Views"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+    </Page.Resources>
+    <components:Scaffold
+        Title="{x:Bind resources:Strings.CreateNewWrapperTitle}">
+        <components:Scaffold.Header>
+            <components:PageHeader Title="{x:Bind resources:Strings.CreateNewWrapperTitle}" />
+        </components:Scaffold.Header>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Background="#55000000"
+                Margin="0,0,0,4"
+                CornerRadius="8"
+                Padding="8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="8" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        x:Name="ServiceSearch"
+                        PlaceholderText="{x:Bind resources:Strings.WrapperSearchPlaceholder}"
+                        TextChanged="ReloadSuggestions" />
+                    <Button
+                        x:Name="CreateButton"
+                        IsEnabled="False"
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Click="CreateWrapper">
+                        <StackPanel Spacing="10" Orientation="Horizontal">
+                            <FontIcon
+                                FontSize="16"
+                                Glyph="{x:Bind resources:Icons.Add}" />
+                            <TextBlock
+                                Text="{x:Bind resources:Strings.CreateWrapperButtonText}" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+            <Border
+                Grid.Row="1"
+                Background="#55000000"
+                CornerRadius="8"
+                Margin="0,0,0,8"
+                Padding="8">
+                <ScrollView
+                    VerticalScrollMode="Enabled"
+                    VerticalScrollBarVisibility="Visible">
+                    <ListView
+                        x:Name="ServiceList"
+                        DataFetchSize="10"
+                        SelectionChanged="SelectedServiceChanged"
+                        ItemsSource="{x:Bind ServiceNames}"
+                        IncrementalLoadingThreshold="1"
+                        IncrementalLoadingTrigger="Edge">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="data:ServiceSearchEntry">
+                                <StackPanel
+                                    Margin="0, 10"
+                                    IsHitTestVisible="{Binding Path=IsPlaceholder, Converter={StaticResource BoolNegationConverter}}"
+                                    Orientation="Vertical">
+                                    <TextBlock
+                                        FontSize="14"
+                                        FontWeight="SemiBold"
+                                        FontFamily="{StaticResource JetBrainsMono}"
+                                        Text="{Binding Path=ServiceName}"
+                                        Visibility="{Binding Path=IsPlaceholder, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=True}" />
+                                    <TextBlock
+                                        x:Name="DisplayNameTextBlock"
+                                        FontSize="12"
+                                        Text="{Binding Path=DisplayName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+            </Border>
+        </Grid>
+    </components:Scaffold>
+</Page>

@@ -1,7 +1,7 @@
 // ReSharper disable UnusedMember.Global
 // ReSharper disable InconsistentNaming
 
-namespace Wrappr;
+namespace Wrappr.Resources;
 
 public static class Icons
 {

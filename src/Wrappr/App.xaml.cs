@@ -4,10 +4,11 @@ using CommunityToolkit.Mvvm.Input;
 using H.NotifyIcon;
 using H.NotifyIcon.Core;
 using Microsoft.UI.Xaml;
-using Wrappr.Components.Windows;
+using Wrappr.Views;
 using Wrappr.Controls;
 using Wrappr.Data;
-using Wrappr.Services;
+using Wrappr.Model;
+using Wrappr.UI;
 
 namespace Wrappr;
 

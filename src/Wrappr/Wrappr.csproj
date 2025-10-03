@@ -101,18 +101,17 @@
         <Content Update="Assets\Images\logo512.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
         <Content Update="Assets\Images\logo64.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
         <Content Update="Assets\Fonts\SegoeIcons.ttf" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
-        <Content Update="Assets\Fonts\SegoeUI-Semibold.ttf" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Always"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Page Update="Components\Pages\CreateWrapperPage.xaml">
-            <SubType>Designer</SubType>
+        <Page Update="Views\Scaffold.xaml">
+          <SubType>Designer</SubType>
         </Page>
-        <Page Update="Components\Pages\WrapperSettingsPage.xaml">
-            <SubType>Designer</SubType>
+        <Page Update="Views\CreateWrapperPage.xaml">
+          <SubType>Designer</SubType>
         </Page>
-        <Page Update="Components\Scaffold.xaml">
-            <SubType>Designer</SubType>
+        <Page Update="Views\WrapperSettingsPage.xaml">
+          <SubType>Designer</SubType>
         </Page>
     </ItemGroup>
 
@@ -129,22 +128,7 @@
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
         </None>
-        <Page Update="Components\Pages\AboutSubPage.xaml">
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Update="Components\Pages\PreferencesSubPage.xaml">
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-        <Page Update="Components\PageHeader.xaml">
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
         <Page Update="Controls\TrayIcon">
-            <Generator>MSBuild:Compile</Generator>
-        </Page>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Page Update="Components\Pages\SettingsPage.xaml">
             <Generator>MSBuild:Compile</Generator>
         </Page>
     </ItemGroup>
